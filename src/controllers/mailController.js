@@ -6,6 +6,12 @@ const getItemInfo = (itemId, itemOptionName) => {
   let fileName = '';
   let fileOption = '';
 
+  if (itemOptionName == '화이트') {
+    fileOption = 'White';
+  } else if (itemOptionName == '다크') {
+    fileOption = 'Dark';
+  }
+
   if (itemId == '5033569') {
     itemInfo.itemName = '2023 심플 플래너';
     if (itemOptionName == '라이트') {
@@ -14,19 +20,12 @@ const getItemInfo = (itemId, itemOptionName) => {
       fileOption = 'IndiePink';
     } else if (itemOptionName == '스카이블루') {
       fileOption = 'SkyBlue';
-    } else if (itemOptionName == '다크') {
-      fileOption = 'Dark';
     }
     fileName = `2022+2023_Simple_Planner(${fileOption}).zip`;
   }
 
   if (itemId == '5033568') {
     itemInfo.itemName = '2023 모던 플래너';
-    if (itemOptionName == '화이트') {
-      fileOption = 'White';
-    } else if (itemOptionName == '다크') {
-      fileOption = 'Dark';
-    }
     fileName = `2022+2023_Modern_Planner(${fileOption}).zip`;
   }
 
@@ -81,40 +80,21 @@ const getItemInfo = (itemId, itemOptionName) => {
 
   if (itemId == '5033564') {
     itemInfo.itemName = '세로형 인덱스 노트';
-    if (itemOptionName == '화이트') {
-      fileOption = 'White';
-    } else if (itemOptionName == '다크') {
-      fileOption = 'Dark';
-    }
     fileName = `Index_Note(Vertical,${fileOption}).pdf`;
   }
+
   if (itemId == '5033563') {
     itemInfo.itemName = '가로형 인덱스 노트';
-    if (itemOptionName == '화이트') {
-      fileOption = 'White';
-    } else if (itemOptionName == '다크') {
-      fileOption = 'Dark';
-    }
     fileName = `Index_Note(Horizontal,${fileOption}).pdf`;
   }
 
   if (itemId == '5033560') {
     itemInfo.itemName = '독서노트';
-    if (itemOptionName == '화이트') {
-      fileOption = 'White';
-    } else if (itemOptionName == '다크') {
-      fileOption = 'Dark';
-    }
     fileName = `Reading_Journal(${fileOption}).zip`;
   }
 
   if (itemId == '5033558') {
     itemInfo.itemName = '드라마노트';
-    if (itemOptionName == '화이트') {
-      fileOption = 'White';
-    } else if (itemOptionName == '다크') {
-      fileOption = 'Dark';
-    }
     fileName = `Drama_Journal(${fileOption}).zip`;
   }
 
@@ -129,24 +109,23 @@ const getItemInfo = (itemId, itemOptionName) => {
     }
     fileName = `12_Months_Goal_Tracker(${fileOption}).zip`;
   }
+
   if (itemId == '5033561') {
     itemInfo.itemName = '180 베이직 노트패드';
     fileName = `180_Basic_Notepad.zip`;
   }
+
   if (itemId == '5033559') {
     itemInfo.itemName = '180 체커보드 노트패드';
     fileName = `180_CheckerBoard_Notepad.zip`;
   }
+
   if (itemId == '5033562') {
     let itemOptionYears = itemOptionName.slice(0, 1);
     itemInfo.itemName = itemOptionYears == 3 ? '3년 일기' : '5년 일기';
     // 3년, 5년 옵션 지우고 컬러 옵션만 표시
     itemOptionName = itemOptionName.split(',')[1];
-    if (itemOptionName == '화이트') {
-      fileOption = 'White';
-    } else if (itemOptionName == '다크') {
-      fileOption = 'Dark';
-    }
+
     fileName = `${itemOptionYears}_Years_Diary(${fileOption}).zip`;
   }
 
