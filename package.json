@@ -5,17 +5,12 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run clean && npm run build-babel",
-    "build-babel": "./node_modules/.bin/babel -d ./build ./src",
-    "clean": "rm -rf build && mkdir build",
-    "start": "node ./src/app.js",
-    "dev": "nodemon --exec npm start"
+    "start": "nodemon  --exec babel-node ./src/app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "babel": "^6.23.0",
-    "babel-cli": "^6.26.0",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
     "detect-port": "^1.5.1",
@@ -26,7 +21,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.19.3",
-    "@babel/core": "^7.20.5",
+    "@babel/core": "^7.20.2",
     "@babel/node": "^7.20.5",
     "@babel/preset-env": "^7.20.2"
   }
