@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import chalk from 'chalk';
 import detectPort from 'detect-port';
 import mail from './routes/mail.js';
-
 dotenv.config();
 
 // server setup

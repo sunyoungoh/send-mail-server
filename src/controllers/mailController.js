@@ -150,7 +150,7 @@ const getItemInfo = (itemId, itemOptionName) => {
     fileName = `${itemOptionYears}_Years_Diary(${fileOption}).zip`;
   }
 
-  if (itemOptionName == 'noOption') {
+  if (itemOptionName == '') {
     itemInfo.mailTitle = itemInfo.itemName;
   } else {
     itemInfo.itemOptionName = itemOptionName.replaceAll(/,/g, ', ');
