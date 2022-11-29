@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon  --exec babel-node ./src/app.js",
-    "start": "babel-node ./src/app.js"
+    "build:server": "babel src -d build",
+    "build": "npm run build:server && npm run build:assets",
+    "start": "node build/app.js"
   },
   "author": "",
   "license": "ISC",
