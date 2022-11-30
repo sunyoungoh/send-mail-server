@@ -111,7 +111,8 @@ const getMonthStr = () => {
   const todayMonth = today.getMonth() + 1;
   let monthStr = todayMonth;
 
-  if (today.getDate() >= 25) monthStr = todayMonth + 1;
+  if (today.getDate() >= 25)
+    monthStr = todayMonth < 12 ? todayMonth + 1 : today.getFullYear() + 1;
   else if (today.getDate() >= 16) monthStr = `남은 ${todayMonth}`;
 
   return monthStr;
