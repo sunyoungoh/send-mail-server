@@ -8,6 +8,7 @@ const getFileOption = itemOptionName => {
   fileOption = fileOption.replace('라이트', 'Light');
   fileOption = fileOption.replace('인디핑크', 'IndiePink');
   fileOption = fileOption.replace('스카이블루', 'SkyBlue');
+  fileOption = fileOption.replace('크림', 'Cream');
   fileOption = fileOption.replace('올리브', 'Olive');
   fileOption = fileOption.replace('토스트', 'Toast');
   fileOption = fileOption.replace('차콜', 'Charcoal');
