@@ -8,6 +8,8 @@ const getFileOption = itemOptionName => {
   fileOption = fileOption.replace('라이트', 'Light');
   fileOption = fileOption.replace('인디핑크', 'IndiePink');
   fileOption = fileOption.replace('스카이블루', 'SkyBlue');
+  fileOption = fileOption.replace('올리브', 'Olive');
+  fileOption = fileOption.replace('토스트', 'Toast');
   fileOption = fileOption.replace('차콜', 'Charcoal');
   fileOption = fileOption.replace('캔디핑크', 'CandyPink');
   fileOption = fileOption.replace('스케줄', 'Schedule');
@@ -46,6 +48,11 @@ const getItemInfo = (itemId, itemOptionName) => {
   if (itemId == 5033565) {
     itemInfo.itemName = '31DAYS 플래너';
     fileName = `31DAYS_Planner(${fileOption}).zip`;
+  }
+
+  if (itemId == 123) {
+    itemInfo.itemName = '레시피북';
+    fileName = `Recipe_Book(${fileOption}).zip`;
   }
 
   if (itemId == 5033564) {
