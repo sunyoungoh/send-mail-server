@@ -95,6 +95,7 @@ const getItemInfo = (itemId, itemOptionName) => {
     let itemOptionYears = itemOptionName.slice(0, 1);
     itemInfo.itemName = itemOptionYears == 3 ? '3년 일기' : '5년 일기';
     itemOptionName = itemOptionName.split(',')[1];
+    fileOption = fileOption.split(',')[1];
     fileName = `${itemOptionYears}_Years_Diary(${fileOption}).zip`;
   }
 
