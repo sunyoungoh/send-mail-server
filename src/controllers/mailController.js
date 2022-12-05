@@ -24,74 +24,72 @@ const getItemInfo = (itemId, itemOptionName) => {
   let itemInfo = {};
   let fileName = '';
   let fileOption = getFileOption(itemOptionName);
-
-  if (itemId == 5033569) {
+  if (itemId == 5033569 || itemId == 6175018692) {
     itemInfo.itemName = '2023 심플 플래너';
     fileName = `2022+2023_Simple_Planner(${fileOption}).zip`;
   }
 
-  if (itemId == 5033568) {
+  if (itemId == 5033568 || itemId == 6173761992) {
     itemInfo.itemName = '2023 모던 플래너';
     fileName = `2022+2023_Modern_Planner(${fileOption}).zip`;
   }
 
-  if (itemId == 5033567) {
+  if (itemId == 5033567 || itemId == 7551229680) {
     itemInfo.itemName = '2023 타임라인 플래너';
     fileName = `2023_Timeline_Planner(${fileOption}).zip`;
   }
 
-  if (itemId == 5033566) {
+  if (itemId == 5033566 || itemId == 6230373650) {
     itemInfo.itemName = '2023 먼슬리&데일리 플래너';
-
     fileName = `2023_Monthly+Daily_Planner(${fileOption}).zip`;
   }
 
-  if (itemId == 5033565) {
+  if (itemId == 5033565 || itemId == 6183672844) {
     itemInfo.itemName = '31DAYS 플래너';
     fileName = `31DAYS_Planner(${fileOption}).zip`;
   }
 
-  if (itemId == 123) {
+  if (itemId == 5068583 || itemId == 7674508068) {
     itemInfo.itemName = '레시피북';
     fileName = `Recipe_Book(${fileOption}).zip`;
   }
 
-  if (itemId == 5033564) {
+  if (itemId == 5033564 || itemId == 6668700804) {
     itemInfo.itemName = '세로형 인덱스 노트';
     fileName = `Index_Note(Vertical,${fileOption}).pdf`;
   }
 
-  if (itemId == 5033563) {
+  if (itemId == 5033563 || itemId == 6711856094) {
     itemInfo.itemName = '가로형 인덱스 노트';
     fileName = `Index_Note(Horizontal,${fileOption}).pdf`;
   }
 
-  if (itemId == 5033560) {
+  if (itemId == 5033560 || itemId == 6907619722) {
     itemInfo.itemName = '독서노트';
     fileName = `Reading_Journal(${fileOption}).zip`;
   }
 
-  if (itemId == 5033558) {
+  if (itemId == 5033558 || itemId == 7118280906) {
     itemInfo.itemName = '드라마노트';
     fileName = `Drama_Journal(${fileOption}).zip`;
   }
 
-  if (itemId == 5033557) {
+  if (itemId == 5033557 || itemId == 6390846551) {
     itemInfo.itemName = '먼슬리 트래커북';
     fileName = `12_Months_Goal_Tracker(${fileOption}).zip`;
   }
 
-  if (itemId == 5033561) {
+  if (itemId == 5033561 || itemId == 6293308097) {
     itemInfo.itemName = '180 베이직 노트패드';
     fileName = `180_Basic_Notepad.zip`;
   }
 
-  if (itemId == 5033559) {
+  if (itemId == 5033559 || itemId == 6498685859) {
     itemInfo.itemName = '180 체커보드 노트패드';
     fileName = `180_CheckerBoard_Notepad.zip`;
   }
 
-  if (itemId == 5033562) {
+  if (itemId == 5033562 || itemId == 6339448390) {
     let itemOptionYears = itemOptionName.slice(0, 1);
     itemInfo.itemName = itemOptionYears == 3 ? '3년 일기' : '5년 일기';
     itemOptionName = itemOptionName.split(',')[1];
