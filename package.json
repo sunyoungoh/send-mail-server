@@ -4,10 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node --experimental-modules ./src/app.js",
+    "dev": "nodemon --exec babel-node ./src/app.js",
     "build:server": "babel src -d build",
     "build": "npm run build:server",
-    "start": "node --experimental-modules build/app.js"
+    "start": "node build/app.js"
   },
   "author": "",
   "license": "ISC",
