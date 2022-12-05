@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import chalk from 'chalk';
 import detectPort from 'detect-port';
 import mail from './routes/mail.js';
-import naver from './routes/naver.js';
+
 dotenv.config();
 // server setup
 let port;
@@ -21,7 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.use('/mail', mail);
-app.use('/naver', naver);
 
 app.get('/', (req, res) => {
   res.send('send-mail-server 입니다!');
