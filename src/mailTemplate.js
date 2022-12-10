@@ -1,4 +1,5 @@
-export const mailText = (itemInfo, month) => {
+export const mailText = (orderList, comment, month) => {
+  !comment ? (comment = '') : (comment = `<br/>${comment}<br/>`);
   return `
   <div
     style="
@@ -10,7 +11,7 @@ export const mailText = (itemInfo, month) => {
     <p>안녕하세요, 영로그입니다! ✨</p>
     <p>주문해주셔서 감사합니다 🙏🏻💖</p>
     <br />
-    <p><b>${itemInfo} 파일</b>을 보내드립니다.</p>
+    <p><b>${orderList} 속지</b>를 보내드립니다.</p>
     <br />
     <p>
       사용하시다가 궁금하신 사항이나

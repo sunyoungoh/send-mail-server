@@ -126,8 +126,35 @@ const getMonthStr = () => {
 };
 
 export const sendMail = async (req, res) => {
-  const { itemId, itemOptionName, toEmail } = req.body;
-  const itemInfo = getItemInfo(itemId, itemOptionName);
+  const { items, toEmail, comment } = req.body;
+
+  //  메일 타이틀
+  const title = items
+    .map(item => {
+      return getItemInfo(item.itemId, item.itemOptionName);
+    })
+    .map(item => item.mailTitle);
+  console.log(title);
+
+  // 파일 여러개
+  const files = items
+    .map(item => {
+      return getItemInfo(item.itemId, item.itemOptionName);
+    })
+    .map(item => item.attachments);
+  console.log(files);
+
+  // 파일 여러개일 때 본문내용
+  let orderList = '';
+  if (files.length > 1) {
+    orderList = title
+      .map((val, index) => {
+        return `${index + 1}. ${val} <br/>`;
+      })
+      .join('');
+  } else {
+    orderList = title;
+  }
 
   let mailTransporter = nodemailer.createTransport({
     service: 'naver',
@@ -138,13 +165,12 @@ export const sendMail = async (req, res) => {
       pass: process.env.NODEMAILER_PASS,
     },
   });
-
   let details = {
     from: `영로그 ${process.env.NODEMAILER_USER}`,
     to: toEmail,
-    subject: `[영로그] ${itemInfo.mailTitle} 속지 보내드립니다 ✨`,
-    html: mailText(itemInfo.mailTitle, getMonthStr()),
-    attachments: itemInfo.attachments,
+    subject: `[영로그] ${title.join(' / ')} 속지 보내드립니다 ✨`,
+    html: mailText(orderList, comment, getMonthStr()),
+    attachments: files,
   };
 
   mailTransporter.sendMail(details, (err, info) => {

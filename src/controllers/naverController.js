@@ -37,9 +37,28 @@ const createToken = async (req, res) => {
   }
 };
 
-export const getOrderDetail = async (req, res) => {
-  const { orderId } = req.params;
+export const getOrders = async (req, res) => {
   const token = await createToken();
+  const { orderId } = req.params;
+  try {
+    const { data } = await instance.get(
+      `/external/v1/pay-order/seller/orders/${orderId}/product-order-ids`,
+      {
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    res.status(200).json({ productOrderIds: data.data });
+  } catch (error) {
+    res.status(400).send('주문 정보를 조회할 수 없습니다.');
+  }
+};
+
+export const getOrderDetail = async (req, res) => {
+  const token = await createToken();
+  const { orderId } = req.params;
   const productOrderIds = { productOrderIds: [orderId] };
 
   try {
@@ -53,7 +72,7 @@ export const getOrderDetail = async (req, res) => {
         },
       }
     );
-
+    console.log(data.data[0].productOrder);
     let optionStr = data.data[0].productOrder.productOption;
     let optionArr = optionStr.split('/');
     optionArr = optionArr.map(item => {
@@ -63,21 +82,21 @@ export const getOrderDetail = async (req, res) => {
     });
 
     const orderDetail = {
-      itemNo: Number(data.data[0].productOrder.itemNo),
-      option: optionArr,
+      productOrderId: data.data[0].productOrder.productOrderId,
+      productId: Number(data.data[0].productOrder.productId),
+      productOption: optionArr,
     };
-
     res.status(200).json(orderDetail);
   } catch (error) {
-    res.status(400).send('주문 정보를 조회할 수 없습니다.');
+    res.status(400).send('상품 주문 정보를 조회할 수 없습니다.');
   }
 };
 
 export const dispatchProductOrders = async (req, res) => {
-  const { orderId } = req.params;
   const token = await createToken();
-  const now = new Date();
+  const { orderId } = req.params;
 
+  const now = new Date();
   const postData = {
     dispatchProductOrders: [
       {
