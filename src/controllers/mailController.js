@@ -56,12 +56,20 @@ const getItemInfo = (itemId, itemOptionName) => {
 
   if (itemId == 5033564 || itemId == 6668700804) {
     itemInfo.itemName = '세로형 인덱스 노트';
-    fileName = `Index_Note(Vertical,${fileOption}).pdf`;
+    if (fileOption == 'White+Dark') {
+      fileName = `Index_Note(Vertical,${fileOption}).zip`;
+    } else {
+      fileName = `Index_Note(Vertical,${fileOption}).pdf`;
+    }
   }
 
   if (itemId == 5033563 || itemId == 6711856094) {
     itemInfo.itemName = '가로형 인덱스 노트';
-    fileName = `Index_Note(Horizontal,${fileOption}).pdf`;
+    if (fileOption == 'White+Dark') {
+      fileName = `Index_Note(Horizontal,${fileOption}).zip`;
+    } else {
+      fileName = `Index_Note(Horizontal,${fileOption}).pdf`;
+    }
   }
 
   if (itemId == 5033560 || itemId == 6907619722) {
@@ -119,22 +127,22 @@ const getMonthStr = () => {
   let monthStr = todayMonth;
 
   if (today.getDate() >= 25)
-    monthStr = todayMonth < 12 ? todayMonth + 1 : today.getFullYear() + 1;
+    monthStr =
+      todayMonth < 12 || todayMonth == 0
+        ? todayMonth + 1
+        : today.getFullYear() + 1;
   else if (today.getDate() >= 16) monthStr = `남은 ${todayMonth}`;
 
   return monthStr;
 };
 
-export const sendMail = async (req, res) => {
-  const { items, toEmail, comment } = req.body;
-
-  //  메일 타이틀
+const getOrderList = items => {
+  // 메일 타이틀
   const title = items
     .map(item => {
       return getItemInfo(item.itemId, item.itemOptionName);
     })
     .map(item => item.mailTitle);
-  console.log(title);
 
   // 파일 여러개
   const files = items
@@ -142,19 +150,24 @@ export const sendMail = async (req, res) => {
       return getItemInfo(item.itemId, item.itemOptionName);
     })
     .map(item => item.attachments);
-  console.log(files);
 
-  // 파일 여러개일 때 본문내용
-  let orderList = '';
+  // 파일 여러개일 때 본문 파일 리스트 내용
+  let list = '';
   if (files.length > 1) {
-    orderList = title
+    list = title
       .map((val, index) => {
         return `${index + 1}. ${val} <br/>`;
       })
       .join('');
   } else {
-    orderList = title;
+    list = title;
   }
+  return { title, files, list };
+};
+
+export const sendMail = async (req, res) => {
+  const { items, toEmail, comment } = req.body;
+  const orderList = getOrderList(items);
 
   let mailTransporter = nodemailer.createTransport({
     service: 'naver',
@@ -168,9 +181,9 @@ export const sendMail = async (req, res) => {
   let details = {
     from: `영로그 ${process.env.NODEMAILER_USER}`,
     to: toEmail,
-    subject: `[영로그] ${title.join(' / ')} 속지 보내드립니다 ✨`,
-    html: mailText(orderList, comment, getMonthStr()),
-    attachments: files,
+    subject: `[영로그] ${orderList.title.join(' / ')} 속지 보내드립니다 ✨`,
+    html: mailText(orderList.list, comment, getMonthStr()),
+    attachments: orderList.files,
   };
 
   mailTransporter.sendMail(details, (err, info) => {

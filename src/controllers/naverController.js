@@ -72,7 +72,6 @@ export const getOrderDetail = async (req, res) => {
         },
       }
     );
-    console.log(data.data[0].productOrder);
     let optionStr = data.data[0].productOrder.productOption;
     let optionArr = optionStr.split('/');
     optionArr = optionArr.map(item => {
