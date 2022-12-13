@@ -167,7 +167,7 @@ const getOrderList = items => {
 };
 
 export const sendMail = async (req, res) => {
-  const { items, toEmail, comment } = req.body;
+  const { store, items, toEmail, comment } = req.body;
   const orderList = getOrderList(items);
 
   let mailTransporter = nodemailer.createTransport({
@@ -179,10 +179,11 @@ export const sendMail = async (req, res) => {
       pass: process.env.NODEMAILER_PASS,
     },
   });
+   
   let details = {
     from: `영로그 ${process.env.NODEMAILER_USER}`,
     to: toEmail,
-    subject: `[영로그] ${orderList.title.join(' / ')} 속지 보내드립니다 ✨`,
+    subject: `[${store}] ${orderList.title.join(' / ')} 속지 보내드립니다 ✨`,
     html: mailText(orderList.list, comment, getMonthStr()),
     attachments: orderList.files,
   };
