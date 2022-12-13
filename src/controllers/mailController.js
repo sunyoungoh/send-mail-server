@@ -99,7 +99,7 @@ const getItemInfo = (itemId, itemOptionName) => {
 
   if (itemId == 5033562 || itemId == 6339448390) {
     let itemOptionYears = itemOptionName.slice(0, 1);
-    itemInfo.itemName = itemOptionYears == 3 ? '3년 일기' : '5년 일기';
+    itemInfo.itemName = itemOptionYears == 3 ? '3년 다이어리' : '5년 다이어리';
     itemOptionName = itemOptionName.split(',')[1];
     fileOption = fileOption.split(',')[1];
     fileName = `${itemOptionYears}_Years_Diary(${fileOption}).zip`;
@@ -137,6 +137,7 @@ const getMonthStr = () => {
 };
 
 const getOrderList = items => {
+
   // 메일 타이틀
   const title = items
     .map(item => {

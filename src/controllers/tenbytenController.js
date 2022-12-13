@@ -6,14 +6,13 @@ const instance = axios.create({
 
 export const getBrandInfo = async (req, res) => {
   const { authorization } = req.headers;
-
   try {
     const { data } = await instance.get('/products/brandinfo', {
       headers: {
         Authorization: authorization,
       },
     });
-    res.status(200).json(data);
+    res.status(200).json(data.outPutValue[0]);
   } catch (error) {
     res.json(error);
   }
@@ -22,7 +21,7 @@ export const getBrandInfo = async (req, res) => {
 export const getNewOrders = async (req, res) => {
   const { brandId, startdate, enddate } = req.query;
   const { authorization } = req.headers;
-
+  
   try {
     const { data } = await instance.get('/orders', {
       headers: {
