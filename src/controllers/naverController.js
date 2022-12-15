@@ -87,6 +87,7 @@ export const getOrderDetail = async (req, res) => {
     };
     res.status(200).json(orderDetail);
   } catch (error) {
+    console.error(error);
     res.status(400).send('상품 주문 정보를 조회할 수 없습니다.');
   }
 };
