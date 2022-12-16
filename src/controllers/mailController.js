@@ -131,13 +131,13 @@ const getMonthStr = () => {
       todayMonth < 12 || todayMonth == 0
         ? todayMonth + 1
         : today.getFullYear() + 1;
-  else if (today.getDate() >= 16) monthStr = `남은 ${todayMonth}`;
+  else if (monthStr !== 12 && today.getDate() >= 16)
+    monthStr = `남은 ${todayMonth}`;
 
   return monthStr;
 };
 
 const getOrderList = items => {
-
   // 메일 타이틀
   const title = items
     .map(item => {
@@ -179,7 +179,7 @@ export const sendMail = async (req, res) => {
       pass: process.env.NODEMAILER_PASS,
     },
   });
-   
+
   let details = {
     from: `영로그 ${process.env.NODEMAILER_USER}`,
     to: toEmail,
