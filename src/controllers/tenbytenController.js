@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Order from '../models/OrderModel.js';
 
 const instance = axios.create({
   baseURL: 'https://api.10x10.co.kr/v2',
@@ -21,7 +22,7 @@ export const getBrandInfo = async (req, res) => {
 export const getNewOrders = async (req, res) => {
   const { brandId, startdate, enddate } = req.query;
   const { authorization } = req.headers;
-  
+
   try {
     const { data } = await instance.get('/orders', {
       headers: {
@@ -39,7 +40,7 @@ export const getNewOrders = async (req, res) => {
   }
 };
 
-export const getOrderHistory = async (req, res) => {
+export const getReadyOrder = async (req, res) => {
   const { brandId, startdate, enddate } = req.query;
   const { authorization } = req.headers;
   try {
@@ -53,6 +54,7 @@ export const getOrderHistory = async (req, res) => {
         enddate,
       },
     });
+
     res.status(200).json(data);
   } catch (error) {
     res.json(error);
@@ -60,17 +62,60 @@ export const getOrderHistory = async (req, res) => {
 };
 
 export const dispatchOrder = async (req, res) => {
-  const body = req.body;
+  const { orderSerial, detailIdx, details } = req.body;
   const { authorization } = req.headers;
 
   try {
-    const { data } = await instance.post('/orders/orderconfirm', body, {
-      headers: {
-        Authorization: authorization,
+    const { data } = await instance.post(
+      '/orders/orderconfirm',
+      {
+        orderSerial: orderSerial,
+        detailIdx: detailIdx,
+        songjangDiv: '97', // 문자/이메일 발송 코드
+        songjangNo: '0',
       },
+      {
+        headers: {
+          Authorization: authorization,
+        },
+      }
+    );
+
+    const newOrder = new Order({
+      orderSerial: orderSerial,
+      ordererId: details.ordererId,
+      ordererName: details.ordererName,
+      toEmail: details.toEmail,
+      itemId: details.itemId,
+      itemOption: details.itemOption,
+      requireMemo: details.requireMemo,
+      ordererPhone: details.ordererPhone,
+      ordererEmail: details.ordererEmail,
+      orderDate: details.orderDate,
     });
+
+    try {
+      const savedOrder = await newOrder.save();
+      console.log('발송 내역 등록 완료', savedOrder);
+    } catch (error) {
+      res.status(400).json({ message: error });
+    }
+
     res.status(200).json(data);
   } catch (error) {
     res.json(error);
+  }
+};
+
+export const getDispatchOrderHistory = async (req, res) => {
+  try {
+    const orders = await Order.find().sort({
+      orderDate: -1,
+      createdAt: -1,
+    });
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send('배송 완료된 주문 정보가 없습니다.');
   }
 };

@@ -3,6 +3,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
 import detectPort from 'detect-port';
+import mongoose from 'mongoose';
+
+
 import mail from './routes/mail.js';
 import naver from './routes/naver.js';
 import tenbyten from './routes/tenbyten.js';
@@ -15,6 +18,14 @@ async function configServer() {
   port = process.env.PORT || (await detectPort(process.env.PORT));
 }
 configServer();
+
+// mongo db
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+mongoose.connect(process.env.DB, {
+  useNewUrlParser: true,
+});
+mongoose.Promise = global.Promise;
 
 // express setup
 const app = express();

@@ -5,7 +5,8 @@ const router = Router();
 
 router.get('/brandinfo', tenbytenController.getBrandInfo);
 router.get('/orders', tenbytenController.getNewOrders);
-router.get('/orders/orderhistory', tenbytenController.getOrderHistory);
+router.get('/orders/ready', tenbytenController.getReadyOrder);
+router.get('/orders/orderconfirm', tenbytenController.getDispatchOrderHistory);
 router.post('/orders/orderconfirm', tenbytenController.dispatchOrder);
 
 export default router;
