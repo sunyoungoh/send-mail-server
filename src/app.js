@@ -21,9 +21,11 @@ configServer();
 
 // mongo db
 const db = mongoose.connection;
+mongoose.set('strictQuery', true);
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 mongoose.connect(process.env.DB, {
   useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 mongoose.Promise = global.Promise;
 
