@@ -74,9 +74,9 @@ export const getOrderDetail = async (req, res) => {
     );
 
     const optionStr = data.data[0].productOrder.productOption;
+    let optionArr = '';
     if (optionStr) {
-      let optionArr = optionStr.split('/');
-      optionArr = optionArr.map(item => {
+      optionArr = optionStr.split('/').map(item => {
         item = item.replaceAll(' ', '');
         const startIndex = item.indexOf(':');
         return item.substring(startIndex + 1, item.length);
@@ -86,7 +86,7 @@ export const getOrderDetail = async (req, res) => {
     const orderDetail = {
       productOrderId: data.data[0].productOrder.productOrderId,
       productId: Number(data.data[0].productOrder.productId),
-      productOption: optionStr ? optionArr : '',
+      productOption: optionArr,
     };
     res.status(200).json(orderDetail);
   } catch (error) {
