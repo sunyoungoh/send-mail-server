@@ -72,21 +72,25 @@ export const getOrderDetail = async (req, res) => {
         },
       }
     );
-    let optionStr = data.data[0].productOrder.productOption;
-    let optionArr = optionStr.split('/');
-    optionArr = optionArr.map(item => {
-      item = item.replaceAll(' ', '');
-      const startIndex = item.indexOf(':');
-      return item.substring(startIndex + 1, item.length);
-    });
+
+    const optionStr = data.data[0].productOrder.productOption;
+    if (optionStr) {
+      let optionArr = optionStr.split('/');
+      optionArr = optionArr.map(item => {
+        item = item.replaceAll(' ', '');
+        const startIndex = item.indexOf(':');
+        return item.substring(startIndex + 1, item.length);
+      });
+    }
 
     const orderDetail = {
       productOrderId: data.data[0].productOrder.productOrderId,
       productId: Number(data.data[0].productOrder.productId),
-      productOption: optionArr,
+      productOption: optionStr ? optionArr : '',
     };
     res.status(200).json(orderDetail);
   } catch (error) {
+    console.log(error);
     res.status(400).send('상품 주문 정보를 조회할 수 없습니다.');
   }
 };
