@@ -92,6 +92,7 @@ export const dispatchOrder = async (req, res) => {
       ordererPhone: details.ordererPhone,
       ordererEmail: details.ordererEmail,
       orderDate: details.orderDate,
+      price: details.price,
     });
 
     try {

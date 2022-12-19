@@ -37,6 +37,9 @@ const orderSchema = new mongoose.Schema(
     orderDate: {
       type: Date,
     },
+    price: {
+      type: Number,
+    },
   },
   { timestamps: true }
 );
