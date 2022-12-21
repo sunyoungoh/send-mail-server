@@ -80,7 +80,6 @@ export const dispatchOrder = async (req, res) => {
         },
       }
     );
-    console.log('price', details.price);
     const newOrder = new Order({
       orderSerial: orderSerial,
       ordererId: details.ordererId,

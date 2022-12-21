@@ -1,8 +1,8 @@
 import nodemailer from 'nodemailer';
 import { mailText } from '../mailTemplate.js';
 
-const getFileOption = itemOptionName => {
-  let fileOption = itemOptionName;
+const getFileOption = itemOption => {
+  let fileOption = itemOption;
   fileOption = fileOption.replace('화이트', 'White');
   fileOption = fileOption.replace('다크', 'Dark');
   fileOption = fileOption.replace('라이트', 'Light');
@@ -20,10 +20,10 @@ const getFileOption = itemOptionName => {
   return fileOption;
 };
 
-const getItemInfo = (itemId, itemOptionName) => {
+const getItemInfo = (itemId, itemOption) => {
   let itemInfo = {};
   let fileName = '';
-  let fileOption = getFileOption(itemOptionName);
+  let fileOption = getFileOption(itemOption);
   if (itemId == 5033569 || itemId == 6175018692) {
     itemInfo.itemName = '2023 심플 플래너';
     fileName = `2022+2023_Simple_Planner(${fileOption}).zip`;
@@ -98,21 +98,21 @@ const getItemInfo = (itemId, itemOptionName) => {
   }
 
   if (itemId == 5033562 || itemId == 6339448390) {
-    let itemOptionYears = itemOptionName.slice(0, 1);
+    let itemOptionYears = itemOption.slice(0, 1);
     itemInfo.itemName = itemOptionYears == 3 ? '3년 다이어리' : '5년 다이어리';
-    itemOptionName = itemOptionName.split(',')[1];
+    itemOption = itemOption.split(',')[1];
     fileOption = fileOption.split(',')[1];
     fileName = `${itemOptionYears}_Years_Diary(${fileOption}).zip`;
   }
 
-  if (itemOptionName == '') {
+  if (itemOption == '') {
     itemInfo.mailTitle = itemInfo.itemName;
   } else {
-    itemInfo.itemOptionName = itemOptionName.replaceAll(/,/g, ', ');
+    itemInfo.itemOption = itemOption.replaceAll(/,/g, ', ');
     itemInfo.mailTitle =
-      itemInfo.itemOptionName.indexOf(',') == -1
-        ? `${itemInfo.itemName} ${itemInfo.itemOptionName}`
-        : `${itemInfo.itemName} (${itemInfo.itemOptionName})`;
+      itemInfo.itemOption.indexOf(',') == -1
+        ? `${itemInfo.itemName} ${itemInfo.itemOption}`
+        : `${itemInfo.itemName} (${itemInfo.itemOption})`;
   }
   itemInfo.attachments = {
     filename: fileName,
@@ -141,14 +141,14 @@ const getOrderList = items => {
   // 메일 타이틀
   const title = items
     .map(item => {
-      return getItemInfo(item.itemId, item.itemOptionName);
+      return getItemInfo(item.itemId, item.itemOption);
     })
     .map(item => item.mailTitle);
 
   // 파일 여러개
   const files = items
     .map(item => {
-      return getItemInfo(item.itemId, item.itemOptionName);
+      return getItemInfo(item.itemId, item.itemOption);
     })
     .map(item => item.attachments);
 
