@@ -80,6 +80,8 @@ export const dispatchOrder = async (req, res) => {
         },
       }
     );
+
+    console.log('details', details);
     const newOrder = new Order({
       orderSerial: orderSerial,
       ordererId: details.ordererId,
@@ -94,15 +96,17 @@ export const dispatchOrder = async (req, res) => {
       price: details.price,
     });
 
+    console.log('newOrder', newOrder);
     try {
       const savedOrder = await newOrder.save();
       console.log('발송 내역 등록 완료', savedOrder);
     } catch (error) {
       res.status(400).json({ message: error });
     }
+    console.log(data);
     res.status(200).json(data);
   } catch (error) {
-     res.status(400).json(error);
+    res.status(400).json(error);
   }
 };
 
