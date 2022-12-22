@@ -13,9 +13,10 @@ export const getBrandInfo = async (req, res) => {
         Authorization: authorization,
       },
     });
+    console.log('getBrandInfo', getBrandInfo);
     res.status(200).json(data.outPutValue[0]);
   } catch (error) {
-    res.json(error);
+    res.status(400).json(error);
   }
 };
 
