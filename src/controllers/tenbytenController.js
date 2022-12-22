@@ -100,10 +100,9 @@ export const dispatchOrder = async (req, res) => {
     } catch (error) {
       res.status(400).json({ message: error });
     }
-
     res.status(200).json(data);
   } catch (error) {
-    res.json(error);
+     res.status(400).json(error);
   }
 };
 

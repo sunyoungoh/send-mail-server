@@ -23,7 +23,8 @@ const getFileOption = itemOption => {
 const getItemInfo = (itemId, itemOption) => {
   let itemInfo = {};
   let fileName = '';
-  let fileOption = getFileOption(itemOption);
+  let fileOption = itemOption ? getFileOption(itemOption) : '';
+
   if (itemId == 5033569 || itemId == 6175018692) {
     itemInfo.itemName = '2023 심플 플래너';
     fileName = `2022+2023_Simple_Planner(${fileOption}).zip`;
@@ -105,7 +106,7 @@ const getItemInfo = (itemId, itemOption) => {
     fileName = `${itemOptionYears}_Years_Diary(${fileOption}).zip`;
   }
 
-  if (itemOption == '') {
+  if (!itemOption) {
     itemInfo.mailTitle = itemInfo.itemName;
   } else {
     itemInfo.itemOption = itemOption.replaceAll(/,/g, ', ');
@@ -179,7 +180,7 @@ export const sendMail = async (req, res) => {
       pass: process.env.NODEMAILER_PASS,
     },
   });
-
+  
   let details = {
     from: `영로그 ${process.env.NODEMAILER_USER}`,
     to: toEmail,
