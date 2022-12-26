@@ -122,21 +122,6 @@ const getItemInfo = (itemId, itemOption) => {
   return itemInfo;
 };
 
-const getMonthStr = () => {
-  const today = new Date();
-  const todayMonth = today.getMonth() + 1;
-  let monthStr = todayMonth;
-
-  if (today.getDate() >= 25)
-    monthStr =
-      todayMonth < 12 || todayMonth == 0
-        ? todayMonth + 1
-        : today.getFullYear() + 1;
-  else if (monthStr !== 12 && today.getDate() >= 16)
-    monthStr = `남은 ${todayMonth}`;
-
-  return monthStr;
-};
 
 const getOrderList = items => {
   // 메일 타이틀
@@ -185,7 +170,7 @@ export const sendMail = async (req, res) => {
     from: `영로그 ${process.env.NODEMAILER_USER}`,
     to: toEmail,
     subject: `[${store}] ${orderList.title.join(' / ')} 속지 보내드립니다 ✨`,
-    html: mailText(orderList.list, comment, getMonthStr()),
+    html: mailText(orderList.list, comment),
     attachments: orderList.files,
   };
 
