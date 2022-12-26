@@ -13,7 +13,6 @@ export const getBrandInfo = async (req, res) => {
         Authorization: authorization,
       },
     });
-    console.log('getBrandInfo', getBrandInfo);
     res.status(200).json(data.outPutValue[0]);
   } catch (error) {
     res.status(400).json(error);
@@ -121,5 +120,41 @@ export const getDispatchOrderHistory = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(400).send('배송 완료된 주문 정보가 없습니다.');
+  }
+};
+
+export const getQna = async (req, res) => {
+  const { brandId, startdate, enddate } = req.query;
+  const { authorization } = req.headers;
+  try {
+    const { data } = await instance.get('/qna/myqna', {
+      headers: {
+        Authorization: authorization,
+      },
+      params: {
+        brandId,
+        startdate,
+        enddate,
+      },
+    });
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+export const anwserQna = async (req, res) => {
+  const body = req.body;
+  const { authorization } = req.headers;
+
+  try {
+    const { data } = await instance.post('/qna/myqna', body, {
+      headers: {
+        Authorization: authorization,
+      },
+    });
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(400).json(error);
   }
 };
