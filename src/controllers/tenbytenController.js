@@ -81,7 +81,6 @@ export const dispatchOrder = async (req, res) => {
       }
     );
 
-    console.log('details', details);
     const newOrder = new Order({
       orderSerial: orderSerial,
       ordererId: details.ordererId,
@@ -96,7 +95,6 @@ export const dispatchOrder = async (req, res) => {
       price: details.price,
     });
 
-    console.log('newOrder', newOrder);
     try {
       const savedOrder = await newOrder.save();
       console.log('발송 내역 등록 완료', savedOrder);

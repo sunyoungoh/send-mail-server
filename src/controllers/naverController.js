@@ -87,6 +87,7 @@ export const getOrderDetail = async (req, res) => {
       productOrderId: data.data[0].productOrder.productOrderId,
       productId: Number(data.data[0].productOrder.productId),
       productOption: optionArr,
+      shippingMemo: data.data[0].productOrder.shippingMemo,
     };
     res.status(200).json(orderDetail);
   } catch (error) {
@@ -126,5 +127,49 @@ export const dispatchProductOrders = async (req, res) => {
     res.status(200).send('송장 등록을 성공하였습니다.');
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getNewOrders = async (req, res) => {
+  const token = await createToken();
+  // productOrderStatus 상품주문상태 - PAYED 결제완료
+  const now = new Date(); // 현재 날짜 및 시간
+  const yesterday = new Date(now.setDate(now.getDate() - 1)); // 어제
+  const payedOrders = [];
+
+  try {
+    const payed = await instance.get(
+      `/external/v1/pay-order/seller/product-orders/last-changed-statuses`,
+      {
+        params: {
+          lastChangedFrom: yesterday,
+          lastChangedType: 'PAYED',
+        },
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const addressChanged = await instance.get(
+      `/external/v1/pay-order/seller/product-orders/last-changed-statuses`,
+      {
+        params: {
+          lastChangedFrom: yesterday,
+          lastChangedType: 'DELIVERY_ADDRESS_CHANGED',
+        },
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    payedOrders.push(...addressChanged.data.data.lastChangeStatuses);
+    payedOrders.push(...payed.data.data.lastChangeStatuses);
+    
+    res.status(200).json(payedOrders);
+  } catch (error) {
+    res.status(400).send('주문 정보를 조회할 수 없습니다.');
   }
 };
