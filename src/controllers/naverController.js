@@ -1,5 +1,8 @@
 import bcrypt from 'bcrypt';
 import axios from 'axios';
+const cheerio = require('cheerio');
+// import cheerio from 'cheerio';
+import puppeteer from 'puppeteer';
 
 const instance = axios.create({
   baseURL: 'https://api.commerce.naver.com',
@@ -84,11 +87,14 @@ export const getOrderDetail = async (req, res) => {
     }
 
     const orderDetail = {
+      ordererId: data.data[0].order.ordererId,
+      ordererName: data.data[0].order.ordererName,
       productOrderId: data.data[0].productOrder.productOrderId,
       productId: Number(data.data[0].productOrder.productId),
       productOption: optionArr,
       shippingMemo: data.data[0].productOrder.shippingMemo,
     };
+    
     res.status(200).json(orderDetail);
   } catch (error) {
     console.log(error);
@@ -164,10 +170,13 @@ export const getNewOrders = async (req, res) => {
         },
       }
     );
-
-    payedOrders.push(...addressChanged.data.data.lastChangeStatuses);
-    payedOrders.push(...payed.data.data.lastChangeStatuses);
-    
+  
+    if (payed.data.data) {
+      payedOrders.push(...payed.data.data.lastChangeStatuses);
+    }
+    if (addressChanged.data.data) {
+      payedOrders.push(...addressChanged.data.data.lastChangeStatuses);
+    }
     res.status(200).json(payedOrders);
   } catch (error) {
     res.status(400).send('주문 정보를 조회할 수 없습니다.');
