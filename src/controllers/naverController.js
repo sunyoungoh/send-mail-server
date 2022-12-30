@@ -59,10 +59,53 @@ export const getOrders = async (req, res) => {
   }
 };
 
+// export const getOrderDetail = async (req, res) => {
+//   const token = await createToken();
+//   const { orderId } = req.params;
+//   const productOrderIds = { productOrderIds: [orderId] };
+
+//   try {
+//     const { data } = await instance.post(
+//       '/external/v1/pay-order/seller/product-orders/query',
+//       productOrderIds,
+//       {
+//         headers: {
+//           Authorization: token,
+//           'Content-Type': 'application/json',
+//         },
+//       }
+//     );
+//     const optionStr = data.data[0].productOrder.productOption;
+//     let optionArr = '';
+//     if (optionStr) {
+//       optionArr = optionStr.split('/').map(item => {
+//         item = item.replaceAll(' ', '');
+//         const startIndex = item.indexOf(':');
+//         return item.substring(startIndex + 1, item.length);
+//       });
+//     }
+
+//     const orderDetail = {
+//       ordererId: data.data[0].order.ordererId,
+//       ordererName: data.data[0].order.ordererName,
+//       productOrderId: data.data[0].productOrder.productOrderId,
+//       productId: Number(data.data[0].productOrder.productId),
+//       productOption: optionArr,
+//       shippingMemo: data.data[0].productOrder.shippingMemo,
+//     };
+
+//     res.status(200).json(orderDetail);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(400).send('상품 주문 정보를 조회할 수 없습니다.');
+//   }
+// };
+
 export const getOrderDetail = async (req, res) => {
   const token = await createToken();
-  const { orderId } = req.params;
-  const productOrderIds = { productOrderIds: [orderId] };
+  const { productOrderId } = req.query;
+
+  const productOrderIds = { productOrderIds: productOrderId };
 
   try {
     const { data } = await instance.post(
@@ -75,26 +118,32 @@ export const getOrderDetail = async (req, res) => {
         },
       }
     );
+    const orderList = data.data;
+    const orderDetail = orderList.map(item => {
+      const optionStr = item.productOrder.productOption;
+      let options = '';
+      if (optionStr) {
+        options = optionStr.split('/').map(item => {
+          item = item.replaceAll(' ', '');
+          const startIndex = item.indexOf(':');
+          return item.substring(startIndex + 1, item.length);
+        });
+      }
+      options = Array.isArray(options) ? options.join() : options;
+      return {
+        orderId: item.order.orderId, // 주문번호
+        paymentDate: item.order.paymentDate,
+        ordererId: item.order.ordererId,
+        ordererName: item.order.ordererName,
+        items: {
+          productOrderId: item.productOrder.productOrderId, // 상품주문번호
+          itemId: Number(item.productOrder.productId), // 상품번호
+          itemOption: options, // 옵션
+        },
+        shippingMemo: item.productOrder.shippingMemo,
+      };
+    });
 
-    const optionStr = data.data[0].productOrder.productOption;
-    let optionArr = '';
-    if (optionStr) {
-      optionArr = optionStr.split('/').map(item => {
-        item = item.replaceAll(' ', '');
-        const startIndex = item.indexOf(':');
-        return item.substring(startIndex + 1, item.length);
-      });
-    }
-
-    const orderDetail = {
-      ordererId: data.data[0].order.ordererId,
-      ordererName: data.data[0].order.ordererName,
-      productOrderId: data.data[0].productOrder.productOrderId,
-      productId: Number(data.data[0].productOrder.productId),
-      productOption: optionArr,
-      shippingMemo: data.data[0].productOrder.shippingMemo,
-    };
-    
     res.status(200).json(orderDetail);
   } catch (error) {
     console.log(error);
@@ -170,7 +219,7 @@ export const getNewOrders = async (req, res) => {
         },
       }
     );
-  
+
     if (payed.data.data) {
       payedOrders.push(...payed.data.data.lastChangeStatuses);
     }
@@ -179,6 +228,6 @@ export const getNewOrders = async (req, res) => {
     }
     res.status(200).json(payedOrders);
   } catch (error) {
-    res.status(400).send('주문 정보를 조회할 수 없습니다.');
+    res.status(400).send('신규 주문 정보를 조회할 수 없습니다.');
   }
 };

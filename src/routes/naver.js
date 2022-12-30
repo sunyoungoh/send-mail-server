@@ -6,6 +6,7 @@ const router = Router();
 router.get('/orders', naverController.getNewOrders);
 router.get('/orders/:orderId', naverController.getOrders);
 router.get('/detail/:orderId', naverController.getOrderDetail);
+router.get('/detail', naverController.getOrderDetail);
 router.post('/:orderId', naverController.dispatchProductOrders);
 
 export default router;
