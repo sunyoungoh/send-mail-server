@@ -1,8 +1,5 @@
 import bcrypt from 'bcrypt';
 import axios from 'axios';
-const cheerio = require('cheerio');
-// import cheerio from 'cheerio';
-import puppeteer from 'puppeteer';
 
 const instance = axios.create({
   baseURL: 'https://api.commerce.naver.com',
