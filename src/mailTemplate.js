@@ -3,9 +3,13 @@ export const mailText = (orderList, comment) => {
 
   const today = new Date();
   const todayMonth = today.getMonth() + 1;
+  const todayDate = new Date().getDate();
   let greeting = '';
   if (todayMonth == 12) {
-    greeting = '따뜻한 연말 되세요! 🎅🏻🎄';
+    greeting =
+      todayDate < 30
+        ? '따뜻한 연말 되세요! 🎅🏻🎄'
+        : '새해에도 행복한 일만 가득하세요! 😊';
   } else {
     const monthWord = todayMonth == 1 ? '새해' : `${todayMonth}월`;
     greeting = `${monthWord}에도 행복한 일만 가득하세요! 😊`;
