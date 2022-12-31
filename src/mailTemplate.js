@@ -7,8 +7,8 @@ export const mailText = (orderList, comment) => {
   if (todayMonth == 12) {
     greeting = '따뜻한 연말 되세요! 🎅🏻🎄';
   } else {
-    todayMonth == 1 ? '새해' : `${month}월`;
-    greeting = `${month}에도 행복한 일만 가득하세요! 😊`;
+    todayMonth = todayMonth == 1 ? '새해' : `${todayMonth}월`;
+    greeting = `${todayMonth}에도 행복한 일만 가득하세요! 😊`;
   }
 
   return `

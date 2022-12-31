@@ -166,7 +166,7 @@ export const dispatchProductOrders = async (req, res) => {
   };
 
   try {
-    await instance.post(
+    const { data } = await instance.post(
       '/external/v1/pay-order/seller/product-orders/dispatch',
       postData,
       {
@@ -176,6 +176,7 @@ export const dispatchProductOrders = async (req, res) => {
         },
       }
     );
+    console.log(data);
     res.status(200).send('송장 등록을 성공하였습니다.');
   } catch (error) {
     console.log(error);

@@ -5,7 +5,10 @@ const orderSchema = new mongoose.Schema(
     orderSerial: {
       type: String,
       required: true,
-      unique: true,
+    },
+    detailIdx: {
+      type: String,
+      required: true,
     },
     ordererId: {
       type: String,

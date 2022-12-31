@@ -83,6 +83,7 @@ export const dispatchOrder = async (req, res) => {
 
     const newOrder = new Order({
       orderSerial: orderSerial,
+      detailIdx: detailIdx,
       ordererId: details.ordererId,
       ordererName: details.ordererName,
       toEmail: details.toEmail,
