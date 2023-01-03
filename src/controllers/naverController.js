@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
 import axios from 'axios';
+import puppeteer from 'puppeteer';
+import cheerio from 'cheerio';
 
 const instance = axios.create({
   baseURL: 'https://api.commerce.naver.com',
@@ -227,5 +229,54 @@ export const getNewOrders = async (req, res) => {
     res.status(200).json(payedOrders);
   } catch (error) {
     res.status(400).send('신규 주문 정보를 조회할 수 없습니다.');
+  }
+};
+
+export const gerOrdererNaverId = async (req, res) => {
+  const { productOrderId } = req.params;
+
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
+
+  const page = await browser.newPage();
+
+  const commerce_id = process.env.COMMERCE_ID;
+  const commerce_pw = process.env.COMMERCE_PW;
+
+  await page.goto(
+    'https://accounts.commerce.naver.com/login?url=https%3A%2F%2Fsell.smartstore.naver.com%2F%23%2Flogin-callback'
+  );
+
+  // id, pw input 찾기
+  await page.waitForSelector('input[type="text"]');
+  await page.waitForSelector('input[type="password"]');
+
+  // id, pw 입력
+  await page.type('input[type="text"]', commerce_id);
+  await page.type('input[type="password"]', commerce_pw);
+  await page.keyboard.press('Enter');
+
+  // 주문서 페이지로 이동
+  await page.waitForNavigation({
+    waitUntil: 'networkidle0',
+  });
+  await page.goto(
+    `https://sell.smartstore.naver.com/o/v3/manage/order/popup/${productOrderId}/productOrderDetail`
+  );
+
+  // 주문서 html정보를 로드
+  const content = await page.content();
+  const $ = cheerio.load(content);
+  const lists = $('td._2mspXbAQGz');
+  const id = $(lists[1]).text();
+  console.log('id', id);
+  await browser.close();
+
+  if (id) {
+    res.status(200).json({ ordererId: id });
+  } else {
+    res.status(400).send('주문자의 아이디를 찾을 수 없습니다.');
   }
 };

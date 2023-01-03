@@ -3,6 +3,7 @@ import * as naverController from '../controllers/naverController';
 
 const router = Router();
 
+router.get('/orderer/:productOrderId', naverController.gerOrdererNaverId);
 router.get('/orders', naverController.getNewOrders);
 router.get('/orders/:orderId', naverController.getOrders);
 router.get('/detail/:orderId', naverController.getOrderDetail);
