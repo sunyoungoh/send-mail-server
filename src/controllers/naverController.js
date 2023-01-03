@@ -233,7 +233,7 @@ export const getNewOrders = async (req, res) => {
   }
 };
 
-export const gerOrdererNaverId = async (req, res) => {
+export const getOrdererNaverId = async (req, res) => {
   const { productOrderId } = req.params;
 
   const browser = await puppeteer.launch({
