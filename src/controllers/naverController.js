@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import axios from 'axios';
 import puppeteer from 'puppeteer';
 import cheerio from 'cheerio';
+import UserAgent from 'user-agents';
 
 const instance = axios.create({
   baseURL: 'https://api.commerce.naver.com',
@@ -246,6 +247,7 @@ export const gerOrdererNaverId = async (req, res) => {
   });
 
   const page = await browser.newPage();
+  page.setUserAgent(UserAgent.toString());
 
   const commerce_id = process.env.COMMERCE_ID;
   const commerce_pw = process.env.COMMERCE_PW;
