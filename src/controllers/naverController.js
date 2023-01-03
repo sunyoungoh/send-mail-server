@@ -235,8 +235,8 @@ export const getNewOrders = async (req, res) => {
 
 export const getOrdererNaverId = async (req, res) => {
   const { productOrderId } = req.params;
-
   const browser = await puppeteer.launch({
+    executablePath: './node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium',
     headless: true,
     args: [
       '--no-sandbox',
