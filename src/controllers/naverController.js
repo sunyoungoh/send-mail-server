@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import axios from 'axios';
-import puppeteer from 'puppeteer-core';
+import puppeteer from 'puppeteer';
 import cheerio from 'cheerio';
 import UserAgent from 'user-agents';
 
