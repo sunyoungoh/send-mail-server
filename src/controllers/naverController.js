@@ -243,6 +243,7 @@ export const getOrdererNaverId = async (req, res) => {
       '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
       '--single-process',
+      '--use-gl=egl',
     ],
   });
 
