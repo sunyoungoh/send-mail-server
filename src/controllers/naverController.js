@@ -235,9 +235,10 @@ export const getNewOrders = async (req, res) => {
 
 export const getOrdererNaverId = async (req, res) => {
   const { productOrderId } = req.params;
-  
+
   const browser = await puppeteer.launch({
     headless: true,
+    executablePath: '/path/to/Chrome',
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
