@@ -45,13 +45,6 @@ app.get('/', (req, res) => {
   res.send('send-mail-server 입니다!');
 });
 
-process.env.NODE_ENV =
-  process.env.NODE_ENV &&
-  process.env.NODE_ENV.trim().toLowerCase() == 'production'
-    ? 'production'
-    : 'development';
-console.log(process.env.NODE_ENV);
-
 // 텐바이텐 주문 자동 확인 및 발송
 tenbytenAutoSend();
 

@@ -3,10 +3,7 @@ import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
 import { getToday, getThreedaysAgo } from './../utils/getDays';
 
 const instance = axios.create({
-  baseURL:
-    process.env.NODE_ENV == 'production'
-      ? process.env.BASE_URL
-      : 'http://localhost:3000',
+  baseURL: process.env.BASE_URL,
 });
 
 const scheduler = new ToadScheduler();
@@ -22,7 +19,7 @@ export const tenbytenAutoSend = () => {
           enddate: getToday(),
         },
         headers: {
-          Authorization: `bearer ${process.env.TT_API}`,
+          Authorization: `bearer ${process.env.TT_APIKEY}`,
         },
       };
 
@@ -84,7 +81,7 @@ export const tenbytenAutoSend = () => {
               dispatchData,
               {
                 headers: {
-                  Authorization: `bearer ${process.env.TT_API}`,
+                  Authorization: `bearer ${process.env.TT_APIKEY}`,
                 },
               }
             );
@@ -102,7 +99,7 @@ export const tenbytenAutoSend = () => {
     }
   );
 
-  const job = new SimpleIntervalJob({ minutes: 30 }, task);
+  const job = new SimpleIntervalJob({ minutes: 15 }, task);
 
   scheduler.addSimpleIntervalJob(job);
 };
