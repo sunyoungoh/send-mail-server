@@ -19,6 +19,36 @@ export const getBrandInfo = async (req, res) => {
   }
 };
 
+const orderListBydetailIdx = orderList => {
+  const newList = [];
+  orderList.map(item => {
+    item.details.map(detail => {
+      let itemOption = detail.itemOptionName;
+      // 이메일 기재옵션 삭제
+      if (itemOption !== '') {
+        let endIndex = itemOption.indexOf('꼭');
+        if (endIndex !== -1) {
+          itemOption = itemOption.substring(0, endIndex - 1);
+        }
+      }
+      newList.push({
+        orderSerial: item.OrderSerial,
+        detailIdx: detail.DetailIdx,
+        orderDate: new Date(item.orderDate),
+        ordererId: item.UserId,
+        ordererName: item.ordererName,
+        ordererCellPhone: item.ordererCellPhone,
+        ordererEmail: item.ordererEmail,
+        itemId: detail.itemId,
+        itemOption: itemOption,
+        itemRequireMemo: detail.RequireMemo.trim(),
+        price: detail.NotCouponPrice,
+      });
+    });
+  });
+  return newList;
+};
+
 export const getNewOrders = async (req, res) => {
   const { brandId, startdate, enddate } = req.query;
   const { authorization } = req.headers;
@@ -34,7 +64,9 @@ export const getNewOrders = async (req, res) => {
         enddate,
       },
     });
-    res.status(200).json(data);
+    // deailIdx 단위로 주문 쪼개기
+    const orderList = orderListBydetailIdx(data.outPutValue);
+    res.status(200).json(orderList);
   } catch (error) {
     res.json(error);
   }
@@ -43,6 +75,7 @@ export const getNewOrders = async (req, res) => {
 export const getReadyOrder = async (req, res) => {
   const { brandId, startdate, enddate } = req.query;
   const { authorization } = req.headers;
+
   try {
     const { data } = await instance.get('/orders/orderhistory', {
       headers: {
@@ -54,8 +87,10 @@ export const getReadyOrder = async (req, res) => {
         enddate,
       },
     });
-
-    res.status(200).json(data);
+    // deailIdx 단위로 주문 쪼개기
+    const orderList = orderListBydetailIdx(data.outPutValue);
+    res.status(200).json(orderList);
+    return orderList;
   } catch (error) {
     res.json(error);
   }

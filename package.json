@@ -17,7 +17,6 @@
     "bcrypt": "^5.1.0",
     "chalk": "^2.4.2",
     "cheerio": "^1.0.0-rc.12",
-    "chromium": "^3.0.3",
     "cors": "^2.8.5",
     "date-fns": "^2.21.1",
     "date-fns-tz": "^1.1.4",
@@ -28,6 +27,7 @@
     "nodemailer": "^6.8.0",
     "nodemon": "^2.0.20",
     "puppeteer": "^16.2.0",
+    "toad-scheduler": "^2.2.0",
     "user-agents": "^1.0.1249"
   },
   "devDependencies": {

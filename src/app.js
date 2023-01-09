@@ -5,10 +5,11 @@ import chalk from 'chalk';
 import detectPort from 'detect-port';
 import mongoose from 'mongoose';
 
-
 import mail from './routes/mail.js';
 import naver from './routes/naver.js';
 import tenbyten from './routes/tenbyten.js';
+
+import { tenbytenAutoSend } from './controllers/autoSend';
 
 dotenv.config();
 
@@ -44,7 +45,17 @@ app.get('/', (req, res) => {
   res.send('send-mail-server 입니다!');
 });
 
-// start
+process.env.NODE_ENV =
+  process.env.NODE_ENV &&
+  process.env.NODE_ENV.trim().toLowerCase() == 'production'
+    ? 'production'
+    : 'development';
+console.log(process.env.NODE_ENV);
+
+// 텐바이텐 주문 자동 확인 및 발송
+tenbytenAutoSend();
+
+// Server start
 app.listen(port, () =>
   console.log(
     `${chalk.white
