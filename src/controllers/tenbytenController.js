@@ -19,6 +19,9 @@ export const getBrandInfo = async (req, res) => {
   }
 };
 
+/** 
+ * detailIdx 단위로 주문 리스트 생성
+ * */ 
 const orderListBydetailIdx = orderList => {
   const newList = [];
   orderList.map(item => {
@@ -64,7 +67,6 @@ export const getNewOrders = async (req, res) => {
         enddate,
       },
     });
-    // deailIdx 단위로 주문 쪼개기
     const orderList = orderListBydetailIdx(data.outPutValue);
     res.status(200).json(orderList);
   } catch (error) {
@@ -87,7 +89,6 @@ export const getReadyOrder = async (req, res) => {
         enddate,
       },
     });
-    // deailIdx 단위로 주문 쪼개기
     const orderList = orderListBydetailIdx(data.outPutValue);
     res.status(200).json(orderList);
     return orderList;
@@ -133,11 +134,11 @@ export const dispatchOrder = async (req, res) => {
 
     try {
       const savedOrder = await newOrder.save();
-      console.log('발송 내역 등록 완료', savedOrder);
+      console.log('발송 내역 DB 등록 완료', savedOrder);
     } catch (error) {
       res.status(400).json({ message: error });
     }
-    console.log(data);
+    console.log('송장 등록 결과', data);
     res.status(200).json(data);
   } catch (error) {
     res.status(400).json(error);

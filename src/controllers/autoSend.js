@@ -88,7 +88,7 @@ export const tenbytenAutoSend = () => {
             );
             console.log(
               `${chalk.white
-                .bgHex('#41b883')
+                .bgHex('##ffdd61')
                 .bold(`**자동발송 결과** ${data.code}`)}`
             );
           }
@@ -100,9 +100,7 @@ export const tenbytenAutoSend = () => {
     }
   );
 
-  const job = new SimpleIntervalJob({ minutes: 15 }, task);
+  const job = new SimpleIntervalJob({ minutes: 1 }, task);
 
   scheduler.addSimpleIntervalJob(job);
 };
-
-110423

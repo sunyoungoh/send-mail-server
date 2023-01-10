@@ -122,7 +122,6 @@ const getItemInfo = (itemId, itemOption) => {
   return itemInfo;
 };
 
-
 const getOrderList = items => {
   // 메일 타이틀
   const title = items
@@ -165,7 +164,7 @@ export const sendMail = async (req, res) => {
       pass: process.env.NODEMAILER_PASS,
     },
   });
-  
+
   let details = {
     from: `영로그 ${process.env.NODEMAILER_USER}`,
     to: toEmail,
