@@ -4,8 +4,8 @@ import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
 import { getToday, getThreedaysAgo } from './../utils/getDays';
 
 const instance = axios.create({
-  baseURL: process.env.BASE_URL,
-  // baseURL: 'http://localhost:3000',
+  // baseURL: process.env.BASE_URL,
+  baseURL: 'http://localhost:3000',
 });
 
 const scheduler = new ToadScheduler();
@@ -23,6 +23,7 @@ export const tenbytenAutoSend = () => {
         headers: {
           Authorization: `bearer ${process.env.TT_APIKEY}`,
         },
+        responseType: 'stream',
       };
 
       // 신규 주문 확인
