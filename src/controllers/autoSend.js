@@ -4,7 +4,8 @@ import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
 import { getToday, getThreedaysAgo } from './../utils/getDays';
 
 const instance = axios.create({
-  baseURL: process.env.BASE_URL,
+  // baseURL: process.env.BASE_URL,
+  baseURL: 'http://localhost:3000',
 });
 
 const scheduler = new ToadScheduler();
@@ -29,10 +30,10 @@ export const tenbytenAutoSend = () => {
       console.log('신규 주문 내역', newOrder.data);
 
       // 배송 준비 중 주문 확인
-      const {data} = await instance.get('/tenbyten/orders/ready', config);
+      const { data } = await instance.get('/tenbyten/orders/ready', config);
       const readyOrder = data;
-      console.log('배송 준비 중 주문 내역', JSON.parse(readyOrder));
-      
+      console.log('배송 준비 중 주문 내역', JSON.stringify(readyOrder));
+
       // 배송 준비 중 주문이 있으면 메일 발송
       // if (readyOrder.length) {
       //   const reg = /\S+@+\S+\.+[a-zA-Z]{2,3}/;
