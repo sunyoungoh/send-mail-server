@@ -40,6 +40,7 @@ const createToken = async (req, res) => {
   }
 };
 
+// 신규 주문 조회
 export const getNewOrders = async (req, res) => {
   const token = await createToken();
 
@@ -107,6 +108,7 @@ export const getOrders = async (req, res) => {
   }
 };
 
+// 주문 내역 가져오기
 export const getOrderDetail = async (req, res) => {
   const token = await createToken();
   const { productOrderId } = req.query;
@@ -246,3 +248,4 @@ export const getOrdererNaverId = async (req, res) => {
     res.status(400).send('주문자의 아이디를 찾을 수 없습니다.');
   }
 };
+
