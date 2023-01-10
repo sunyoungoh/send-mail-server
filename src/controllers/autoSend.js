@@ -32,7 +32,7 @@ export const tenbytenAutoSend = () => {
       const { data } = await instance.get('/tenbyten/orders/ready', config);
       const readyOrder = data;
       console.log('배송 준비 중 주문 내역', readyOrder);
-
+      console.log('readyOrder.length', readyOrder.length);
       // 배송 준비 중 주문이 있으면 메일 발송
       if (readyOrder.length) {
         const reg = /\S+@+\S+\.+[a-zA-Z]{2,3}/;
