@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import axios from 'axios';
 import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
 import { getToday, getThreedaysAgo } from './../utils/getDays';
@@ -30,7 +31,7 @@ export const tenbytenAutoSend = () => {
       // 배송 준비 중 주문 확인
       const { data } = await instance.get('/tenbyten/orders/ready', config);
       const readyOrder = data;
-      console.log('배송 중비 중 주문 내역', readyOrder);
+      console.log('배송 준비 중 주문 내역', readyOrder);
 
       // 배송 준비 중 주문이 있으면 메일 발송
       if (readyOrder.length) {
@@ -103,3 +104,5 @@ export const tenbytenAutoSend = () => {
 
   scheduler.addSimpleIntervalJob(job);
 };
+
+110423
