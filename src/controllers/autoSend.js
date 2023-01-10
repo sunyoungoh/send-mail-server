@@ -4,8 +4,8 @@ import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
 import { getToday, getThreedaysAgo } from './../utils/getDays';
 
 const instance = axios.create({
-  // baseURL: process.env.BASE_URL,
-  baseURL: 'http://localhost:3000',
+  baseURL: process.env.BASE_URL,
+  // baseURL: 'http://localhost:3000',
 });
 
 const scheduler = new ToadScheduler();
@@ -32,7 +32,9 @@ export const tenbytenAutoSend = () => {
       // 배송 준비 중 주문 확인
       const { data } = await instance.get('/tenbyten/orders/ready', config);
       const readyOrder = data;
-      console.log('배송 준비 중 주문 내역', JSON.stringify(readyOrder));
+      const readyOrderJson = JSON.stringify(readyOrder);
+      console.log('배송 준비 중 주문 내역', readyOrder);
+      console.log('readyOrderJson', readyOrderJson);
 
       // 배송 준비 중 주문이 있으면 메일 발송
       // if (readyOrder.length) {
@@ -97,11 +99,11 @@ export const tenbytenAutoSend = () => {
       // }
     },
     err => {
-      console.log(err);
+      console.error(err);
     }
   );
 
-  const job = new SimpleIntervalJob({ seconds: 5 }, task);
+  const job = new SimpleIntervalJob({ seconds: 30 }, task);
 
   scheduler.addSimpleIntervalJob(job);
 };
