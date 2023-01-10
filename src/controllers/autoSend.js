@@ -30,10 +30,9 @@ export const tenbytenAutoSend = () => {
       console.log('신규 주문 내역', newOrder.data);
 
       // 배송 준비 중 주문 확인
-      const data = await instance.get('/tenbyten/orders/ready', config);
-      const readyOrder = data.data;
-      console.log('data', data);
-      console.log('배송 준비 중 주문 내역 (readyOrder)', readyOrder);
+      const { data } = await instance.get('/tenbyten/orders/ready', config);
+      const readyOrder = data;
+      console.log('배송 준비 중 주문 내역', readyOrder);
 
       // 배송 준비 중 주문이 있으면 메일 발송
       if (readyOrder.length) {
