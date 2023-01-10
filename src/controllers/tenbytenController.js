@@ -19,9 +19,9 @@ export const getBrandInfo = async (req, res) => {
   }
 };
 
-/** 
+/**
  * detailIdx 단위로 주문 리스트 생성
- * */ 
+ * */
 const orderListBydetailIdx = orderList => {
   const newList = [];
   orderList.map(item => {
@@ -90,7 +90,7 @@ export const getReadyOrder = async (req, res) => {
       },
     });
     const orderList = orderListBydetailIdx(data.outPutValue);
-    res.status(200).json(orderList);
+    res.status(200).header('transfer-encoding', '').json(orderList);
     return orderList;
   } catch (error) {
     res.json(error);
