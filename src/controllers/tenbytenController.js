@@ -90,6 +90,7 @@ export const getReadyOrder = async (req, res) => {
       },
     });
     const orderList = orderListBydetailIdx(data.outPutValue);
+    res.header('transfer-encoding', '');
     res.status(200).json(orderList);
     return orderList;
   } catch (error) {
