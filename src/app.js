@@ -9,7 +9,7 @@ import mail from './routes/mail.js';
 import naver from './routes/naver.js';
 import tenbyten from './routes/tenbyten.js';
 
-import { tenbytenAutoSend } from './controllers/autoSend';
+import { tenbytenAutoSend, naverAutoSend } from './controllers/autoSend';
 
 dotenv.config();
 
@@ -45,14 +45,15 @@ app.get('/', (req, res) => {
   res.send('send-mail-server 입니다!');
 });
 
-// 텐바이텐 주문 자동 확인 및 발송
+// 텐바이텐, 네이버 주문 자동 확인 및 발송
 tenbytenAutoSend();
+naverAutoSend();
 
 // Server start
 app.listen(port, () =>
   console.log(
     `${chalk.white
-      .bgHex('#41b883')
+      .bgHex('#a383e9')
       .bold(`SEND-MAIL-SERVER IS RUNNING ON http://localhost:${port}`)}`
   )
 );

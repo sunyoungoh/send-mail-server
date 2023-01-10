@@ -185,7 +185,6 @@ export const dispatchProductOrders = async (req, res) => {
         },
       }
     );
-
     res.status(200).json(data);
   } catch (error) {
     console.log(error);
