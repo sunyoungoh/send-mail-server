@@ -89,10 +89,9 @@ export const getReadyOrder = async (req, res) => {
         enddate,
       },
     });
+
     const orderList = orderListBydetailIdx(data.outPutValue);
-    console.log(orderList);
     res.status(200).json(orderList);
-    return orderList;
   } catch (error) {
     res.json(error);
   }
@@ -129,7 +128,7 @@ export const dispatchOrder = async (req, res) => {
       requireMemo: details.requireMemo,
       ordererPhone: details.ordererPhone,
       ordererEmail: details.ordererEmail,
-      orderDate: details.orderDate,
+      orderDate: new Date(details.orderDate),
       price: details.price,
     });
 
