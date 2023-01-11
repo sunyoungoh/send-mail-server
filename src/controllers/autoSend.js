@@ -1,7 +1,10 @@
 import chalk from 'chalk';
+import dotenv from 'dotenv';
 import axios from 'axios';
 import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
 import { getToday, getThreedaysAgo } from './../utils/getDays';
+
+dotenv.config();
 
 const instance = axios.create({
   baseURL: process.env.BASE_URL,
@@ -102,7 +105,7 @@ export const tenbytenAutoSend = () => {
                 ordererId: item.ordererId,
                 detailIdx: item.detailIdx,
                 ordererName: item.ordererName,
-                toEmail: mailData.toEmail,
+                toEmail: email,
                 itemId: item.itemId,
                 itemOption: item.itemOption,
                 requireMemo: item.itemRequireMemo,
