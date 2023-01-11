@@ -50,7 +50,7 @@ const sendResultLog = (color, store, ordererName, result) => {
     `${chalk.white
       .bgHex(color)
       .bold(
-        `** ${store} 자동 발송 결과 : ${ordererName}님 메일 전송 ${result}**`
+        `** ${store} 자동 발송 결과 : ${ordererName}님 메일 전송 ${result} **`
       )}`
   );
 };
@@ -75,7 +75,8 @@ export const tenbytenAutoSend = () => {
       };
 
       // 신규 주문 확인
-      await instance.get('/tenbyten/orders', config);
+      const newOrder = await instance.get('/tenbyten/orders', config);
+      console.log(`텐바이텐 배송 준비 중 주문 <${newOrder.length}>건`);
 
       // 배송 준비 중 주문 확인
       const { data } = await instance.get('/tenbyten/orders/ready', config);
@@ -132,7 +133,7 @@ export const tenbytenAutoSend = () => {
               }
             );
             sendResultLog(
-              '#4ab63e',
+              '#ffdd61',
               '텐바이텐',
               dispatchData.details.ordererName,
               data.code
