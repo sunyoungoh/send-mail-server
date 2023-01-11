@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon --exec babel-node ./src/app.js",
+    "dev": " nodemon --exec babel-node ./src/app.js",
     "build:server": "babel src -d build",
-    "build": "NODE_ENV=production npm run build:server",
+    "build": "npm run build:server",
     "start": "node build/app.js"
   },
   "author": "",

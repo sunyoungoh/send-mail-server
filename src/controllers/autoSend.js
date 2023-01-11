@@ -4,10 +4,7 @@ import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
 import { getToday, getThreedaysAgo } from './../utils/getDays';
 
 const instance = axios.create({
-  baseURL:
-    process.env.NODE_ENV == 'production'
-      ? process.env.BASE_URL
-      : 'http://localhost:3000',
+  baseURL: process.env.BASE_URL,
 });
 
 const scheduler = new ToadScheduler();

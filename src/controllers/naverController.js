@@ -39,11 +39,9 @@ const createToken = async (req, res) => {
     console.log(error);
   }
 };
-
 // 신규 주문 조회
 export const getNewOrders = async (req, res) => {
   const token = await createToken();
-
   const now = new Date(); // 현재 날짜 및 시간
   const yesterday = new Date(now.setDate(now.getDate() - 1)); // 어제
   const payedOrders = [];
@@ -62,6 +60,7 @@ export const getNewOrders = async (req, res) => {
         },
       }
     );
+
     const addressChanged = await instance.get(
       `/external/v1/pay-order/seller/product-orders/last-changed-statuses`,
       {
@@ -191,7 +190,6 @@ export const dispatchProductOrders = async (req, res) => {
   }
 };
 
-
 export const getOrdererNaverId = async (req, res) => {
   const { productOrderId } = req.params;
 
@@ -247,4 +245,3 @@ export const getOrdererNaverId = async (req, res) => {
     res.status(400).send('주문자의 아이디를 찾을 수 없습니다.');
   }
 };
-
