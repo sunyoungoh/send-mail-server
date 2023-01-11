@@ -140,7 +140,7 @@ export const tenbytenAutoSend = () => {
     }
   );
 
-  const tenbytenJob = new SimpleIntervalJob({ minutes: 15 }, tenbytenTask);
+  const tenbytenJob = new SimpleIntervalJob({ minutes: 5 }, tenbytenTask);
   scheduler.addSimpleIntervalJob(tenbytenJob);
 };
 
@@ -180,8 +180,11 @@ export const naverAutoSend = () => {
     'naver order',
     async () => {
       // 신규 주문 확인
-      const { data } = await instance.get('/naver/orders/new');
-      const newOrder = data;
+      const response = await instance.get('/naver/orders/new');
+      const newOrder = newOrder.data;
+      console.log('respose', response);
+      console.log('newOrder', newOrder);
+      console.log('newOrder typeof', typeof newOrder);
       console.log(`네이버 신규 주문 ${newOrder.length}건`);
 
       // 신규 주문 있으면 주문 상세내역 조회 후 메일 발송
@@ -192,14 +195,12 @@ export const naverAutoSend = () => {
         let orderList = await instance.get('/naver/detail', {
           params: { productOrderId: productOrderIds },
         });
-        console.log(orderList);
         orderList = orderList.data;
         console.log('상품 주문 상새내역 조회 리스트', orderList);
 
         if (orderList.length) {
           // 주문번호별 주문 리스트 생성
           const uniOrderList = createOrderListByOrderId(orderList);
-
           uniOrderList.map(async item => {
             const email = getEmail(item.shippingMemo, '');
             // 배송메모에 이메일이 있으면 메일 발송 (없을 경우엔 프론트에서 직접 확인 후 발송)
@@ -245,6 +246,6 @@ export const naverAutoSend = () => {
     }
   );
 
-  const naverJob = new SimpleIntervalJob({ minutes: 15 }, naverTask);
+  const naverJob = new SimpleIntervalJob({ minutes: 5 }, naverTask);
   scheduler.addSimpleIntervalJob(naverJob);
 };
