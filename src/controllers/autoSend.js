@@ -185,7 +185,6 @@ export const naverAutoSend = () => {
       // 신규 주문 확인
       const response = await instance.get('/naver/orders/new');
       const newOrder = response.data;
-      res.headers['content-type'];
       console.log('respose', response.headers);
       console.log('newOrder', newOrder);
       console.log('newOrder typeof', typeof newOrder);
@@ -250,6 +249,6 @@ export const naverAutoSend = () => {
     }
   );
 
-  const naverJob = new SimpleIntervalJob({ minutes: 5 }, naverTask);
+  const naverJob = new SimpleIntervalJob({ minutes: 1 }, naverTask);
   scheduler.addSimpleIntervalJob(naverJob);
 };
