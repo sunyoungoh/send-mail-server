@@ -194,7 +194,7 @@ export const naverAutoSend = () => {
         });
         orderList = orderList.data;
         console.log('상품 주문 상새내역 조회 리스트', orderList);
-        console.log(typeof orderList.data);
+        console.log(typeof orderList);
         if (orderList.length) {
           // 주문번호별 주문 리스트 생성
           const uniOrderList = createOrderListByOrderId(orderList);
