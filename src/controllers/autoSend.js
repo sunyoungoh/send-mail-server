@@ -76,7 +76,7 @@ export const tenbytenAutoSend = () => {
 
       // 신규 주문 확인
       await instance.get('/tenbyten/orders', config);
-      
+
       // 배송 준비 중 주문 확인
       const { data } = await instance.get('/tenbyten/orders/ready', config);
       const readyOrder = data;
@@ -98,6 +98,8 @@ export const tenbytenAutoSend = () => {
             ],
             email
           );
+          console.log('orderDate', item.orderDate);
+          console.log('newDate orderDate', new Date(item.orderDate));
           // 메일 발송 성공하면 송장 등록
           if (status == 200) {
             // 발송 등록 정보
