@@ -90,6 +90,7 @@ export const getReadyOrder = async (req, res) => {
       },
     });
     const orderList = orderListBydetailIdx(data.outPutValue);
+    console.log(orderList);
     res.status(200).json(orderList);
     return orderList;
   } catch (error) {
