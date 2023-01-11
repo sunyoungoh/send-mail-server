@@ -126,7 +126,7 @@ export const tenbytenAutoSend = () => {
               }
             );
             sendResultLog(
-              '#fc5f7b',
+              '#4ab63e',
               '텐바이텐',
               dispatchData.details.ordererName,
               data.code
@@ -140,8 +140,8 @@ export const tenbytenAutoSend = () => {
     }
   );
 
-  const tenbytenJob = new SimpleIntervalJob({ minutes: 15 }, tenbytenTask);
-  scheduler.addSimpleIntervalJob(tenbytenJob);
+  // const tenbytenJob = new SimpleIntervalJob({ minutes: 5 }, tenbytenTask);
+  // scheduler.addSimpleIntervalJob(tenbytenJob);
 };
 
 /**
@@ -192,6 +192,9 @@ export const naverAutoSend = () => {
         let orderList = await instance.get('/naver/detail', {
           params: { productOrderId: productOrderIds },
         });
+        typeof orderList.data;
+        orderList.headers['content-type'];
+        typeof orderList.data;
         orderList = orderList.data;
         console.log('상품 주문 상새내역 조회 리스트', orderList);
 
@@ -244,6 +247,6 @@ export const naverAutoSend = () => {
     }
   );
 
-  const naverJob = new SimpleIntervalJob({ minutes: 15 }, naverTask);
+  const naverJob = new SimpleIntervalJob({ minutes: 1 }, naverTask);
   scheduler.addSimpleIntervalJob(naverJob);
 };
