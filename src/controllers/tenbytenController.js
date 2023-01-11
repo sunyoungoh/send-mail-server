@@ -37,7 +37,7 @@ const orderListBydetailIdx = orderList => {
       newList.push({
         orderSerial: item.OrderSerial,
         detailIdx: detail.DetailIdx,
-        orderDate: new Date(item.orderDate),
+        orderDate: item.orderDate,
         ordererId: item.UserId,
         ordererName: item.ordererName,
         ordererCellPhone: item.ordererCellPhone,
