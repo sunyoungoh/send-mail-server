@@ -8,6 +8,9 @@ dotenv.config();
 
 const instance = axios.create({
   baseURL: process.env.BASE_URL,
+  headers: {
+    'Accept-Encoding': '*',
+  },
 });
 
 const scheduler = new ToadScheduler();
@@ -182,7 +185,8 @@ export const naverAutoSend = () => {
       // 신규 주문 확인
       const response = await instance.get('/naver/orders/new');
       const newOrder = response.data;
-      console.log('respose', response);
+      res.headers['content-type'];
+      console.log('respose', response.headers);
       console.log('newOrder', newOrder);
       console.log('newOrder typeof', typeof newOrder);
       console.log(`네이버 신규 주문 ${newOrder.length}건`);
