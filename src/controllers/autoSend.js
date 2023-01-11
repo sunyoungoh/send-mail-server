@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import dotenv from 'dotenv';
 import axios from 'axios';
 import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
+import { getToday, getThreedaysAgo } from './../utils/getDays';
 
 dotenv.config();
 
@@ -62,16 +63,11 @@ export const tenbytenAutoSend = () => {
     'tenbyten order',
     async () => {
       const token = `bearer ${process.env.TT_APIKEY}`;
-
-      let today = new Date();
-      let threedaysAgo = new Date();
-      threedaysAgo.setDate(threedaysAgo.getDate() - 3);
-
       const config = {
         params: {
           brandId: process.env.TT_ID,
-          startdate: new Date(threedaysAgo + 'GMT+9'),
-          enddate: new Date(today + 'GMT+9'),
+          startdate: getThreedaysAgo(),
+          enddate: getToday(),
         },
         headers: {
           Authorization: token,
@@ -84,9 +80,8 @@ export const tenbytenAutoSend = () => {
       // 배송 준비 중 주문 확인
       const { data } = await instance.get('/tenbyten/orders/ready', config);
       const readyOrder = data;
-      readyOrder &&
-        (console.log(`텐바이텐 배송 준비 중 주문 <${readyOrder.length}>건`),
-        console.log('텐바이텐 배송 준비 중 주문 내역', readyOrder));
+      console.log(`텐바이텐 배송 준비 중 주문 <${readyOrder.length}>건`),
+        console.log('텐바이텐 배송 준비 중 주문 내역', readyOrder);
 
       // 배송 준비 중 주문이 있으면 메일 발송
       if (readyOrder.length) {
@@ -121,7 +116,7 @@ export const tenbytenAutoSend = () => {
                 requireMemo: item.itemRequireMemo,
                 ordererPhone: item.ordererCellPhone,
                 ordererEmail: item.ordererEmail,
-                orderDate: item.orderDate,
+                orderDate: new Date(item.orderDate),
                 price: item.price,
               },
             };
