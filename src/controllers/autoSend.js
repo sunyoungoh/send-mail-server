@@ -181,7 +181,7 @@ export const naverAutoSend = () => {
     async () => {
       // 신규 주문 확인
       const response = await instance.get('/naver/orders/new');
-      const newOrder = newOrder.data;
+      const newOrder = response.data;
       console.log('respose', response);
       console.log('newOrder', newOrder);
       console.log('newOrder typeof', typeof newOrder);
