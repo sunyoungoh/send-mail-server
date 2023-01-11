@@ -4,7 +4,10 @@ import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
 import { getToday, getThreedaysAgo } from './../utils/getDays';
 
 const instance = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL:
+    process.env.NODE_ENV == 'production'
+      ? process.env.BASE_URL
+      : 'http://localhost:3000',
 });
 
 const scheduler = new ToadScheduler();
@@ -70,7 +73,7 @@ export const tenbytenAutoSend = () => {
 
       // 신규 주문 확인
       const newOrder = await instance.get('/tenbyten/orders', config);
-      console.log('텐바이텐 신규 주문 내역', newOrder.data);
+      console.log(`텐바이텐 신규 주문 내역 ${newOrder.data.length}건`);
 
       // 배송 준비 중 주문 확인
       const { data } = await instance.get('/tenbyten/orders/ready', config);
@@ -179,7 +182,7 @@ export const naverAutoSend = () => {
       // 신규 주문 확인
       const { data } = await instance.get('/naver/orders/new');
       const newOrder = data;
-      console.log('네이버 신규 주문', newOrder);
+      console.log(`네이버 신규 주문 ${newOrder.length}건`);
 
       // 신규 주문 있으면 주문 상세내역 조회 후 메일 발송
       if (newOrder.length) {
