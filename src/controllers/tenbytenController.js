@@ -128,7 +128,7 @@ export const dispatchOrder = async (req, res) => {
       requireMemo: details.requireMemo,
       ordererPhone: details.ordererPhone,
       ordererEmail: details.ordererEmail,
-      orderDate: new Date(details.orderDate),
+      orderDate: details.orderDate,
       price: details.price,
     });
 
