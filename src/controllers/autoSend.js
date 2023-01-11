@@ -2,7 +2,6 @@ import chalk from 'chalk';
 import dotenv from 'dotenv';
 import axios from 'axios';
 import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
-import { getToday, getThreedaysAgo } from './../utils/getDays';
 
 dotenv.config();
 
@@ -63,11 +62,16 @@ export const tenbytenAutoSend = () => {
     'tenbyten order',
     async () => {
       const token = `bearer ${process.env.TT_APIKEY}`;
+
+      let today = new Date();
+      let threedaysAgo = new Date();
+      threedaysAgo.setDate(threedaysAgo.getDate() - 3);
+
       const config = {
         params: {
           brandId: process.env.TT_ID,
-          startdate: getThreedaysAgo(),
-          enddate: getToday(),
+          startdate: new Date(threedaysAgo + 'GMT+9'),
+          enddate: new Date(today + 'GMT+9'),
         },
         headers: {
           Authorization: token,
@@ -78,68 +82,68 @@ export const tenbytenAutoSend = () => {
       await instance.get('/tenbyten/orders', config);
 
       // 배송 준비 중 주문 확인
-      const response = await instance.get('/tenbyten/orders/ready', config);
-      const readyOrder = response.data;
-      console.log(response, response);
-      console.log(`텐바이텐 배송 준비 중 주문 <${readyOrder.length}>건`),
-        console.log('텐바이텐 배송 준비 중 주문 내역', readyOrder);
+      const { data } = await instance.get('/tenbyten/orders/ready', config);
+      const readyOrder = data;
+      readyOrder &&
+        (console.log(`텐바이텐 배송 준비 중 주문 <${readyOrder.length}>건`),
+        console.log('텐바이텐 배송 준비 중 주문 내역', readyOrder));
 
       // 배송 준비 중 주문이 있으면 메일 발송
-      // if (readyOrder.length) {
-      //   readyOrder.map(async item => {
-      //     const email = getEmail(item.itemRequireMemo, item.ordererEmail);
-      //     // 메일 발송
-      //     const { status } = await sendMail(
-      //       '텐바이텐/영로그',
-      //       [
-      //         {
-      //           itemId: item.itemId,
-      //           itemOption: item.itemOption,
-      //         },
-      //       ],
-      //       email
-      //     );
-      //     console.log('orderDate', item.orderDate);
-      //     console.log('newDate orderDate', new Date(item.orderDate));
-      //     // 메일 발송 성공하면 송장 등록
-      //     if (status == 200) {
-      //       // 발송 등록 정보
-      //       const dispatchData = {
-      //         orderSerial: item.orderSerial,
-      //         detailIdx: item.detailIdx,
-      //         details: {
-      //           ordererId: item.ordererId,
-      //           detailIdx: item.detailIdx,
-      //           ordererName: item.ordererName,
-      //           toEmail: email,
-      //           itemId: item.itemId,
-      //           itemOption: item.itemOption,
-      //           requireMemo: item.itemRequireMemo,
-      //           ordererPhone: item.ordererCellPhone,
-      //           ordererEmail: item.ordererEmail,
-      //           orderDate: item.orderDate,
-      //           price: item.price,
-      //         },
-      //       };
-      //       // 송장 등록
-      //       const { data } = await instance.post(
-      //         '/tenbyten/orders/orderconfirm',
-      //         dispatchData,
-      //         {
-      //           headers: {
-      //             Authorization: token,
-      //           },
-      //         }
-      //       );
-      //       sendResultLog(
-      //         '#ffdd61',
-      //         '텐바이텐',
-      //         dispatchData.details.ordererName,
-      //         data.code
-      //       );
-      //     }
-      //   });
-      // }
+      if (readyOrder.length) {
+        readyOrder.map(async item => {
+          const email = getEmail(item.itemRequireMemo, item.ordererEmail);
+          // 메일 발송
+          const { status } = await sendMail(
+            '텐바이텐/영로그',
+            [
+              {
+                itemId: item.itemId,
+                itemOption: item.itemOption,
+              },
+            ],
+            email
+          );
+          console.log('orderDate', item.orderDate);
+          console.log('newDate orderDate', new Date(item.orderDate));
+          // 메일 발송 성공하면 송장 등록
+          if (status == 200) {
+            // 발송 등록 정보
+            const dispatchData = {
+              orderSerial: item.orderSerial,
+              detailIdx: item.detailIdx,
+              details: {
+                ordererId: item.ordererId,
+                detailIdx: item.detailIdx,
+                ordererName: item.ordererName,
+                toEmail: email,
+                itemId: item.itemId,
+                itemOption: item.itemOption,
+                requireMemo: item.itemRequireMemo,
+                ordererPhone: item.ordererCellPhone,
+                ordererEmail: item.ordererEmail,
+                orderDate: item.orderDate,
+                price: item.price,
+              },
+            };
+            // 송장 등록
+            const { data } = await instance.post(
+              '/tenbyten/orders/orderconfirm',
+              dispatchData,
+              {
+                headers: {
+                  Authorization: token,
+                },
+              }
+            );
+            sendResultLog(
+              '#ffdd61',
+              '텐바이텐',
+              dispatchData.details.ordererName,
+              data.code
+            );
+          }
+        });
+      }
     },
     err => {
       console.error(err);
