@@ -75,12 +75,12 @@ export const tenbytenAutoSend = () => {
       };
 
       // 신규 주문 확인
-      const newOrder = await instance.get('/tenbyten/orders', config);
-      console.log(`텐바이텐 신규 주문 내역 ${newOrder.data.length}건`);
-
+      await instance.get('/tenbyten/orders', config);
+      
       // 배송 준비 중 주문 확인
       const { data } = await instance.get('/tenbyten/orders/ready', config);
       const readyOrder = data;
+      console.log(`텐바이텐 배송 준비 중 주문 ${readyOrder.length}건`);
       console.log('텐바이텐 배송 준비 중 주문 내역', readyOrder);
 
       // 배송 준비 중 주문이 있으면 메일 발송
@@ -143,7 +143,7 @@ export const tenbytenAutoSend = () => {
     }
   );
 
-  const tenbytenJob = new SimpleIntervalJob({ minutes: 5 }, tenbytenTask);
+  const tenbytenJob = new SimpleIntervalJob({ minutes: 10 }, tenbytenTask);
   scheduler.addSimpleIntervalJob(tenbytenJob);
 };
 
@@ -183,11 +183,8 @@ export const naverAutoSend = () => {
     'naver order',
     async () => {
       // 신규 주문 확인
-      const response = await instance.get('/naver/orders/new');
-      const newOrder = response.data;
-      console.log('respose', response.headers);
-      console.log('newOrder', newOrder);
-      console.log('newOrder typeof', typeof newOrder);
+      const { data } = await instance.get('/naver/orders/new');
+      const newOrder = data;
       console.log(`네이버 신규 주문 ${newOrder.length}건`);
 
       // 신규 주문 있으면 주문 상세내역 조회 후 메일 발송
@@ -249,6 +246,6 @@ export const naverAutoSend = () => {
     }
   );
 
-  const naverJob = new SimpleIntervalJob({ minutes: 1 }, naverTask);
+  const naverJob = new SimpleIntervalJob({ minutes: 10 }, naverTask);
   scheduler.addSimpleIntervalJob(naverJob);
 };
