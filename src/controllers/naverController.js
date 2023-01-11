@@ -149,6 +149,7 @@ export const getOrderDetail = async (req, res) => {
         shippingMemo: item.productOrder.shippingMemo,
       };
     });
+
     res.status(200).json(orderDetail);
   } catch (error) {
     console.log(error);

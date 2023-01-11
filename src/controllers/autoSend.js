@@ -192,12 +192,9 @@ export const naverAutoSend = () => {
         let orderList = await instance.get('/naver/detail', {
           params: { productOrderId: productOrderIds },
         });
-        typeof orderList.data;
-        orderList.headers['content-type'];
-        typeof orderList.data;
         orderList = orderList.data;
         console.log('상품 주문 상새내역 조회 리스트', orderList);
-
+        console.log(typeof orderList.data);
         if (orderList.length) {
           // 주문번호별 주문 리스트 생성
           const uniOrderList = createOrderListByOrderId(orderList);
