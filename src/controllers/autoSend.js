@@ -78,10 +78,11 @@ export const tenbytenAutoSend = () => {
       await instance.get('/tenbyten/orders', config);
 
       // 배송 준비 중 주문 확인
-      const { data } = await instance.get('/tenbyten/orders/ready', config);
-      const readyOrder = data;
-        (console.log(`텐바이텐 배송 준비 중 주문 <${readyOrder.length}>건`),
-        console.log('텐바이텐 배송 준비 중 주문 내역', readyOrder));
+      const response = await instance.get('/tenbyten/orders/ready', config);
+      const readyOrder = response.data;
+      console.log(response, response);
+      console.log(`텐바이텐 배송 준비 중 주문 <${readyOrder.length}>건`),
+        console.log('텐바이텐 배송 준비 중 주문 내역', readyOrder);
 
       // 배송 준비 중 주문이 있으면 메일 발송
       // if (readyOrder.length) {
