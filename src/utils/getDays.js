@@ -30,4 +30,3 @@ const getSixdaysAgo = () => {
 };
 
 export { getToday, getThreedaysAgo, getSixdaysAgo };
-

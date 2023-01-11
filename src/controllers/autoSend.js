@@ -80,8 +80,9 @@ export const tenbytenAutoSend = () => {
       // 배송 준비 중 주문 확인
       const { data } = await instance.get('/tenbyten/orders/ready', config);
       const readyOrder = data;
-      console.log(`텐바이텐 배송 준비 중 주문 <${readyOrder.length}>건`),
-        console.log('텐바이텐 배송 준비 중 주문 내역', readyOrder);
+      readyOrder &&
+        (console.log(`텐바이텐 배송 준비 중 주문 <${readyOrder.length}>건`),
+        console.log('텐바이텐 배송 준비 중 주문 내역', readyOrder));
 
       // 배송 준비 중 주문이 있으면 메일 발송
       if (readyOrder.length) {
@@ -98,8 +99,7 @@ export const tenbytenAutoSend = () => {
             ],
             email
           );
-          console.log('orderDate', item.orderDate);
-          console.log('newDate orderDate', new Date(item.orderDate));
+
           // 메일 발송 성공하면 송장 등록
           if (status == 200) {
             // 발송 등록 정보
@@ -145,7 +145,7 @@ export const tenbytenAutoSend = () => {
     }
   );
 
-  const tenbytenJob = new SimpleIntervalJob({ seconds: 10 }, tenbytenTask);
+  const tenbytenJob = new SimpleIntervalJob({ minutes: 10 }, tenbytenTask);
   scheduler.addSimpleIntervalJob(tenbytenJob);
 };
 
