@@ -76,7 +76,7 @@ export const sendMail = async (req, res) => {
 
   mailTransporter.sendMail(details, (err, info) => {
     if (err) {
-      console.log('메일 전송을 실패하였습니다.', err);
+      console.error('메일 전송을 실패하였습니다.', err);
       res.status(400).send('메일 전송을 실패하였습니다.');
     } else {
       console.log(`메일을 성공적으로 보냈습니다. ${info.accepted}`);
