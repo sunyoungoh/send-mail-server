@@ -78,12 +78,13 @@ export const sendMail = async (req, res) => {
       console.log('메일 전송을 실패하였습니다.', err);
       res.status(400).send('메일 전송을 실패하였습니다.');
     } else {
-      console.log('메일을 성공적으로 보냈습니다.', info.response);
-      res.status(200).json({
-        from: details.from,
-        to: details.to,
+      let result = {
+        envelope: info.envelope,
+        result: info,
         message: '메일을 성공적으로 보냈습니다.',
-      });
+      };
+      console.log('메일을 성공적으로 보냈습니다.', result);
+      res.status(200).json(result);
       transporter.close();
     }
   });

@@ -82,24 +82,23 @@ export const tenbytenAutoSend = () => {
       const readyOrder = data;
 
       readyOrder.length &&
-        (console.log(`==== 텐바이텐 배송 준비 중 주문 <${readyOrder.length}>건 ====`),
+        (console.log(
+          `==== 텐바이텐 배송 준비 중 주문 <${readyOrder.length}>건 ====`
+        ),
         console.log('텐바이텐 배송 준비 중 주문 내역', readyOrder));
 
       // 배송 준비 중 주문이 있으면 메일 발송
       if (readyOrder.length) {
         readyOrder.map(async item => {
           const email = getEmail(item.itemRequireMemo, item.ordererEmail);
+          const itemInfo = [
+            {
+              itemId: item.itemId,
+              itemOption: item.itemOption,
+            },
+          ];
           // 메일 발송
-          const { status } = await sendMail(
-            '텐바이텐/영로그',
-            [
-              {
-                itemId: item.itemId,
-                itemOption: item.itemOption,
-              },
-            ],
-            email
-          );
+          const { status } = await sendMail('텐바이텐/영로그', itemInfo, email);
 
           // 메일 발송 성공하면 송장 등록
           if (status == 200) {
@@ -188,7 +187,8 @@ export const naverAutoSend = () => {
       // 신규 주문 확인
       const { data } = await instance.get('/naver/orders/new');
       const newOrder = data;
-      newOrder.length && console.log(`==== 네이버 신규 주문 <${newOrder.length}>건 ====`);
+      newOrder.length &&
+        console.log(`==== 네이버 신규 주문 <${newOrder.length}>건 ====`);
 
       // 신규 주문 있으면 주문 상세내역 조회 후 메일 발송
       if (newOrder.length) {
