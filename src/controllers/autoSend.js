@@ -80,9 +80,9 @@ export const tenbytenAutoSend = () => {
       // 배송 준비 중 주문 확인
       const { data } = await instance.get('/tenbyten/orders/ready', config);
       const readyOrder = data;
-      console.log(data);
+
       readyOrder.length &&
-        (console.log(`텐바이텐 배송 준비 중 주문 <${readyOrder.length}>건`),
+        (console.log(`==== 텐바이텐 배송 준비 중 주문 <${readyOrder.length}>건 ====`),
         console.log('텐바이텐 배송 준비 중 주문 내역', readyOrder));
 
       // 배송 준비 중 주문이 있으면 메일 발송
@@ -188,7 +188,7 @@ export const naverAutoSend = () => {
       // 신규 주문 확인
       const { data } = await instance.get('/naver/orders/new');
       const newOrder = data;
-      newOrder.length && console.log(`네이버 신규 주문 <${newOrder.length}>건`);
+      newOrder.length && console.log(`==== 네이버 신규 주문 <${newOrder.length}>건 ====`);
 
       // 신규 주문 있으면 주문 상세내역 조회 후 메일 발송
       if (newOrder.length) {
