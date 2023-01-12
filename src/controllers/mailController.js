@@ -52,7 +52,7 @@ const getOrderList = items => {
 };
 
 export const sendMail = async (req, res) => {
-  const { store, items, toEmail, comment } = req.body;
+  const { store, items, toEmail, comment, autoSend } = req.body;
   const orderList = getOrderList(items);
 
   let mailTransporter = nodemailer.createTransport({
@@ -68,6 +68,7 @@ export const sendMail = async (req, res) => {
   let details = {
     from: `영로그 ${process.env.NODEMAILER_USER}`,
     to: toEmail,
+    bcc: autoSend ? process.env.NODEMAILER_USER : '',
     subject: `[${store}] ${orderList.title.join(' / ')} 속지 보내드립니다 ✨`,
     html: mailText(orderList.list, comment),
     attachments: orderList.files,
@@ -80,7 +81,7 @@ export const sendMail = async (req, res) => {
     } else {
       let result = {
         envelope: info.envelope,
-        result: info,
+        result: info.response,
         message: '메일을 성공적으로 보냈습니다.',
       };
       console.log('메일을 성공적으로 보냈습니다.', result);

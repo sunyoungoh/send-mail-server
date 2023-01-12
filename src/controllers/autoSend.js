@@ -33,8 +33,8 @@ const getEmail = (shippingMemo, ordererEmail) => {
  * @param {string} toEmail - 빋는 사람
  */
 const sendMail = async (store, items, toEmail) => {
-  const mailData = { store: store, items: items, toEmail: toEmail };
-  const res = await instance.post('mail', mailData);
+  const mailData = { store: store, items: items, toEmail: toEmail, auto: true };
+  const res = await instance.post('/mail', mailData);
   return res;
 };
 
