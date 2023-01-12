@@ -80,8 +80,7 @@ export const sendMail = async (req, res) => {
       res.status(400).send('메일 전송을 실패하였습니다.');
     } else {
       let result = {
-        envelope: info.envelope,
-        result: info.response,
+        result: info,
         message: '메일을 성공적으로 보냈습니다.',
       };
       console.log('메일을 성공적으로 보냈습니다.', result);
