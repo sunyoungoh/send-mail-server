@@ -68,7 +68,7 @@ export const sendMail = async (req, res) => {
   let details = {
     from: `영로그 ${process.env.NODEMAILER_USER}`,
     to: toEmail,
-    bcc: autoSend ? process.env.NODEMAILER_USER : '',
+    bcc: autoSend ? process.env.NODEMAILER_USER : '', // 자동발송이면 숨은참조
     subject: `[${store}] ${orderList.title.join(' / ')} 속지 보내드립니다 ✨`,
     html: mailText(orderList.list, comment),
     attachments: orderList.files,

@@ -33,7 +33,7 @@ const getEmail = (shippingMemo, ordererEmail) => {
  * @param {string} toEmail - 빋는 사람
  */
 const sendMail = async (store, items, toEmail) => {
-  const mailData = { store: store, items: items, toEmail: toEmail, auto: true };
+  const mailData = { store: store, items: items, toEmail: toEmail, autoSend: true };
   const res = await instance.post('/mail', mailData);
   return res;
 };
@@ -180,6 +180,9 @@ const createOrderListByOrderId = orderList => {
   return uniOrderList;
 };
 
+/**
+ * 네이버 주문 자동 확인 발송
+ */
 export const naverAutoSend = () => {
   const naverTask = new AsyncTask(
     'naver order',
