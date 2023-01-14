@@ -95,6 +95,11 @@ export const getFileName = (itemId, itemOption) => {
     fileName = `180_CheckerBoard_Notepad.zip`;
   }
 
+  if (itemId == 7917862453) {
+    itemName = '교환일기';
+    fileName = `Sharing_Journal.zip`;
+  }
+
   if (itemId == 5033562 || itemId == 6339448390) {
     let itemOptionYears = itemOption.slice(0, 1);
     itemName = itemOptionYears == 3 ? '3년 다이어리' : '5년 다이어리';
