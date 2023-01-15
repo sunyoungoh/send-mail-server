@@ -14,6 +14,8 @@ const getFileOption = itemOption => {
   fileOption = fileOption.replace('타임테이블', 'TimeTable');
   fileOption = fileOption.replace('월요일시작', 'Mon');
   fileOption = fileOption.replace('일요일시작', 'Sun');
+  fileOption = fileOption.replace('교환일기', 'Sharing_Journal');
+  fileOption = fileOption.replace('네컷프레임스티커', '4Cut_Frame_Sticker');
   return fileOption;
 };
 
@@ -96,15 +98,19 @@ export const getFileName = (itemId, itemOption) => {
   }
 
   if (itemId == 7917862453) {
-    itemName = '교환일기';
-    fileName = `Sharing_Journal.zip`;
+    itemName = itemOption; // 교환일기 or 교환일기+네컷프레임스티커
+    fileName = `${fileOption}.zip`;
+  }
+
+  if (itemId == 7923245834) {
+    itemName = '네컷 프레임 스티커';
+    fileName = `4Cut_Frame_Sticker.zip`;
   }
 
   if (itemId == 5033562 || itemId == 6339448390) {
     let itemOptionYears = itemOption.slice(0, 1);
     itemName = itemOptionYears == 3 ? '3년 다이어리' : '5년 다이어리';
-    itemOption = itemOption.split(',')[1];
-    fileOption = fileOption.split(',')[1];
+    fileOption = fileOption.split(',')[1]; // 컬러옵션만
     fileName = `${itemOptionYears}_Years_Diary(${fileOption}).zip`;
   }
 

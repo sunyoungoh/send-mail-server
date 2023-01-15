@@ -26,7 +26,7 @@ export const mailText = (orderList, comment) => {
     <p>안녕하세요, 영로그입니다! ✨</p>
     <p>주문해주셔서 감사합니다 🙏🏻💖</p>
     <br />
-    <p><b>${orderList} </b>속지를 보내드립니다.</p>
+    <p><b>${orderList} </b>파일를 보내드립니다.</p>
     <br />
     ${comment}
     <p>

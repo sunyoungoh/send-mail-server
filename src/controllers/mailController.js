@@ -7,9 +7,13 @@ const getItemInfo = (itemId, itemOption) => {
   let itemInfo = {};
 
   // 메일 제목에 들어갈 상품 이름
-  if (!itemOption) {
+  if (!itemOption || itemId == 7917862453) {
     itemInfo.itemName = itemName;
   } else {
+    // 3,5년 다이어리 컬러 옵션만 메일에 표기
+    if (itemId == 5033562 || itemId == 6339448390) {
+      itemOption = itemOption.split(',')[1];
+    }
     itemInfo.itemOption = itemOption.replaceAll(/,/g, ', ');
     itemInfo.itemName =
       itemInfo.itemOption.indexOf(',') == -1
@@ -69,7 +73,7 @@ export const sendMail = async (req, res) => {
     from: `영로그 ${process.env.NODEMAILER_USER}`,
     to: toEmail,
     bcc: autoSend ? process.env.NODEMAILER_USER : '', // 자동발송이면 숨은참조
-    subject: `[${store}] ${orderList.title.join(' / ')} 속지 보내드립니다 ✨`,
+    subject: `[${store}] ${orderList.title.join(' / ')} 파일을 보내드립니다 ✨`,
     html: mailText(orderList.list, comment),
     attachments: orderList.files,
   };
@@ -79,7 +83,11 @@ export const sendMail = async (req, res) => {
       console.error('메일 전송을 실패하였습니다.', err);
       res.status(400).send('메일 전송을 실패하였습니다.');
     } else {
-      console.log(`메일을 성공적으로 보냈습니다. ${info.accepted}`);
+      console.log(
+        `${new Date().toLocaleTimeString(
+          'ko-kr'
+        )} | 메일을 성공적으로 보냈습니다. ${info.accepted}`
+      );
       let result = {
         result: info,
         message: '메일을 성공적으로 보냈습니다.',
