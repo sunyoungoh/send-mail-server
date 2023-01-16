@@ -97,12 +97,12 @@ export const getFileName = (itemId, itemOption) => {
     fileName = `180_CheckerBoard_Notepad.zip`;
   }
 
-  if (itemId == 7917862453) {
+  if (itemId == 5161944 || itemId == 7917862453) {
     itemName = itemOption; // 교환일기 or 교환일기+네컷프레임스티커
     fileName = `${fileOption}.zip`;
   }
 
-  if (itemId == 7923245834) {
+  if (itemId == 5161943 || itemId == 7923245834) {
     itemName = '네컷 프레임 스티커';
     fileName = `4Cut_Frame_Sticker.zip`;
   }
