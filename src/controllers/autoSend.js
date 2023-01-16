@@ -19,7 +19,7 @@ const scheduler = new ToadScheduler();
  * 배송메모에서 이메일 있으면 이메일 반환 / 없으면 주문자 이메일 반환
  * @param {string} shippingMemo - 배송메모
  * @param {string} ordererEmail - 주문자 이메일
- * @returns
+ * @returns {string} email
  */
 const getEmail = (shippingMemo, ordererEmail) => {
   const reg = /\S+@+\S+\.+[a-zA-Z]{2,3}/;
@@ -33,7 +33,12 @@ const getEmail = (shippingMemo, ordererEmail) => {
  * @param {string} toEmail - 빋는 사람
  */
 const sendMail = async (store, items, toEmail) => {
-  const mailData = { store: store, items: items, toEmail: toEmail, autoSend: true };
+  const mailData = {
+    store: store,
+    items: items,
+    toEmail: toEmail,
+    autoSend: true,
+  };
   const res = await instance.post('/mail', mailData);
   return res;
 };
