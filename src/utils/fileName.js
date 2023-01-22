@@ -1,4 +1,9 @@
-const getFileOption = itemOption => {
+/**
+ * 파일옵션 한글 -> 영어 변환
+ * @param {string} itemOption - 상품옵션
+ * @returns 
+ */
+const getFileOptionEng = itemOption => {
   let fileOption = itemOption;
   fileOption = fileOption.replace('화이트', 'White');
   fileOption = fileOption.replace('다크', 'Dark');
@@ -22,7 +27,7 @@ const getFileOption = itemOption => {
 export const getFileName = (itemId, itemOption) => {
   let itemName = '';
   let fileName = '';
-  let fileOption = itemOption ? getFileOption(itemOption) : '';
+  let fileOption = itemOption ? getFileOptionEng(itemOption) : '';
 
   if (itemId == 5033569 || itemId == 6175018692) {
     itemName = '2023 심플 플래너';
@@ -99,7 +104,7 @@ export const getFileName = (itemId, itemOption) => {
 
   if (itemId == 5161944 || itemId == 7917862453) {
     itemName = itemOption; // 교환일기 or 교환일기+네컷프레임스티커
-    fileName = `${fileOption}.zip`;
+    fileName = `${fileOption}.zip`; 
   }
 
   if (itemId == 5161943 || itemId == 7923245834) {
