@@ -1,0 +1,61 @@
+name: Deploy to cloudtype
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Connect deploy key
+        uses: cloudtype-github-actions/connect@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          ghtoken: ${{ secrets.GHP_TOKEN }}
+      - name: Deploy
+        uses: cloudtype-github-actions/deploy@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          project: sunyoungoh/send-mail-server
+          stage: main
+          yaml: >
+            name: send-mail-server
+
+            app: node@18
+
+            options:
+              env:
+                - name: NODE_ENV
+                  value: production
+                - name: NODEMAILER_USER
+                  secret: CLIENT_ID
+                - name: NODEMAILER_PASS
+                  secret: CLIENT_SECRET
+                - name: PORT
+                  value: "3000"
+                - name: DB
+                  secret: DB
+                - name: CLIENT_ID
+                  secret: CLIENT_ID
+                - name: CLIENT_SECRET
+                  secret: CLIENT_SECRET
+                - name: COMMERCE_ID
+                  secret: COMMERCE_ID
+                - name: COMMERCE_PW
+                  secret: COMMERCE_PW
+                - name: TT_ID
+                  value: younglog10
+                - name: TT_API
+                  secret: TT_API
+                - name: BASE_URL
+                  value: https://port-0-send-mail-server-sop272gldencvsf.gksl2.cloudtype.app
+              ports: 3000
+              strategy: rolling
+              start: npm start
+              build: npm run build
+            context:
+              git:
+                url: git@github.com:${{ github.repository }}.git
+                ref: ${{ github.ref }}
