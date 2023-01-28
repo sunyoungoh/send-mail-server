@@ -1,0 +1,61 @@
+name: Deploy to cloudtype
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Connect deploy key
+        uses: cloudtype-github-actions/connect@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          ghtoken: ${{ secrets.GHP_TOKEN }}
+      - name: Deploy
+        uses: cloudtype-github-actions/deploy@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          project: sunyoungoh/send-mail-server
+          stage: main
+          yaml: >
+            name: send-mail-server
+
+            app: node@18
+
+            options:
+              env:
+                - name: NODE_ENV
+                  value: production
+                - name: NODEMAILER_USER
+                  value: younglog_official@naver.com
+                - name: NODEMAILER_PASS
+                  value: peng1216^^
+                - name: PORT
+                  value: "3000"
+                - name: DB
+                  value: mongodb+srv://admin:10x10pw@cluster0.3ddijmp.mongodb.net/TenbytenAdmin?retryWrites=true&w=majority
+                - name: CLIENT_ID
+                  value: 265AlIbBFPb04HZnBxyehx
+                - name: CLIENT_SECRET
+                  value: $2a$04$WevwjQLe/B.TVfPkG//yyO
+                - name: COMMERCE_ID
+                  value: younglog_official@naver.com
+                - name: COMMERCE_PW
+                  value: peng1216^^
+                - name: TT_ID
+                  value: younglog10
+                - name: TT_API
+                  value: 092913D8A70B5289F6E2EFFF0EAA5A22D5CC7EC4859D1142887D163B41D9F878
+                - name: BASE_URL
+                  value: https://port-0-send-mail-server-sop272gldencvsf.gksl2.cloudtype.app
+              ports: 3000
+              strategy: rolling
+              start: npm start
+              build: npm run build
+            context:
+              git:
+                url: git@github.com:${{ github.repository }}.git
+                ref: ${{ github.ref }}
