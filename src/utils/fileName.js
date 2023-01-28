@@ -1,7 +1,7 @@
 /**
  * 파일옵션 한글 -> 영어 변환
  * @param {string} itemOption - 상품옵션
- * @returns 
+ * @returns
  */
 const getFileOptionEng = itemOption => {
   let fileOption = itemOption;
@@ -50,10 +50,15 @@ export const getFileName = (itemId, itemOption) => {
   }
 
   if (itemId == 5033565 || itemId == 6183672844) {
-    itemName = '31DAYS 플래너';
-    fileName = `31DAYS_Planner(${fileOption}).zip`;
+    itemName = '세로형 31DAYS 플래너';
+    fileName = `31DAYS_Planner(Vertical,${fileOption}).zip`;
   }
 
+  if (itemId == 7988182711) {
+    itemName = '가로형 31DAYS 플래너';
+    fileName = `31DAYS_Planner(Horizontal,${fileOption}).zip`;
+  }
+  // 7988182711;
   if (itemId == 5068583 || itemId == 7674508068) {
     itemName = '레시피북';
     fileName = `Recipe_Book(${fileOption}).zip`;
@@ -104,7 +109,7 @@ export const getFileName = (itemId, itemOption) => {
 
   if (itemId == 5161944 || itemId == 7917862453) {
     itemName = itemOption; // 교환일기 or 교환일기+네컷프레임스티커
-    fileName = `${fileOption}.zip`; 
+    fileName = `${fileOption}.zip`;
   }
 
   if (itemId == 5161943 || itemId == 7923245834) {
