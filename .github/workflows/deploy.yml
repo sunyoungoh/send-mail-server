@@ -30,9 +30,9 @@ jobs:
                 - name: NODE_ENV
                   value: production
                 - name: NODEMAILER_USER
-                  secret: CLIENT_ID
+                  secret: NODEMAILER_USER
                 - name: NODEMAILER_PASS
-                  secret: CLIENT_SECRET
+                  secret: NODEMAILER_PASS
                 - name: PORT
                   value: "3000"
                 - name: DB
