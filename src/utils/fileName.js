@@ -58,7 +58,7 @@ export const getFileName = (itemId, itemOption) => {
     itemName = '가로형 31DAYS 플래너';
     fileName = `31DAYS_Planner(Horizontal,${fileOption}).zip`;
   }
-  
+
   if (itemId == 5068583 || itemId == 7674508068) {
     itemName = '레시피북';
     fileName = `Recipe_Book(${fileOption}).zip`;
@@ -108,8 +108,16 @@ export const getFileName = (itemId, itemOption) => {
   }
 
   if (itemId == 5161944 || itemId == 7917862453) {
-    itemName = itemOption; // 교환일기 or 교환일기+네컷프레임스티커
-    fileName = `${fileOption}.zip`;
+    let personOption = fileOption.split(',')[0];
+    let stickerOption = itemOption.includes('네컷프레임스티커')
+      ? '+4Cut_Frame_Sticker'
+      : '';
+    if (personOption == '1인') {
+      fileName = `Sharing_Journal(For1)${stickerOption}.zip`;
+    } else {
+      fileName = `Sharing_Journal(For2-4)${stickerOption}.zip`;
+    }
+    itemName = itemOption.split(',').join(' ');
   }
 
   if (itemId == 5161943 || itemId == 7923245834) {
