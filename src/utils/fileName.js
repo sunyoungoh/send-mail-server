@@ -58,7 +58,7 @@ export const getFileName = (itemId, itemOption) => {
     itemName = '가로형 31DAYS 플래너';
     fileName = `31DAYS_Planner(Horizontal,${fileOption}).zip`;
   }
-  // 7988182711;
+  
   if (itemId == 5068583 || itemId == 7674508068) {
     itemName = '레시피북';
     fileName = `Recipe_Book(${fileOption}).zip`;
