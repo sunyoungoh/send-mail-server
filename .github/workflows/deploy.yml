@@ -2,7 +2,7 @@ name: Deploy to cloudtype
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -18,7 +18,7 @@ jobs:
         uses: cloudtype-github-actions/deploy@v1
         with:
           token: ${{ secrets.CLOUDTYPE_TOKEN }}
-          project: sunyoungoh/send-mail-server
+          project: sunyoungoh/younglog-admin
           stage: main
           yaml: >
             name: send-mail-server
