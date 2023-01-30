@@ -12,7 +12,7 @@ const fetchClientData = async (req, res) => {
   // 전자서명 발급
   const clientId = process.env.CLIENT_ID;
   const clientSecret = process.env.CLIENT_SECRET;
-  const timestamp = new Date().getTime();
+  const timestamp = new Date().getTime() - 1000;
   const password = `${clientId}_${timestamp}`;
   const hashed = bcrypt.hashSync(password, clientSecret);
   const clientSecretSign = Buffer.from(hashed, 'utf-8').toString('base64');
