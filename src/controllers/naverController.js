@@ -34,11 +34,13 @@ const createToken = async (req, res) => {
       clientData,
       { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
     );
+
     return `Bearer ${data.access_token}`;
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data);
   }
 };
+
 // 신규 주문 조회
 export const getNewOrders = async (req, res) => {
   const token = await createToken();

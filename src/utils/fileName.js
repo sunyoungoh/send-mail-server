@@ -19,8 +19,6 @@ const getFileOptionEng = itemOption => {
   fileOption = fileOption.replace('타임테이블', 'TimeTable');
   fileOption = fileOption.replace('월요일시작', 'Mon');
   fileOption = fileOption.replace('일요일시작', 'Sun');
-  fileOption = fileOption.replace('교환일기', 'Sharing_Journal');
-  fileOption = fileOption.replace('네컷프레임스티커', '4Cut_Frame_Sticker');
   return fileOption;
 };
 
@@ -54,7 +52,7 @@ export const getFileName = (itemId, itemOption) => {
     fileName = `31DAYS_Planner(Vertical,${fileOption}).zip`;
   }
 
-  if (itemId == 7988182711) {
+  if (itemId == 5183538 || itemId == 7988182711) {
     itemName = '가로형 31DAYS 플래너';
     fileName = `31DAYS_Planner(Horizontal,${fileOption}).zip`;
   }
