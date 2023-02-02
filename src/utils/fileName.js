@@ -48,8 +48,11 @@ export const getFileName = (itemId, itemOption) => {
   }
 
   if (itemId == 5033565 || itemId == 6183672844) {
+    let version = fileOption.split(',')[0] == '버전1' ? 'V1' : 'V2';
+    let color = fileOption.split(',')[1];
+    let dailyType = fileOption.split(',')[2];
     itemName = '세로형 31DAYS 플래너';
-    fileName = `31DAYS_Planner(Vertical,${fileOption}).zip`;
+    fileName = `[${version}]31DAYS_Planner(Vertical,${color},${dailyType}).zip`;
   }
 
   if (itemId == 5183538 || itemId == 7988182711) {
