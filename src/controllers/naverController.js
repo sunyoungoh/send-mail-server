@@ -37,7 +37,7 @@ const createToken = async (req, res) => {
 
     return `Bearer ${data.access_token}`;
   } catch (error) {
-    console.log(error.response.data);
+    console.log(error);
   }
 };
 
