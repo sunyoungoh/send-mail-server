@@ -18,7 +18,7 @@ jobs:
         uses: cloudtype-github-actions/deploy@v1
         with:
           token: ${{ secrets.CLOUDTYPE_TOKEN }}
-          project: sunyoungoh/younglog-admin
+          project: sunyoungoh/send-mail-server
           stage: main
           yaml: >
             name: send-mail-server
