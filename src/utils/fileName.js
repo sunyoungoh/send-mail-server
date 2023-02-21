@@ -126,11 +126,11 @@ export const getFileName = (itemId, itemOption) => {
     fileName = `4Cut_Frame_Sticker.zip`;
   }
 
-  if (itemId == 8097265225) {
+  if (itemId == 5234189 || itemId == 8097265225) {
     itemName = '디데이,타임스탬프 스티커';
     fileName = `D-DAY,TIME_Sticker.zip`;
   }
-  
+
   if (itemId == 5033562 || itemId == 6339448390) {
     let itemOptionYears = itemOption.slice(0, 1);
     itemName = itemOptionYears == 3 ? '3년 다이어리' : '5년 다이어리';
