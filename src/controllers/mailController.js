@@ -15,10 +15,10 @@ const getItemInfo = (itemId, itemOption) => {
       itemOption = itemOption.split(',')[1];
     }
     itemInfo.itemOption = itemOption.replaceAll(/,/g, ', ');
-    itemInfo.itemName =
-      itemInfo.itemOption.indexOf(',') == -1
-        ? `${itemName} ${itemInfo.itemOption}`
-        : `${itemName} (${itemInfo.itemOption})`;
+    itemInfo.itemName = `${itemName} (${itemInfo.itemOption})`;
+    // itemInfo.itemOption.indexOf(',') == -1
+    // ? `${itemName} ${itemInfo.itemOption}`
+    // : `${itemName} (${itemInfo.itemOption})`;
   }
   // 첨부 파일 정보
   itemInfo.attachments = {

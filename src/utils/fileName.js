@@ -19,6 +19,7 @@ const getFileOptionEng = itemOption => {
   fileOption = fileOption.replace('타임테이블', 'TimeTable');
   fileOption = fileOption.replace('월요일시작', 'Mon');
   fileOption = fileOption.replace('일요일시작', 'Sun');
+  fileOption = fileOption.replace('식단일기', 'Wellness');
   return fileOption;
 };
 
@@ -39,7 +40,11 @@ export const getFileName = (itemId, itemOption) => {
 
   if (itemId == 5033567 || itemId == 7551229680) {
     itemName = '2023 타임라인 플래너';
-    fileName = `2023_Timeline_Planner(${fileOption}).zip`;
+    if (fileOption == 'Wellness') {
+      fileName = `2023_Wellness_Planner.zip`;
+    } else {
+      fileName = `2023_Timeline_Planner(${fileOption}).zip`;
+    }
   }
 
   if (itemId == 5033566 || itemId == 6230373650) {
