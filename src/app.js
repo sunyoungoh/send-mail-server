@@ -45,8 +45,8 @@ app.get('/', (req, res) => {
   res.send('send-mail-server 입니다!');
 });
 
-// 텐바이텐, 네이버 주문 자동 확인 및 발송
-tenbytenAutoSend();
+  // 텐바이텐, 네이버 주문 자동 확인 및 발송
+  tenbytenAutoSend();
 naverAutoSend();
 
 // Server start
