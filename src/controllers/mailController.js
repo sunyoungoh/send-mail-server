@@ -6,20 +6,17 @@ const getItemInfo = (itemId, itemOption) => {
   const { itemName, fileName } = getFileName(itemId, itemOption);
   let itemInfo = {};
 
-  // 메일 제목에 들어갈 상품 이름
-  if (!itemOption || itemId == 7917862453) {
+  // 옵션이 없거나 교환일기 경우 메일 제목
+  if (!itemOption || itemId == 5161944 || itemId == 7917862453) {
     itemInfo.itemName = itemName;
   } else {
-    // 3,5년 다이어리 & 영화, 드라마 노트 컬러 옵션만 메일에 표기
+    // 3,5년 다이어리 & 영화, 드라마 노트 컬러 옵션만 메일 제목 표기
     let arr = [5033562, 6339448390, 5033558, 7118280906];
     if (arr.find(e => e == itemId)) {
       itemOption = itemOption.split(',')[1];
     }
     itemInfo.itemOption = itemOption.replaceAll(/,/g, ', ');
     itemInfo.itemName = `${itemName} (${itemInfo.itemOption})`;
-    // itemInfo.itemOption.indexOf(',') == -1
-    // ? `${itemName} ${itemInfo.itemOption}`
-    // : `${itemName} (${itemInfo.itemOption})`;
   }
   // 첨부 파일 정보
   itemInfo.attachments = {
