@@ -10,8 +10,9 @@ const getItemInfo = (itemId, itemOption) => {
   if (!itemOption || itemId == 7917862453) {
     itemInfo.itemName = itemName;
   } else {
-    // 3,5년 다이어리 컬러 옵션만 메일에 표기
-    if (itemId == 5033562 || itemId == 6339448390) {
+    // 3,5년 다이어리 & 영화, 드라마 노트 컬러 옵션만 메일에 표기
+    let arr = [5033562, 6339448390, 5033558, 7118280906];
+    if (arr.find(e => e == itemId)) {
       itemOption = itemOption.split(',')[1];
     }
     itemInfo.itemOption = itemOption.replaceAll(/,/g, ', ');

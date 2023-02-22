@@ -20,6 +20,8 @@ const getFileOptionEng = itemOption => {
   fileOption = fileOption.replace('월요일시작', 'Mon');
   fileOption = fileOption.replace('일요일시작', 'Sun');
   fileOption = fileOption.replace('식단일기', 'Wellness');
+  fileOption = fileOption.replace('드라마', 'Drama');
+  fileOption = fileOption.replace('영화', 'Movie');
   return fileOption;
 };
 
@@ -94,8 +96,10 @@ export const getFileName = (itemId, itemOption) => {
   }
 
   if (itemId == 5033558 || itemId == 7118280906) {
-    itemName = '드라마노트';
-    fileName = `Drama_Journal(${fileOption}).zip`;
+    let type = fileOption.split(',')[0];
+    let color = fileOption.split(',')[1];
+    itemName = type == 'Movie' ? '영화노트' : '드라마노트';
+    fileName = `${type}_Journal(${color}).zip`;
   }
 
   if (itemId == 5033557 || itemId == 6390846551) {
@@ -137,10 +141,10 @@ export const getFileName = (itemId, itemOption) => {
   }
 
   if (itemId == 5033562 || itemId == 6339448390) {
-    let itemOptionYears = itemOption.slice(0, 1);
-    itemName = itemOptionYears == 3 ? '3년 다이어리' : '5년 다이어리';
-    fileOption = fileOption.split(',')[1]; // 컬러옵션만
-    fileName = `${itemOptionYears}_Years_Diary(${fileOption}).zip`;
+    let years = itemOption.slice(0, 1);
+    let color = fileOption.split(',')[1];
+    itemName = years == 3 ? '3년 다이어리' : '5년 다이어리';
+    fileName = `${years}_Years_Diary(${color}).zip`;
   }
 
   return { itemName: itemName, fileName: fileName };
