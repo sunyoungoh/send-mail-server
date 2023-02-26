@@ -7,6 +7,7 @@ const getFileOptionEng = itemOption => {
   let fileOption = itemOption;
   fileOption = fileOption.replace('화이트', 'White');
   fileOption = fileOption.replace('다크', 'Dark');
+  fileOption = fileOption.replace('블랙', 'Black');
   fileOption = fileOption.replace('그레이', 'Grey');
   fileOption = fileOption.replace('라이트', 'Light');
   fileOption = fileOption.replace('인디핑크', 'IndiePink');
