@@ -97,7 +97,7 @@ export const getFileName = (itemId, itemOption) => {
     fileName = `Reading_Journal(${fileOption}).zip`;
   }
 
-  if ( itemId == 8152103143) {
+  if (itemId == 5261964 || itemId == 8152103143) {
     itemName = '강의노트';
     fileName = `Lecture_Notes(${fileOption}).zip`;
   }
