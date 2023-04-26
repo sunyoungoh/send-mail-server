@@ -153,7 +153,7 @@ export const getFileName = (itemId, itemOption) => {
     itemName = years == 3 ? '3년 다이어리' : '5년 다이어리';
     fileName = `${years}_Years_Diary(${color}).zip`;
   }
-  if ( itemId == 8457559941) {
+  if (itemId == 5413246 || itemId == 8457559941) {
     itemName = '5분 저널';
     fileName = `5_Minute_Journal.zip`;
   }
