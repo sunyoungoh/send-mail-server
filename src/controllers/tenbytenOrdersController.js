@@ -52,6 +52,9 @@ const orderListBydetailIdx = orderList => {
   return newList;
 };
 
+/**
+ * 신규 주문 조회
+ * */
 export const getNewOrders = async (req, res) => {
   const { brandId, startdate, enddate } = req.query;
   const { authorization } = req.headers;
@@ -74,6 +77,9 @@ export const getNewOrders = async (req, res) => {
   }
 };
 
+/**
+ * 배송 준비 중 주문
+ * */
 export const getReadyOrder = async (req, res) => {
   const { brandId, startdate, enddate } = req.query;
   const { authorization } = req.headers;
@@ -97,6 +103,9 @@ export const getReadyOrder = async (req, res) => {
   }
 };
 
+/**
+ * 발송하기 + 운송장 등록
+ * */
 export const dispatchOrder = async (req, res) => {
   const { orderSerial, detailIdx, details } = req.body;
   const { authorization } = req.headers;
@@ -145,6 +154,9 @@ export const dispatchOrder = async (req, res) => {
   }
 };
 
+/**
+ * 발송 완료 주문 리스트
+ * */
 export const getDispatchOrderHistory = async (req, res) => {
   try {
     const orders = await Order.find().sort({
@@ -158,6 +170,9 @@ export const getDispatchOrderHistory = async (req, res) => {
   }
 };
 
+/**
+ * 고객 문의 조회
+ * */
 export const getQna = async (req, res) => {
   const { brandId, startdate, enddate } = req.query;
   const { authorization } = req.headers;
@@ -178,6 +193,9 @@ export const getQna = async (req, res) => {
   }
 };
 
+/**
+ * 고객 문의 답변하기
+ * */
 export const anwserQna = async (req, res) => {
   const body = req.body;
   const { authorization } = req.headers;
@@ -193,3 +211,4 @@ export const anwserQna = async (req, res) => {
     res.status(400).json(error);
   }
 };
+

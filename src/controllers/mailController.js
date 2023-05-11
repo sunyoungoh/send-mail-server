@@ -6,7 +6,7 @@ const getItemInfo = (itemId, itemOption) => {
   const { itemName, fileName } = getFileName(itemId, itemOption);
   let itemInfo = {};
 
-  // 옵션이 없거나 교환일기 경우 메일 제목
+  // 옵션이 없거나 교환일기 경우 메일 제목 (itemId 적힌 건 교환일기)
   if (!itemOption || itemId == 5161944 || itemId == 7917862453) {
     itemInfo.itemName = itemName;
   } else {

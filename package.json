@@ -28,7 +28,8 @@
     "nodemon": "^2.0.20",
     "puppeteer": "^16.2.0",
     "toad-scheduler": "^2.2.0",
-    "user-agents": "^1.0.1249"
+    "user-agents": "^1.0.1249",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.19.3",

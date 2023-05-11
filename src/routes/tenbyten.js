@@ -1,14 +1,18 @@
 import { Router } from 'express';
-import * as tenbytenController from '../controllers/tenbytenController';
+import * as tenbytenOrdersController from '../controllers/tenbytenOrdersController';
+import * as tenbytenItemsController from '../controllers/tenbytenItemsController';
 
 const router = Router();
 
-router.get('/brandinfo', tenbytenController.getBrandInfo);
-router.get('/orders', tenbytenController.getNewOrders);
-router.get('/orders/ready', tenbytenController.getReadyOrder);
-router.get('/orders/orderconfirm', tenbytenController.getDispatchOrderHistory);
-router.post('/orders/orderconfirm', tenbytenController.dispatchOrder);
-router.get('/qna', tenbytenController.getQna);
-router.post('/qna', tenbytenController.anwserQna);
+router.get('/brandinfo', tenbytenOrdersController.getBrandInfo);
+router.get('/orders', tenbytenOrdersController.getNewOrders);
+router.get('/orders/ready', tenbytenOrdersController.getReadyOrder);
+router.get('/orders/orderconfirm', tenbytenOrdersController.getDispatchOrderHistory);
+router.post('/orders/orderconfirm', tenbytenOrdersController.dispatchOrder);
+router.get('/qna', tenbytenOrdersController.getQna);
+router.post('/qna', tenbytenOrdersController.anwserQna);
+router.get('/items', tenbytenItemsController.getItems);
+router.get('/items/:itemId', tenbytenItemsController.getItem);
+router.put('/item', tenbytenItemsController.editItem);
 
 export default router;
