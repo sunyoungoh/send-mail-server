@@ -9,7 +9,7 @@ const instance = axios.create({
  * 등록된 전체 상품 조회
  * */
 export const getItems = async (req, res) => {
-  const { brandId } = req.query;
+  const { brandId, count } = req.query;
   const { authorization } = req.headers;
 
   try {
@@ -18,7 +18,7 @@ export const getItems = async (req, res) => {
         Authorization: authorization,
       },
       params: {
-        pageNumber: 1,
+        pageNumber: count,
         brandId,
       },
     });
@@ -71,6 +71,6 @@ export const editItem = async (req, res) => {
     res.status(200).json(data);
   } catch (error) {
     console.log(error.response.data);
-    res.status(400).json({ message: error.response.data.message});
+    res.status(400).json({ message: error.response.data.message });
   }
 };
