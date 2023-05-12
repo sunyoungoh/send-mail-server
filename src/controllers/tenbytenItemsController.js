@@ -53,7 +53,7 @@ export const getItem = async (req, res) => {
 export const editItem = async (req, res) => {
   const { itemId, content } = req.body;
   const { authorization } = req.headers;
-  
+
   try {
     const { data } = await instance.put(
       '/items',
@@ -70,6 +70,7 @@ export const editItem = async (req, res) => {
     );
     res.status(200).json(data);
   } catch (error) {
-    res.status(400).json(error);
+    console.log(error.response.data);
+    res.status(400).json({ message: error.response.data.message});
   }
 };
