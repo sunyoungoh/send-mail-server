@@ -22,7 +22,7 @@ export const getItems = async (req, res) => {
         brandId,
       },
     });
-    res.status(200).json(data);
+    res.status(200).json(data.outPutValue.items);
   } catch (error) {
     res.status(400).json(error);
   }
