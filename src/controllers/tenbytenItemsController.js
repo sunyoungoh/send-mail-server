@@ -59,7 +59,7 @@ export const editItem = async (req, res) => {
       '/items',
       {
         itemID: itemId,
-        ContentType: 'HTML',
+        ContentType: 'HTML+TEXT',
         Content: content,
       },
       {

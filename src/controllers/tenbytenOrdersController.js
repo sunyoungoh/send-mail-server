@@ -15,6 +15,7 @@ export const getBrandInfo = async (req, res) => {
     });
     res.status(200).json(data.outPutValue[0]);
   } catch (error) {
+    console.log(error.response.data);
     res.status(400).json(error);
   }
 };
