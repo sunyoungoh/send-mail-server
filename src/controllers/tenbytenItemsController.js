@@ -74,3 +74,32 @@ export const editItem = async (req, res) => {
     res.status(400).json({ message: error.response.data.message });
   }
 };
+
+/**
+ * 상품 판매상태 업데이트
+ * */
+export const updateItemStatus = async (req, res) => {
+  const { itemId, brandId, sellYN } = req.body;
+  const { authorization } = req.headers;
+
+  try {
+    const { data } = await instance.put(
+      '/items/salestatus',
+      {
+        itemId: itemId,
+        brandId: brandId,
+        sellYN: sellYN,
+      },
+      {
+        headers: {
+          Authorization: authorization,
+        },
+      }
+    );
+    console.log(data);
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error.response.data);
+    res.status(400).json({ message: error.response.data.message });
+  }
+};
