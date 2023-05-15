@@ -13,6 +13,6 @@ router.get('/qna', tenbytenOrdersController.getQna);
 router.post('/qna', tenbytenOrdersController.anwserQna);
 router.get('/items', tenbytenItemsController.getItems);
 router.get('/items/:itemId', tenbytenItemsController.getItem);
-router.put('/item', tenbytenItemsController.editItem);
+router.put('/item', tenbytenItemsController.updateItemInfo);
 router.put('/item/status', tenbytenItemsController.updateItemStatus);
 export default router;

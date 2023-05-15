@@ -50,8 +50,8 @@ export const getItem = async (req, res) => {
 /**
  * 상품 수정
  * */
-export const editItem = async (req, res) => {
-  const { itemId, content } = req.body;
+export const updateItemInfo = async (req, res) => {
+  const { itemId, content, division, productionDay, size, sizeUnit } = req.body;
   const { authorization } = req.headers;
 
   try {
@@ -61,6 +61,10 @@ export const editItem = async (req, res) => {
         itemID: itemId,
         ContentType: 'HTML+TEXT',
         Content: content,
+        Division: division,
+        ProductionDay: productionDay,
+        Size: size,
+        SizeUnit: sizeUnit,
       },
       {
         headers: {
@@ -96,7 +100,6 @@ export const updateItemStatus = async (req, res) => {
         },
       }
     );
-    console.log(data);
     res.status(200).json(data);
   } catch (error) {
     console.log(error.response.data);
