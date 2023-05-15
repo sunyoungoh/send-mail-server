@@ -51,7 +51,8 @@ export const getItem = async (req, res) => {
  * 상품 수정
  * */
 export const updateItemInfo = async (req, res) => {
-  const { itemId, content, division, productionDay, size, sizeUnit } = req.body;
+  const { itemId, content, division, productionDay, size, sizeUnit, material } =
+    req.body;
   const { authorization } = req.headers;
 
   try {
@@ -65,6 +66,7 @@ export const updateItemInfo = async (req, res) => {
         ProductionDay: productionDay,
         Size: size,
         SizeUnit: sizeUnit,
+        Material: material,
       },
       {
         headers: {
