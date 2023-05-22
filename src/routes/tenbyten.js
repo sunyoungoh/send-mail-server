@@ -15,4 +15,5 @@ router.get('/items', tenbytenItemsController.getItems);
 router.get('/items/:itemId', tenbytenItemsController.getItem);
 router.put('/item', tenbytenItemsController.updateItemInfo);
 router.put('/item/status', tenbytenItemsController.updateItemStatus);
+router.put('/item/images', tenbytenItemsController.updateItemImages);
 export default router;

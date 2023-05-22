@@ -108,3 +108,32 @@ export const updateItemStatus = async (req, res) => {
     res.status(400).json({ message: error.response.data.message });
   }
 };
+
+/**
+ * 상품 상세 이미지 업데이트
+ * */
+export const updateItemImages = async (req, res) => {
+  const { itemId, colorCode, images } = req.body;
+  const { authorization } = req.headers;
+console.log(images);
+  try {
+    const { data } = await instance.put(
+      '/items/images',
+      {
+        itemid: itemId,
+        colorCode: colorCode,
+        ...images,
+      },
+      {
+        headers: {
+          Authorization: authorization,
+        },
+      }
+    );
+    console.log(data);
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error.response.data);
+    res.status(400).json({ message: error.response.data.message });
+  }
+};
