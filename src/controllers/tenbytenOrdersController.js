@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Order from '../models/OrderModel.js';
+import chalk from 'chalk';
 
 const instance = axios.create({
   baseURL: 'https://api.10x10.co.kr/v2',
@@ -13,6 +14,13 @@ export const getBrandInfo = async (req, res) => {
         Authorization: authorization,
       },
     });
+    console.log(
+      `${chalk.white
+        .bgHex('#4cabea ')
+        .bold(
+          `로그인 시도 : ${data.outPutValue[0].BrandNameKor}(${data.outPutValue[0].brandid})`
+        )}`
+    );
     res.status(200).json(data.outPutValue[0]);
   } catch (error) {
     console.log(error.response.data);
@@ -212,4 +220,3 @@ export const anwserQna = async (req, res) => {
     res.status(400).json(error);
   }
 };
-
