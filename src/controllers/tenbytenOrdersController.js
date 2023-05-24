@@ -37,6 +37,7 @@ const orderListBydetailIdx = orderList => {
           itemOption = itemOption.substring(0, endIndex - 1);
         }
       }
+
       newList.push({
         orderSerial: item.OrderSerial,
         detailIdx: detail.DetailIdx,
@@ -46,7 +47,10 @@ const orderListBydetailIdx = orderList => {
         ordererCellPhone: item.ordererCellPhone,
         ordererEmail: item.ordererEmail,
         itemId: detail.itemId,
-        itemOption: itemOption,
+        itemName: detail.itemName,
+        itemOptionCode: detail.itemOption, // 옵션 코드
+        itemOptionOrigin: detail.itemOptionName, // 옵션 내용 원본
+        itemOption: itemOption, // 옵션 내용 한글 이메일 삭제
         itemRequireMemo: detail.RequireMemo.trim(),
         price: detail.NotCouponPrice,
       });
@@ -209,6 +213,35 @@ export const anwserQna = async (req, res) => {
         Authorization: authorization,
       },
     });
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+/**
+ * MYTT용 송장등록
+ * */
+export const onlyDispatchOrder = async (req, res) => {
+  const { orderSerial, detailIdx } = req.body;
+  const { authorization } = req.headers;
+
+  try {
+    const { data } = await instance.post(
+      '/orders/orderconfirm',
+      {
+        orderSerial: orderSerial,
+        detailIdx: detailIdx,
+        songjangDiv: '97', // 문자/이메일 발송 코드
+        songjangNo: '0',
+      },
+      {
+        headers: {
+          Authorization: authorization,
+        },
+      }
+    );
+    console.log('송장 등록 결과', data.code);
     res.status(200).json(data);
   } catch (error) {
     res.status(400).json(error);
