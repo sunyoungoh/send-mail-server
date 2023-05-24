@@ -139,7 +139,7 @@ export const sendMailForEveryone = async (req, res) => {
   let details = {
     from: `${brandName} ${userEmail}`,
     to: toEmail,
-    bcc: userEmail, //숨은참조
+    // bcc: userEmail, //숨은참조
     subject: title,
     text: content,
     attachments: attachFile,
