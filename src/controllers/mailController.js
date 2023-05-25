@@ -103,9 +103,6 @@ export const sendMail = async (req, res) => {
  * 다른 사용자도 사용할 수 있는 일반적인 메일 발송
  */
 export const sendMailForEveryone = async (req, res) => {
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_KEY;
-  const supabase = createClient(supabaseUrl, supabaseKey);
 
   const {
     brandName,
