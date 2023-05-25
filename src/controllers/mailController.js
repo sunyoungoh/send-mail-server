@@ -2,6 +2,7 @@ import nodemailer from 'nodemailer';
 import { mailText } from '../mailTemplate.js';
 import { getFileName } from '../utils/fileName.js';
 import { createClient } from '@supabase/supabase-js';
+import CryptoJS from 'crypto-js';
 
 const getItemInfo = (itemId, itemOption) => {
   const { itemName, fileName } = getFileName(itemId, itemOption);
@@ -117,13 +118,25 @@ export const sendMailForEveryone = async (req, res) => {
     password,
   } = req.body;
 
+  const decryptdePass = CryptoJS.AES.decrypt(
+    password,
+    CryptoJS.enc.Utf8.parse(process.env.AES_SECRETKEY),
+    {
+      iv: CryptoJS.enc.Utf8.parse(process.env.AES_IV), // [Enter IV (Optional) 지정 방식]
+      padding: CryptoJS.pad.Pkcs7,
+      mode: CryptoJS.mode.CBC, // [cbc 모드 선택]
+    }
+  );
+
+  const userPass = decryptdePass.toString(CryptoJS.enc.Utf8);
+
   let mailTransporter = nodemailer.createTransport({
     service: 'naver',
     host: 'smtp.naver.com',
     port: 587,
     auth: {
       user: userEmail,
-      pass: password,
+      pass: userPass,
     },
   });
 
