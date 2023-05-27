@@ -50,6 +50,7 @@ console.log(
     `${chalk.white
       .bgHex('#f6c5f2')
       .bold(`======== 자동발송 시작! ========`)
+);
 tenbytenAutoSend();
 naverAutoSend();
 
