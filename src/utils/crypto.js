@@ -1,9 +1,9 @@
 import CryptoJS from 'crypto-js';
 
 // 비밀번호 암호화
-export const getEncodeKey = password => {
+export const getEncodeKey = key => {
   const encryptCipher = CryptoJS.AES.encrypt(
-    password,
+    key,
     CryptoJS.enc.Utf8.parse(process.env.AES_SECRETKEY),
     {
       iv: CryptoJS.enc.Utf8.parse(process.env.AES_IV),
@@ -14,9 +14,9 @@ export const getEncodeKey = password => {
   return encryptCipher.toString();
 };
 
-export const getDecodeKey = encryptPassword => {
+export const getDecodeKey = encryptKey => {
   const decryptChipher = CryptoJS.AES.decrypt(
-    encryptPassword,
+    encryptKey,
     CryptoJS.enc.Utf8.parse(process.env.AES_SECRETKEY),
     {
       iv: CryptoJS.enc.Utf8.parse(process.env.AES_IV),
