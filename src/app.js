@@ -50,17 +50,15 @@ app.listen(port, () =>
   console.log(
     `${chalk.white
       .bgHex('#a383e9')
-      .bold(`SEND-MAIL-SERVER IS RUNNING ON http://localhost:${port}`)}`
+      .bold(`SEND-MAIL-SERVER IS RUNNING ON ${process.env.BASE_URL}:${port}`)}`
   )
 );
 
 // 텐바이텐, 네이버 주문 자동 확인 및 발송
-console.log(
-    `${chalk.white
-      .bgHex('#f6c5f2')
-      .bold(`======== 자동발송 시작! ========`)}`
-);
-tenbytenAutoSend();
-naverAutoSend();
-
-
+setTimeout(() => {
+  console.log(
+    `${chalk.white.bgHex('#ff9fd3').bold(`======== 자동발송 시작! ========`)}`
+  );
+  tenbytenAutoSend();
+  naverAutoSend();
+}, 3000);
