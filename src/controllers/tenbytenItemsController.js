@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Order from '../models/OrderModel.js';
+import { getDecodeKey } from '../utils/crypto.js';
 
 const instance = axios.create({
   baseURL: 'https://api.10x10.co.kr/v1',
@@ -11,11 +11,10 @@ const instance = axios.create({
 export const getItems = async (req, res) => {
   const { brandId, count } = req.query;
   const { authorization } = req.headers;
-
   try {
     const { data } = await instance.get('/items', {
       headers: {
-        Authorization: authorization,
+        Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
       params: {
         pageNumber: count,
@@ -24,6 +23,7 @@ export const getItems = async (req, res) => {
     });
     res.status(200).json(data.outPutValue.items);
   } catch (error) {
+    // console.log(error);
     res.status(400).json(error);
   }
 };
@@ -38,7 +38,7 @@ export const getItem = async (req, res) => {
   try {
     const { data } = await instance.get(`/items/${itemId}`, {
       headers: {
-        Authorization: authorization,
+        Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
     });
     res.status(200).json(data);
@@ -70,7 +70,7 @@ export const updateItemInfo = async (req, res) => {
       },
       {
         headers: {
-          Authorization: authorization,
+          Authorization: `bearer ${getDecodeKey(authorization)}`,
         },
       }
     );
@@ -98,7 +98,7 @@ export const updateItemStatus = async (req, res) => {
       },
       {
         headers: {
-          Authorization: authorization,
+          Authorization: `bearer ${getDecodeKey(authorization)}`,
         },
       }
     );
@@ -126,7 +126,7 @@ export const updateItemImages = async (req, res) => {
       },
       {
         headers: {
-          Authorization: authorization,
+          Authorization: `bearer ${getDecodeKey(authorization)}`,
         },
       }
     );
@@ -148,7 +148,7 @@ export const getWaitItems = async (req, res) => {
   try {
     const { data } = await instance.get('/waitItems', {
       headers: {
-        Authorization: authorization,
+        Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
       params: {
         stateCode: 1,
@@ -172,7 +172,7 @@ export const getWaitItem = async (req, res) => {
   try {
     const { data } = await instance.get(`/waitItems/${waitId}`, {
       headers: {
-        Authorization: authorization,
+        Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
     });
     res.status(200).json(data);
@@ -189,9 +189,9 @@ export const updateWaitItem = async (req, res) => {
   const { authorization } = req.headers;
 
   try {
-    const { data } = await instance.put('/waitItems',updateData, {
+    const { data } = await instance.put('/waitItems', updateData, {
       headers: {
-        Authorization: authorization,
+        Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
     });
     res.status(200).json(data);
@@ -200,4 +200,3 @@ export const updateWaitItem = async (req, res) => {
     res.status(400).json({ message: error.response.data.message });
   }
 };
-

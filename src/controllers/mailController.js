@@ -1,8 +1,7 @@
 import nodemailer from 'nodemailer';
 import { mailText } from '../mailTemplate.js';
 import { getFileName } from '../utils/fileName.js';
-import { createClient } from '@supabase/supabase-js';
-import CryptoJS from 'crypto-js';
+import { getDecodeKey } from '../utils/crypto.js';
 
 const getItemInfo = (itemId, itemOption) => {
   const { itemName, fileName } = getFileName(itemId, itemOption);
@@ -103,7 +102,6 @@ export const sendMail = async (req, res) => {
  * 다른 사용자도 사용할 수 있는 일반적인 메일 발송
  */
 export const sendMailForEveryone = async (req, res) => {
-
   const {
     brandName,
     toEmail,
@@ -115,17 +113,7 @@ export const sendMailForEveryone = async (req, res) => {
     password,
   } = req.body;
 
-  const decryptdePass = CryptoJS.AES.decrypt(
-    password,
-    CryptoJS.enc.Utf8.parse(process.env.AES_SECRETKEY),
-    {
-      iv: CryptoJS.enc.Utf8.parse(process.env.AES_IV), // [Enter IV (Optional) 지정 방식]
-      padding: CryptoJS.pad.Pkcs7,
-      mode: CryptoJS.mode.CBC, // [cbc 모드 선택]
-    }
-  );
-
-  const userPass = decryptdePass.toString(CryptoJS.enc.Utf8);
+  const userPass = getDecodeKey(password);
 
   let mailTransporter = nodemailer.createTransport({
     service: 'naver',

@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import axios from 'axios';
 import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
 import { getToday, getThreedaysAgo } from './../utils/getDays';
+import { getEncodeKey } from '../utils/crypto.js';
 
 dotenv.config();
 
@@ -67,7 +68,7 @@ export const tenbytenAutoSend = () => {
   const tenbytenTask = new AsyncTask(
     'tenbyten order',
     async () => {
-      const token = `bearer ${process.env.TT_APIKEY}`;
+      const encodeKey = getEncodeKey(process.env.TT_APIKEY);
       const config = {
         params: {
           brandId: process.env.TT_ID,
@@ -75,7 +76,7 @@ export const tenbytenAutoSend = () => {
           enddate: getToday(),
         },
         headers: {
-          Authorization: token,
+          Authorization: encodeKey,
         },
       };
 

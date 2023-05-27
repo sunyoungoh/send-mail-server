@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Order from '../models/OrderModel.js';
+import { getDecodeKey } from '../utils/crypto.js';
 
 const instance = axios.create({
   baseURL: 'https://api.10x10.co.kr/v2',
@@ -11,9 +12,10 @@ export const getBrandInfo = async (req, res) => {
   try {
     const { data } = await instance.get('/products/brandinfo', {
       headers: {
-        Authorization: authorization,
+        Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
     });
+
     console.log('텐바이텐 브랜드 정보 가져오기 성공', data.outPutValue[0]);
     res.status(200).json(data.outPutValue[0]);
   } catch (error) {
@@ -69,7 +71,7 @@ export const getNewOrders = async (req, res) => {
   try {
     const { data } = await instance.get('/orders', {
       headers: {
-        Authorization: authorization,
+        Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
       params: {
         brandId,
@@ -94,7 +96,7 @@ export const getReadyOrder = async (req, res) => {
   try {
     const { data } = await instance.get('/orders/orderhistory', {
       headers: {
-        Authorization: authorization,
+        Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
       params: {
         brandId,
@@ -128,7 +130,7 @@ export const dispatchOrder = async (req, res) => {
       },
       {
         headers: {
-          Authorization: authorization,
+          Authorization: `bearer ${getDecodeKey(authorization)}`,
         },
       }
     );
@@ -186,7 +188,7 @@ export const getQna = async (req, res) => {
   try {
     const { data } = await instance.get('/qna/myqna', {
       headers: {
-        Authorization: authorization,
+        Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
       params: {
         brandId,
@@ -210,7 +212,7 @@ export const anwserQna = async (req, res) => {
   try {
     const { data } = await instance.post('/qna/myqna', body, {
       headers: {
-        Authorization: authorization,
+        Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
     });
     res.status(200).json(data);
@@ -237,7 +239,7 @@ export const onlyDispatchOrder = async (req, res) => {
       },
       {
         headers: {
-          Authorization: authorization,
+          Authorization: `bearer ${getDecodeKey(authorization)}`,
         },
       }
     );
