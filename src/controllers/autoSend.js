@@ -166,10 +166,12 @@ const createOrderListByOrderId = orderList => {
     obj[order.orderId].push(order);
     return obj;
   }, {});
+  
   // 배열로 변환
   var groupedArr = Object.keys(groupedObj).map(function (key) {
     return { orderId: key, orderInfo: groupedObj[key] };
   });
+
   // 주문번호로 묶은 orderList 생성
   const uniOrderList = groupedArr.map(order => {
     let items = [];

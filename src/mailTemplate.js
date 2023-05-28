@@ -11,8 +11,12 @@ export const mailText = (orderList, comment) => {
         ? '따뜻한 연말 되세요! 🎅🏻🎄'
         : '새해에도 행복한 일만 가득하세요! 😊';
   } else {
-    const monthWord = todayMonth == 1 ? '새해' : `${todayMonth}월`;
-    greeting = `${monthWord}에도 행복한 일만 가득하세요! 😊`;
+    // const monthWord = todayMonth == 1 ? '새해' : `${todayMonth}월`;
+    // greeting = `${monthWord}에도 행복한 일만 가득하세요! 😊`;
+    greeting =
+      todayMonth == 1
+        ? '새해에도 행복한 일만 가득하세요! 😊'
+        : '늘 행복한 일만 가득하세요! 😊';
   }
 
   return `

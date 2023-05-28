@@ -8,7 +8,7 @@ const instance = axios.create({
 
 export const getBrandInfo = async (req, res) => {
   const { authorization } = req.headers;
-
+  
   try {
     const { data } = await instance.get('/products/brandinfo', {
       headers: {
@@ -185,6 +185,7 @@ export const getDispatchOrderHistory = async (req, res) => {
 export const getQna = async (req, res) => {
   const { brandId, startdate, enddate } = req.query;
   const { authorization } = req.headers;
+  
   try {
     const { data } = await instance.get('/qna/myqna', {
       headers: {
