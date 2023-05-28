@@ -132,7 +132,7 @@ export const tenbytenAutoSend = () => {
               dispatchData,
               {
                 headers: {
-                  Authorization: token,
+                  Authorization: encodeKey,
                 },
               }
             );
