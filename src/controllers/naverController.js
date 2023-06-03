@@ -207,8 +207,10 @@ export const getOrdererNaverId = async (req, res) => {
     ],
   });
 
+  console.time('크롤링 시간');
+
   const page = await browser.newPage();
-  page.setUserAgent(UserAgent.toString());
+  await page.setUserAgent(UserAgent.toString());
 
   const commerce_id = process.env.COMMERCE_ID;
   const commerce_pw = process.env.COMMERCE_PW;
@@ -239,8 +241,11 @@ export const getOrdererNaverId = async (req, res) => {
   const $ = cheerio.load(content);
   const lists = $('td._2mspXbAQGz');
   const id = $(lists[1]).text();
-  console.log('id', id);
-  await browser.close();
+  console.log('주문자 아이디:', id);
+
+  // 브라우저 닫기
+  // await browser.close();
+  console.timeEnd('크롤링 시간');
 
   if (id) {
     res.status(200).json({ ordererId: id });

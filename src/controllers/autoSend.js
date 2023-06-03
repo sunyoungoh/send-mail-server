@@ -166,7 +166,7 @@ const createOrderListByOrderId = orderList => {
     obj[order.orderId].push(order);
     return obj;
   }, {});
-  
+
   // 배열로 변환
   var groupedArr = Object.keys(groupedObj).map(function (key) {
     return { orderId: key, orderInfo: groupedObj[key] };
@@ -205,6 +205,7 @@ export const naverAutoSend = () => {
       if (newOrder.length) {
         // 상품 주문번호 맵 생성
         const productOrderIds = newOrder.map(item => item.productOrderId);
+
         // 상품 주문 상세내역 조회
         let orderList = await instance.get('/naver/detail', {
           params: { productOrderId: productOrderIds },
@@ -216,7 +217,18 @@ export const naverAutoSend = () => {
           // 주문번호별 주문 리스트 생성
           const uniOrderList = createOrderListByOrderId(orderList);
           uniOrderList.map(async item => {
-            const email = getEmail(item.shippingMemo, '');
+            // 주문메모에서 이메일 양식만 가져오기
+            let email = getEmail(item.shippingMemo, '');
+            //  개발 모드일 땐 아이디 크롤링하여 배송
+            // if (process.env.NODE_ENV == 'development') {
+            if (email == '') {
+              const { data } = await instance.get(
+                `/naver/orderer/${item.items[0].productOrderId}`
+              );
+              // console.log(data);
+              email = `${data.ordererId}@naver.com`;
+            }
+
             // 배송메모에 이메일이 있으면 메일 발송 (없을 경우엔 프론트에서 직접 확인 후 발송)
             if (email) {
               // 메일 발송
@@ -224,13 +236,14 @@ export const naverAutoSend = () => {
               // 메일 발송 성공하면 송장 등록
               if (status == 200) {
                 let dispatchResult = '';
+                // 상품이 하나일 때
                 if (item.items.length == 1) {
                   let { status } = await instance.post(
                     `/naver/dispatch/${item.items[0].productOrderId}`
                   );
                   dispatchResult = status == 200 ? 'success' : 'error';
                 } else {
-                  // 상품이 여러개일때
+                  // 상품이 여러개일 때
                   let dispatchResults = await Promise.all(
                     item.items.map(async item => {
                       let { status } = await instance.post(
@@ -260,6 +273,6 @@ export const naverAutoSend = () => {
     }
   );
 
-  const naverJob = new SimpleIntervalJob({ minutes: 10 }, naverTask);
+  const naverJob = new SimpleIntervalJob({ minutes: 1 }, naverTask);
   scheduler.addSimpleIntervalJob(naverJob);
 };
