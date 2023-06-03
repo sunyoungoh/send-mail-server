@@ -57,8 +57,14 @@ app.listen(port, () =>
 // 텐바이텐, 네이버 주문 자동 확인 및 발송
 setTimeout(() => {
   console.log(
-    `${chalk.white.bgHex('#ff9fd3').bold(`======== 자동발송 시작! ========`)}`
+    `${chalk.white
+      .bgHex('#ff9fd3')
+      .bold(
+        `${new Date().toLocaleTimeString(
+          'ko-kr'
+        )} | =========== 자동발송 시작! ===========`
+      )}`
   );
   tenbytenAutoSend();
   naverAutoSend();
-}, 3000);
+}, 2000);
