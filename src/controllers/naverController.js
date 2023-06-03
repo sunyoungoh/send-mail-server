@@ -3,9 +3,7 @@ import axios from 'axios';
 import puppeteer from 'puppeteer';
 import cheerio from 'cheerio';
 import UserAgent from 'user-agents';
-import dotenv from 'dotenv';
 
-dotenv.config();
 
 const instance = axios.create({
   baseURL: 'https://api.commerce.naver.com',
@@ -201,17 +199,12 @@ export const getOrdererNaverId = async (req, res) => {
 
   const browser = await puppeteer.launch({
     headless: true,
-    executablePath:
-      process.env.NODE_ENV === 'production'
-        ? process.env.PUPPETEER_EXECUTABLE_PATH
-        : puppeteer.executablePath(),
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
       '--single-process',
       '--use-gl=egl',
-      '--no-zygote'
     ],
   });
 
