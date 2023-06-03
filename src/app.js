@@ -50,7 +50,7 @@ app.listen(port, () =>
   console.log(
     `${chalk.white
       .bgHex('#a383e9')
-      .bold(`SEND-MAIL-SERVER IS RUNNING ON ${process.env.BASE_URL}:${port}`)}`
+      .bold(`SEND-MAIL-SERVER IS RUNNING ON ${process.env.BASE_URL}`)}`
   )
 );
 

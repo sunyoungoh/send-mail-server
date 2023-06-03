@@ -275,6 +275,6 @@ export const naverAutoSend = () => {
     }
   );
 
-  const naverJob = new SimpleIntervalJob({ minutes: 1 }, naverTask);
+  const naverJob = new SimpleIntervalJob({ minutes: 5 }, naverTask);
   scheduler.addSimpleIntervalJob(naverJob);
 };
