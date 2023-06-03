@@ -198,7 +198,6 @@ export const getOrdererNaverId = async (req, res) => {
 
   const browser = await puppeteer.launch({
     headless: true,
-    ignoreDefaultArgs: ['--disable-extensions'],
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
@@ -245,7 +244,7 @@ export const getOrdererNaverId = async (req, res) => {
   console.log('주문자 아이디:', id);
 
   // 브라우저 닫기
-  // await browser.close();
+  await browser.close();
   console.timeEnd('크롤링 시간');
 
   if (id) {

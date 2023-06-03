@@ -219,17 +219,19 @@ export const naverAutoSend = () => {
           uniOrderList.map(async item => {
             // 주문메모에서 이메일 양식만 가져오기
             let email = getEmail(item.shippingMemo, '');
-            //  개발 모드일 땐 아이디 크롤링하여 배송
-            // if (process.env.NODE_ENV == 'development') {
-            if (email == '') {
+            //  아이디가 없고 개발모드면 아이디 크롤링하여 이메일 조회
+            if (email == '' && process.env.NODE_ENV == 'development') {
               const { data } = await instance.get(
                 `/naver/orderer/${item.items[0].productOrderId}`
               );
-              // console.log(data);
-              email = `${data.ordererId}@naver.com`;
+              // 주문자 아이디 크롤링 성공 시
+              if (data.ordererId) {
+                email = `${data.ordererId}@naver.com`;
+              }
+              console.log('크롤링한 이메일', email);
             }
 
-            // 배송메모에 이메일이 있으면 메일 발송 (없을 경우엔 프론트에서 직접 확인 후 발송)
+            // 이메일이 있으면 메일 발송 (없을 경우엔 프론트에서 직접 확인 후 발송)
             if (email) {
               // 메일 발송
               const { status } = await sendMail('영로그', item.items, email);
