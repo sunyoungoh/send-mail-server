@@ -221,6 +221,7 @@ export const naverAutoSend = () => {
             let email = getEmail(item.shippingMemo, '');
             //  아이디가 없고 개발모드면 아이디 크롤링하여 이메일 조회
             if (email == '' && process.env.NODE_ENV == 'development') {
+              console.log('배송메모가 없으므로 이메일을 크롤링합니다.');
               const { data } = await instance.get(
                 `/naver/orderer/${item.items[0].productOrderId}`
               );

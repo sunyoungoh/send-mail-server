@@ -124,7 +124,7 @@ export const sendMailForEveryone = async (req, res) => {
       pass: userPass,
     },
   });
-
+  
   // 첨부파일 정보
   const attachFile =
     publicUrl && fileName
@@ -139,7 +139,7 @@ export const sendMailForEveryone = async (req, res) => {
     to: toEmail,
     // bcc: userEmail, //숨은참조
     subject: title,
-    text: content,
+    html: content,
     attachments: attachFile,
   };
 
