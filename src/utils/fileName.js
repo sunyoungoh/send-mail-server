@@ -157,7 +157,7 @@ export const getFileName = (itemId, itemOption) => {
     itemName = '5분 저널';
     fileName = `5_Minute_Journal.zip`;
   }
-  if (itemId == 8802214105) {
+  if (itemId == 5568716 || itemId == 8802214105) {
     itemName = 'TIL 노트';
     fileName = `TIL_Note(${fileOption}).zip`;
   }
