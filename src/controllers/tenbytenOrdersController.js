@@ -34,7 +34,7 @@ const orderListBydetailIdx = orderList => {
       let itemOption = detail.itemOptionName;
       // 이메일 기재옵션 삭제
       if (itemOption !== '') {
-        let endIndex = itemOption.indexOf('꼭');
+        const endIndex = itemOption.indexOf('꼭');
         if (endIndex !== -1) {
           itemOption = itemOption.substring(0, endIndex - 1);
         }

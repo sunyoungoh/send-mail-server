@@ -91,11 +91,7 @@ export const updateItemStatus = async (req, res) => {
   try {
     const { data } = await instance.put(
       '/items/salestatus',
-      {
-        itemId: itemId,
-        brandId: brandId,
-        sellYN: sellYN,
-      },
+      { itemId, brandId, sellYN },
       {
         headers: {
           Authorization: `bearer ${getDecodeKey(authorization)}`,

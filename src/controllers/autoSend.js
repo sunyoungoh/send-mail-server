@@ -161,20 +161,20 @@ export const tenbytenAutoSend = () => {
  */
 const createOrderListByOrderId = orderList => {
   // 주문번호를 키값으로 객체 생성
-  var groupedObj = orderList.reduce((obj, order) => {
+  const groupedObj = orderList.reduce((obj, order) => {
     obj[order.orderId] = obj[order.orderId] || [];
     obj[order.orderId].push(order);
     return obj;
   }, {});
 
   // 배열로 변환
-  var groupedArr = Object.keys(groupedObj).map(function (key) {
+  const groupedArr = Object.keys(groupedObj).map(key => {
     return { orderId: key, orderInfo: groupedObj[key] };
   });
 
   // 주문번호로 묶은 orderList 생성
   const uniOrderList = groupedArr.map(order => {
-    let items = [];
+    const items = [];
     order.orderInfo.map(item => items.push(item.items));
     return {
       orderId: order.orderId,
@@ -196,8 +196,7 @@ export const naverAutoSend = () => {
     'naver order',
     async () => {
       // 신규 주문 확인
-      const { data } = await instance.get('/naver/orders/new');
-      const newOrder = data;
+      const { data: newOrder } = await instance.get('/naver/orders/new');
       newOrder.length &&
         console.log(`==== 네이버 신규 주문 <${newOrder.length}>건 ====`);
 
@@ -207,10 +206,9 @@ export const naverAutoSend = () => {
         const productOrderIds = newOrder.map(item => item.productOrderId);
 
         // 상품 주문 상세내역 조회
-        let orderList = await instance.get('/naver/detail', {
+        const { data: orderList } = await instance.get('/naver/detail', {
           params: { productOrderId: productOrderIds },
         });
-        orderList = orderList.data;
         console.log('상품 주문 상새내역 조회 리스트', orderList);
 
         if (orderList.length) {
@@ -222,12 +220,14 @@ export const naverAutoSend = () => {
             //  아이디가 없고 개발모드면 아이디 크롤링하여 이메일 조회
             if (email == '' && process.env.NODE_ENV == 'development') {
               console.log('배송메모가 없으므로 이메일을 크롤링합니다.');
-              const { data } = await instance.get(
+              const {
+                data: { ordererId },
+              } = await instance.get(
                 `/naver/orderer/${item.items[0].productOrderId}`
               );
               // 주문자 아이디 크롤링 성공 시
-              if (data.ordererId) {
-                email = `${data.ordererId}@naver.com`;
+              if (ordererId) {
+                email = `${ordererId}@naver.com`;
               }
               console.log('크롤링한 이메일', email);
             }
@@ -241,15 +241,15 @@ export const naverAutoSend = () => {
                 let dispatchResult = '';
                 // 상품이 하나일 때
                 if (item.items.length == 1) {
-                  let { status } = await instance.post(
+                  const { status } = await instance.post(
                     `/naver/dispatch/${item.items[0].productOrderId}`
                   );
                   dispatchResult = status == 200 ? 'success' : 'error';
                 } else {
                   // 상품이 여러개일 때
-                  let dispatchResults = await Promise.all(
+                  const dispatchResults = await Promise.all(
                     item.items.map(async item => {
-                      let { status } = await instance.post(
+                      const { status } = await instance.post(
                         `/naver/dispatch/${item.productOrderId}`
                       );
                       return status;
@@ -276,6 +276,6 @@ export const naverAutoSend = () => {
     }
   );
 
-  const naverJob = new SimpleIntervalJob({ minutes: 5 }, naverTask);
+  const naverJob = new SimpleIntervalJob({ minutes: 3 }, naverTask);
   scheduler.addSimpleIntervalJob(naverJob);
 };

@@ -30,7 +30,7 @@ const getFileOptionEng = itemOption => {
 export const getFileName = (itemId, itemOption) => {
   let itemName = '';
   let fileName = '';
-  let fileOption = itemOption ? getFileOptionEng(itemOption) : '';
+  const fileOption = itemOption ? getFileOptionEng(itemOption) : '';
 
   if (itemId == 5033569 || itemId == 6175018692) {
     itemName = '2023 심플 플래너';
@@ -103,8 +103,8 @@ export const getFileName = (itemId, itemOption) => {
   }
 
   if (itemId == 5033558 || itemId == 7118280906) {
-    let type = fileOption.split(',')[0];
-    let color = fileOption.split(',')[1];
+    const type = fileOption.split(',')[0];
+    const color = fileOption.split(',')[1];
     itemName = type == 'Movie' ? '영화노트' : '드라마노트';
     fileName = `${type}_Journal(${color}).zip`;
   }
@@ -125,8 +125,8 @@ export const getFileName = (itemId, itemOption) => {
   }
 
   if (itemId == 5161944 || itemId == 7917862453) {
-    let personOption = fileOption.split(',')[0];
-    let stickerOption = itemOption.includes('네컷프레임스티커')
+    const personOption = fileOption.split(',')[0];
+    const stickerOption = itemOption.includes('네컷프레임스티커')
       ? '+4Cut_Frame_Sticker'
       : '';
     if (personOption == '1인') {
@@ -148,8 +148,8 @@ export const getFileName = (itemId, itemOption) => {
   }
 
   if (itemId == 5033562 || itemId == 6339448390) {
-    let years = itemOption.slice(0, 1);
-    let color = fileOption.split(',')[1];
+    const years = itemOption.slice(0, 1);
+    const color = fileOption.split(',')[1];
     itemName = years == 3 ? '3년 다이어리' : '5년 다이어리';
     fileName = `${years}_Years_Diary(${color}).zip`;
   }

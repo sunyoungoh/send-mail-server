@@ -12,7 +12,7 @@ const getItemInfo = (itemId, itemOption) => {
     itemInfo.itemName = itemName;
   } else {
     // 3,5년 다이어리 & 영화, 드라마 노트 컬러 옵션만 메일 제목 표기
-    let arr = [5033562, 6339448390, 5033558, 7118280906];
+    const arr = [5033562, 6339448390, 5033558, 7118280906];
     if (arr.find(e => e == itemId)) {
       itemOption = itemOption.split(',')[1];
     }
@@ -59,7 +59,7 @@ export const sendMail = async (req, res) => {
   const { store, items, toEmail, comment, autoSend } = req.body;
   const orderList = getOrderList(items);
 
-  let mailTransporter = nodemailer.createTransport({
+  const mailTransporter = nodemailer.createTransport({
     service: 'naver',
     host: 'smtp.naver.com',
     port: 587,
@@ -69,7 +69,7 @@ export const sendMail = async (req, res) => {
     },
   });
 
-  let details = {
+  const details = {
     from: `영로그 ${process.env.NODEMAILER_USER}`,
     to: toEmail,
     bcc: autoSend ? process.env.NODEMAILER_USER : '', // 자동발송이면 숨은참조
@@ -88,7 +88,7 @@ export const sendMail = async (req, res) => {
           'ko-kr'
         )} | 메일을 성공적으로 보냈습니다. ${info.accepted}`
       );
-      let result = {
+      const result = {
         result: info,
         message: '메일을 성공적으로 보냈습니다.',
       };
@@ -115,7 +115,7 @@ export const sendMailForEveryone = async (req, res) => {
 
   const userPass = getDecodeKey(password);
 
-  let mailTransporter = nodemailer.createTransport({
+  const mailTransporter = nodemailer.createTransport({
     service: 'naver',
     host: 'smtp.naver.com',
     port: 587,
@@ -134,7 +134,7 @@ export const sendMailForEveryone = async (req, res) => {
         }
       : '';
 
-  let details = {
+  const details = {
     from: `${brandName} ${userEmail}`,
     to: toEmail,
     // bcc: userEmail, //숨은참조
