@@ -161,5 +161,9 @@ export const getFileName = (itemId, itemOption) => {
     itemName = 'TIL 노트';
     fileName = `TIL_Note(${fileOption}).zip`;
   }
+  if (itemId == 8880782694) {
+    itemName = '한 줄 일기';
+    fileName = `One_Line_Diary(${fileOption}).zip`;
+  }
   return { itemName: itemName, fileName: fileName };
 };
