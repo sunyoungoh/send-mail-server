@@ -165,5 +165,5 @@ export const getFileName = (itemId, itemOption) => {
     itemName = '한 줄 일기';
     fileName = `One_Line_Diary(${fileOption}).zip`;
   }
-  return { itemName: itemName, fileName: fileName };
+  return { itemName, fileName };
 };

@@ -32,13 +32,19 @@ const getEmail = (shippingMemo, ordererEmail) => {
  * @param {string} store - 입점처
  * @param {object[]} items - 파일 정보
  * @param {string} toEmail - 빋는 사람
+ * @param {object} orderInfo - 주문정보
  */
-const sendMail = async (store, items, toEmail) => {
+const sendMail = async (store, items, toEmail, orderInfo) => {
   const mailData = {
     store: store,
     items: items,
     toEmail: toEmail,
     autoSend: true,
+    orderInfo: {
+      ordererName: orderInfo.ordererName,
+      shippingMemo: orderInfo.shippingMemo || 'X',
+      paymentDate: new Date(orderInfo.paymentDate).toLocaleString('ko-kr'),
+    },
   };
   const res = await instance.post('/mail', mailData);
   return res;
@@ -96,6 +102,7 @@ export const tenbytenAutoSend = () => {
       // 배송 준비 중 주문이 있으면 메일 발송
       if (readyOrder.length) {
         readyOrder.map(async item => {
+          console.log(item);
           const email = getEmail(item.itemRequireMemo, item.ordererEmail);
           const itemInfo = [
             {
@@ -104,7 +111,16 @@ export const tenbytenAutoSend = () => {
             },
           ];
           // 메일 발송
-          const { status } = await sendMail('텐바이텐/영로그', itemInfo, email);
+          const { status } = await sendMail(
+            '텐바이텐/영로그',
+            itemInfo,
+            email,
+            {
+              ordererName: item.itemRequireMemo,
+              shippingMemo: item.itemRequireMemo,
+              paymentDate: item.orderDate,
+            }
+          );
 
           // 메일 발송 성공하면 송장 등록
           if (status == 200) {
@@ -232,10 +248,14 @@ export const naverAutoSend = () => {
               console.log('크롤링한 이메일', email);
             }
 
-            // 이메일이 있으면 메일 발송 (없을 경우엔 프론트에서 직접 확인 후 발송)
+            // 배송메모 이메일이나 크롤링 이메일이 확인되면 메일 발송
             if (email) {
               // 메일 발송
-              const { status } = await sendMail('영로그', item.items, email);
+              const { status } = await sendMail('영로그', item.items, email, {
+                ordererName: item.ordererName,
+                shippingMemo: item.shippingMemo,
+                paymentDate: item.paymentDate,
+              });
               // 메일 발송 성공하면 송장 등록
               if (status == 200) {
                 let dispatchResult = '';

@@ -2,6 +2,7 @@ import nodemailer from 'nodemailer';
 import { mailText } from '../mailTemplate.js';
 import { getFileName } from '../utils/fileName.js';
 import { getDecodeKey } from '../utils/crypto.js';
+const TelegramBot = require('node-telegram-bot-api');
 
 const getItemInfo = (itemId, itemOption) => {
   const { itemName, fileName } = getFileName(itemId, itemOption);
@@ -45,7 +46,7 @@ const getOrderList = items => {
   if (files.length > 1) {
     list = title
       .map((val, index) => {
-        return `${index + 1}. ${val} <br/>`;
+        return `${index + 1}. ${val} <br>`;
       })
       .join('');
   } else {
@@ -54,9 +55,42 @@ const getOrderList = items => {
   return { title, files, list };
 };
 
-// 영로그 커스텀 메일 발송
+/**
+ * 발송 성공하면 텔레그램으로 메시지 보내는 함수
+ */
+const pushTelegram = (store, toEmail, orderInfo, orderList) => {
+  const { ordererName, shippingMemo, paymentDate } = orderInfo;
+
+  const msgTitle =
+    store == '영로그'
+      ? '💚 네이버 자동발송 성공 💚'
+      : '💛 텐바이텐 자동발송 성공 💛';
+
+  const list = orderList.includes('<br>')
+    ? orderList.replaceAll('<br>', '\n')
+    : `1. ${orderList}`;
+
+  const msg = `<b>${msgTitle}</b>\n
+- 주문자: ${ordererName}
+- 배송메시지: ${shippingMemo}
+- 이메일: ${toEmail}
+- 결제일시: ${paymentDate}
+- 발송일시: ${new Date().toLocaleString('ko-kr')}
+
+------------- 🔖 주문내역 -------------
+${list}`;
+
+  const token = process.env.TELE_BOT_TOKEN;
+  const chatId = process.env.TELE_CHAT_ID;
+  const telebot = new TelegramBot(token, { polling: true });
+  telebot.sendMessage(chatId, msg, { parse_mode: 'HTML' });
+};
+
+/**
+ * 영로그 커스텀 메일 발송
+ */
 export const sendMail = async (req, res) => {
-  const { store, items, toEmail, comment, autoSend } = req.body;
+  const { store, items, toEmail, comment, autoSend, orderInfo } = req.body;
   const orderList = getOrderList(items);
 
   const mailTransporter = nodemailer.createTransport({
@@ -72,7 +106,8 @@ export const sendMail = async (req, res) => {
   const details = {
     from: `영로그 ${process.env.NODEMAILER_USER}`,
     to: toEmail,
-    bcc: autoSend ? process.env.NODEMAILER_USER : '', // 자동발송이면 숨은참조
+    // 자동발송이면 숨은참조 -> 탤래그램 봇으로 변경
+    // bcc: autoSend ? process.env.NODEMAILER_USER : '',
     subject: `[${store}] ${orderList.title.join(' / ')} 파일을 보내드립니다 ✨`,
     html: mailText(orderList.list, comment),
     attachments: orderList.files,
@@ -83,6 +118,9 @@ export const sendMail = async (req, res) => {
       console.error('메일 전송을 실패하였습니다.', err);
       res.status(400).send('메일 전송을 실패하였습니다.');
     } else {
+      if (autoSend) {
+        pushTelegram(store, toEmail, orderInfo, orderList.list);
+      }
       console.log(
         `${new Date().toLocaleTimeString(
           'ko-kr'
@@ -124,7 +162,7 @@ export const sendMailForEveryone = async (req, res) => {
       pass: userPass,
     },
   });
-  
+
   // 첨부파일 정보
   const attachFile =
     publicUrl && fileName
