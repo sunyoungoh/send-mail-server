@@ -82,7 +82,7 @@ ${list}`;
 
   const token = process.env.TELE_BOT_TOKEN;
   const chatId = process.env.TELE_CHAT_ID;
-  const telebot = new TelegramBot(token, { polling: true });
+  const telebot = new TelegramBot(token);
   telebot.sendMessage(chatId, msg, { parse_mode: 'HTML' });
 };
 
