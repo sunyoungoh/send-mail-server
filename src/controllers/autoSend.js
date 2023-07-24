@@ -116,7 +116,7 @@ export const tenbytenAutoSend = () => {
             itemInfo,
             email,
             {
-              ordererName: item.itemRequireMemo,
+              ordererName: item.ordererName,
               shippingMemo: item.itemRequireMemo,
               paymentDate: item.orderDate,
             }
