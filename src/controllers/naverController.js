@@ -91,6 +91,9 @@ export const getNewOrders = async (req, res) => {
   }
 };
 
+/**
+ * 주문번호로 상품주문번호 리스트 가져오기
+ */
 export const getOrders = async (req, res) => {
   const token = await createToken();
   const { orderId } = req.params;
@@ -110,7 +113,9 @@ export const getOrders = async (req, res) => {
   }
 };
 
-// 주문 내역 가져오기
+/**
+* 상품주문번호로 주문내역 가져오기
+*/
 export const getOrderDetail = async (req, res) => {
   const token = await createToken();
   const { productOrderId } = req.query;
@@ -160,6 +165,9 @@ export const getOrderDetail = async (req, res) => {
   }
 };
 
+/**
+ * 운송장 등록
+ */
 export const dispatchProductOrders = async (req, res) => {
   const token = await createToken();
   const { orderId } = req.params;
@@ -194,6 +202,9 @@ export const dispatchProductOrders = async (req, res) => {
   }
 };
 
+/**
+ * 주문페이지 크롤링 하여 네이버 아이디 가져오기
+ */ 
 export const getOrdererNaverId = async (req, res) => {
   const { productOrderId } = req.params;
 
