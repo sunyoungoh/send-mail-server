@@ -225,7 +225,7 @@ export const naverAutoSend = () => {
         const { data: orderList } = await instance.get('/naver/detail', {
           params: { productOrderId: productOrderIds },
         });
-        console.log('상품 주문 상새내역 조회 리스트', orderList);
+        console.log('상품 주문 상세내역 조회 리스트', orderList);
 
         if (orderList.length) {
           // 주문번호별 주문 리스트 생성
