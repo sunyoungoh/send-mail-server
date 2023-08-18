@@ -27,7 +27,6 @@ const fileOptionType = {
  * @param {string} itemOption - 상품옵션
  * @returns
  */
-
 const getFileOptionArrEng = itemOption => {
   const optionArr = itemOption.split(',');
   const optionArrEng = optionArr.map(item =>
@@ -136,6 +135,7 @@ export const getFileName = (itemId, itemOption) => {
     case 6498685859:
       itemName = '180 체커보드 노트패드';
       fileName = `180_CheckerBoard_Notepad.zip`;
+      break;
 
     case 5161944:
     case 7917862453:
@@ -157,6 +157,7 @@ export const getFileName = (itemId, itemOption) => {
     case 8097265225:
       itemName = '디데이,타임스탬프 스티커';
       fileName = `D-DAY,TIME_Sticker.zip`;
+      break;
 
     case 5033562:
     case 6339448390:
