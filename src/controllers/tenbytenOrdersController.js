@@ -8,16 +8,18 @@ const instance = axios.create({
 
 export const getBrandInfo = async (req, res) => {
   const { authorization } = req.headers;
-  
+
   try {
-    const { data } = await instance.get('/products/brandinfo', {
+    const {
+      data: { outPutValue: brandInfo },
+    } = await instance.get('/products/brandinfo', {
       headers: {
         Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
     });
 
-    console.log('텐바이텐 브랜드 정보 가져오기 성공', data.outPutValue[0]);
-    res.status(200).json(data.outPutValue[0]);
+    console.log('텐바이텐 브랜드 정보 가져오기 성공', brandInfo[0]);
+    res.status(200).json(brandInfo[0]);
   } catch (error) {
     console.log('텐바이텐 브랜드 정보 가져오기 실패', error.response.data);
     res.status(400).json(error);
@@ -69,7 +71,9 @@ export const getNewOrders = async (req, res) => {
   const { authorization } = req.headers;
 
   try {
-    const { data } = await instance.get('/orders', {
+    const {
+      data: { outPutValue: newOrders },
+    } = await instance.get('/orders', {
       headers: {
         Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
@@ -79,7 +83,7 @@ export const getNewOrders = async (req, res) => {
         enddate,
       },
     });
-    const orderList = orderListBydetailIdx(data.outPutValue);
+    const orderList = orderListBydetailIdx(newOrders);
     res.status(200).json(orderList);
   } catch (error) {
     res.json(error);
@@ -94,7 +98,9 @@ export const getReadyOrder = async (req, res) => {
   const { authorization } = req.headers;
 
   try {
-    const { data } = await instance.get('/orders/orderhistory', {
+    const {
+      dat: { outPutValue: readyOrders },
+    } = await instance.get('/orders/orderhistory', {
       headers: {
         Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
@@ -105,7 +111,7 @@ export const getReadyOrder = async (req, res) => {
       },
     });
 
-    const orderList = orderListBydetailIdx(data.outPutValue);
+    const orderList = orderListBydetailIdx(readyOrders);
     res.status(200).json(orderList);
   } catch (error) {
     res.json(error);
@@ -185,7 +191,7 @@ export const getDispatchOrderHistory = async (req, res) => {
 export const getQna = async (req, res) => {
   const { brandId, startdate, enddate } = req.query;
   const { authorization } = req.headers;
-  
+
   try {
     const { data } = await instance.get('/qna/myqna', {
       headers: {

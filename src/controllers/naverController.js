@@ -4,7 +4,6 @@ import puppeteer from 'puppeteer';
 import cheerio from 'cheerio';
 import UserAgent from 'user-agents';
 
-
 const instance = axios.create({
   baseURL: 'https://api.commerce.naver.com',
 });
@@ -30,13 +29,13 @@ const fetchClientData = async (req, res) => {
 const createToken = async (req, res) => {
   const clientData = await fetchClientData();
   try {
-    const { data } = await instance.post(
-      '/external/v1/oauth2/token',
-      clientData,
-      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-    );
+    const {
+      data: { access_token },
+    } = await instance.post('/external/v1/oauth2/token', clientData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    });
 
-    return `Bearer ${data.access_token}`;
+    return `Bearer ${access_token}`;
   } catch (error) {
     console.log(error);
   }
@@ -50,7 +49,9 @@ export const getNewOrders = async (req, res) => {
   const payedOrders = [];
 
   try {
-    const payed = await instance.get(
+    const {
+      data: { data: payed },
+    } = await instance.get(
       `/external/v1/pay-order/seller/product-orders/last-changed-statuses`,
       {
         params: {
@@ -64,7 +65,9 @@ export const getNewOrders = async (req, res) => {
       }
     );
 
-    const addressChanged = await instance.get(
+    const {
+      data: { data: addressChanged },
+    } = await instance.get(
       `/external/v1/pay-order/seller/product-orders/last-changed-statuses`,
       {
         params: {
@@ -78,11 +81,11 @@ export const getNewOrders = async (req, res) => {
       }
     );
 
-    if (payed.data.data) {
-      payedOrders.push(...payed.data.data.lastChangeStatuses);
+    if (payed) {
+      payedOrders.push(...payed.lastChangeStatuses);
     }
-    if (addressChanged.data.data) {
-      payedOrders.push(...addressChanged.data.data.lastChangeStatuses);
+    if (addressChanged) {
+      payedOrders.push(...addressChanged.lastChangeStatuses);
     }
 
     res.status(200).json(payedOrders);
@@ -98,7 +101,9 @@ export const getOrders = async (req, res) => {
   const token = await createToken();
   const { orderId } = req.params;
   try {
-    const { data } = await instance.get(
+    const {
+      data: { data: productOrderIds },
+    } = await instance.get(
       `/external/v1/pay-order/seller/orders/${orderId}/product-order-ids`,
       {
         headers: {
@@ -107,22 +112,24 @@ export const getOrders = async (req, res) => {
         },
       }
     );
-    res.status(200).json({ productOrderIds: data.data });
+    res.status(200).json({ productOrderIds });
   } catch (error) {
     res.status(400).send('주문 정보를 조회할 수 없습니다.');
   }
 };
 
 /**
-* 상품주문번호로 주문내역 가져오기
-*/
+ * 상품주문번호로 주문내역 가져오기
+ */
 export const getOrderDetail = async (req, res) => {
   const token = await createToken();
   const { productOrderId } = req.query;
   const productOrderIds = { productOrderIds: productOrderId }; // 최대 300개
 
   try {
-    const { data } = await instance.post(
+    const {
+      data: { data: orderList },
+    } = await instance.post(
       '/external/v1/pay-order/seller/product-orders/query',
       productOrderIds,
       {
@@ -132,7 +139,7 @@ export const getOrderDetail = async (req, res) => {
         },
       }
     );
-    const orderList = data.data;
+
     const orderDetail = orderList.map(item => {
       let options = '';
       const optionStr = item.productOrder.productOption;
@@ -204,7 +211,7 @@ export const dispatchProductOrders = async (req, res) => {
 
 /**
  * 주문페이지 크롤링 하여 네이버 아이디 가져오기
- */ 
+ */
 export const getOrdererNaverId = async (req, res) => {
   const { productOrderId } = req.params;
 

@@ -12,7 +12,11 @@ export const getItems = async (req, res) => {
   const { brandId, count } = req.query;
   const { authorization } = req.headers;
   try {
-    const { data } = await instance.get('/items', {
+    const {
+      data: {
+        outPutValue: { items },
+      },
+    } = await instance.get('/items', {
       headers: {
         Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
@@ -21,7 +25,7 @@ export const getItems = async (req, res) => {
         brandId,
       },
     });
-    res.status(200).json(data.outPutValue.items);
+    res.status(200).json(items);
   } catch (error) {
     // console.log(error);
     res.status(400).json(error);
@@ -142,7 +146,11 @@ export const getWaitItems = async (req, res) => {
   const { authorization } = req.headers;
 
   try {
-    const { data } = await instance.get('/waitItems', {
+    const {
+      data: {
+        outPutValue: { items },
+      },
+    } = await instance.get('/waitItems', {
       headers: {
         Authorization: `bearer ${getDecodeKey(authorization)}`,
       },
@@ -152,7 +160,7 @@ export const getWaitItems = async (req, res) => {
         brandId,
       },
     });
-    res.status(200).json(data.outPutValue.items);
+    res.status(200).json(items);
   } catch (error) {
     res.status(400).json(error);
   }
