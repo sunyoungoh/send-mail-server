@@ -1,6 +1,7 @@
 const fileOptionType = {
   화이트: 'White',
   다크: 'Dark',
+  '화이트+다크': 'White+Dark',
   블랙: 'Black',
   그레이: 'Grey',
   라이트: 'Light',
