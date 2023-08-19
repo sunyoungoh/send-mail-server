@@ -1,7 +1,6 @@
 const fileOptionType = {
   화이트: 'White',
   다크: 'Dark',
-  '화이트+다크': 'White+Dark',
   블랙: 'Black',
   그레이: 'Grey',
   라이트: 'Light',
@@ -30,10 +29,18 @@ const fileOptionType = {
  */
 const getFileOptionArrEng = itemOption => {
   const optionArr = itemOption.split(',');
-  const optionArrEng = optionArr.map(item =>
-    item.replace(item, fileOptionType[item])
-  );
-  return optionArrEng;
+  const optionArrEng = optionArr.map(item => {
+    // 세트옵션일 경우
+    if (item.includes('+')) {
+      const plusOption = item.split('+');
+      return plusOption
+        .map(item => item.replace(item, fileOptionType[item]))
+        .join('+');
+    } else {
+      return item.replace(item, fileOptionType[item]);
+    }
+  });
+    return optionArrEng.toString();
 };
 
 export const getFileName = (itemId, itemOption) => {
