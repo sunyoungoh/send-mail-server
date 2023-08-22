@@ -99,7 +99,7 @@ export const getReadyOrder = async (req, res) => {
 
   try {
     const {
-      dat: { outPutValue: readyOrders },
+      data: { outPutValue: readyOrders },
     } = await instance.get('/orders/orderhistory', {
       headers: {
         Authorization: `bearer ${getDecodeKey(authorization)}`,
