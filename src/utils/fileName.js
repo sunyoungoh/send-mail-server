@@ -65,9 +65,9 @@ export const getFileName = (itemId, itemOption) => {
       itemName = '2023 모던 플래너';
       fileName = `2022+2023_Modern_Planner(${fileOption}).zip`;
       break;
-      
+
     case 6173761992:
-      itemName = '2023(Q4)+2024 심플 플래너';
+      itemName = '2023(Q4)+2024 모던 플래너';
       fileName = `2023(Q4)+2024_Modern_Planner(${fileOption}).zip`;
       break;
 
