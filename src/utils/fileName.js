@@ -162,7 +162,7 @@ export const getFileName = (itemId, itemOption) => {
     case 5161944:
     case 7917862453:
       const personOption =
-        (itemOption.slice(0, 2) == '1인') == '1인' ? 'For1' : 'For2-4';
+        itemOption.slice(0, 2) == '1인' ? 'For1' : 'For2-4';
       const stickerOption = itemOption.includes('네컷프레임스티커')
         ? '+4Cut_Frame_Sticker'
         : '';
