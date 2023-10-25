@@ -52,32 +52,18 @@ export const getFileName = (itemId, itemOption) => {
 
   switch (itemId) {
     case 5033569:
-      itemName = '2023 심플 플래너';
-      fileName = `2022+2023_Simple_Planner(${fileOption}).zip`;
-      break;
-
     case 6175018692:
       itemName = '2023(Q4)+2024 심플 플래너';
       fileName = `2023(Q4)+2024_Simple_Planner(${fileOption}).zip`;
       break;
 
     case 5033568:
-      itemName = '2023 모던 플래너';
-      fileName = `2022+2023_Modern_Planner(${fileOption}).zip`;
-      break;
-
     case 6173761992:
       itemName = '2023(Q4)+2024 모던 플래너';
       fileName = `2023(Q4)+2024_Modern_Planner(${fileOption}).zip`;
       break;
 
     case 5033567:
-      itemName = '2023 타임라인 플래너';
-      fileOption == 'Wellness'
-        ? (fileName = `2023_Wellness_Planner.zip`)
-        : (fileName = `2023_Timeline_Planner(${fileOption}).zip`);
-      break;
-
     case 7551229680:
       itemName = '2023(Q4)+2024 타임라인 플래너';
       fileOption == 'Wellness'
@@ -161,8 +147,7 @@ export const getFileName = (itemId, itemOption) => {
 
     case 5161944:
     case 7917862453:
-      const personOption =
-        itemOption.slice(0, 2) == '1인' ? 'For1' : 'For2-4';
+      const personOption = itemOption.slice(0, 2) == '1인' ? 'For1' : 'For2-4';
       const stickerOption = itemOption.includes('네컷프레임스티커')
         ? '+4Cut_Frame_Sticker'
         : '';
