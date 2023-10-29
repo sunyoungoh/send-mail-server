@@ -73,8 +73,8 @@ export const getFileName = (itemId, itemOption) => {
 
     case 5033566:
     case 6230373650:
-      itemName = '2023 먼슬리&데일리 플래너';
-      fileName = `2023_Monthly+Daily_Planner(${fileOption}).zip`;
+      itemName = '2024 먼슬리&데일리 플래너';
+      fileName = `2024_Monthly+Daily_Planner(${fileOption}).zip`;
       break;
 
     case 5033565:
