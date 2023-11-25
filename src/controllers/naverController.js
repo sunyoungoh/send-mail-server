@@ -85,7 +85,11 @@ export const getNewOrders = async (req, res) => {
       payedOrders.push(...payed.lastChangeStatuses);
     }
     if (addressChanged) {
-      payedOrders.push(...addressChanged.lastChangeStatuses);
+      payedOrders.push(
+        ...addressChanged.lastChangeStatuses.filter(
+          item => item.productOrderStatus == 'PAYED'
+        )
+      );
     }
 
     res.status(200).json(payedOrders);
