@@ -20,6 +20,8 @@ const fileOptionType = {
   영화: 'Movie',
   버전1: 'V1',
   버전2: 'V2',
+  세로형: 'Vertical',
+  기본형: 'Basic'
 };
 
 /**
