@@ -55,22 +55,22 @@ export const getFileName = (itemId, itemOption) => {
   switch (itemId) {
     case 5033569:
     case 6175018692:
-      itemName = '2023(Q4)+2024 심플 플래너';
-      fileName = `2023(Q4)+2024_Simple_Planner(${fileOption}).zip`;
+      itemName = '2024 심플 플래너';
+      fileName = `2024_Simple_Planner(${fileOption}).zip`;
       break;
 
     case 5033568:
     case 6173761992:
-      itemName = '2023(Q4)+2024 모던 플래너';
-      fileName = `2023(Q4)+2024_Modern_Planner(${fileOption}).zip`;
+      itemName = '2024 모던 플래너';
+      fileName = `2024_Modern_Planner(${fileOption}).zip`;
       break;
 
     case 5033567:
     case 7551229680:
-      itemName = '2023(Q4)+2024 타임라인 플래너';
+      itemName = '2024 타임라인 플래너';
       fileOption == 'Wellness'
-        ? (fileName = `2023(Q4)+2024_Wellness_Planner.zip`)
-        : (fileName = `2023(Q4)+2024_Timeline_Planner(${fileOption}).zip`);
+        ? (fileName = `2024_Wellness_Planner.zip`)
+        : (fileName = `2024_Timeline_Planner(${fileOption}).zip`);
       break;
 
     case 5033566:
