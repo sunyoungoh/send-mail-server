@@ -21,6 +21,7 @@ const fileOptionType = {
   버전1: 'V1',
   버전2: 'V2',
   세로형: 'Vertical',
+  가로형: 'Horizontal',
   기본형: 'Basic'
 };
 
@@ -179,7 +180,7 @@ export const getFileName = (itemId, itemOption) => {
     case 5413246:
     case 8457559941:
       itemName = '5분 저널';
-      fileName = `5_Minute_Journal.zip`;
+      fileName = `5_Minute_Journal(${fileOption}).zip`;
       break;
 
     case 5568716:
