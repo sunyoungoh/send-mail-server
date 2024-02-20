@@ -194,6 +194,11 @@ export const getFileName = (itemId, itemOption) => {
       itemName = '한 줄 일기';
       fileName = `One_Line_Diary(${fileOption}).zip`;
       break;
+
+    case 9927167313:
+      itemName = '프로젝트 플래너';
+      fileName = `Project_Planner.pdf`;
+      break;
   }
 
   return { itemName, fileName };
