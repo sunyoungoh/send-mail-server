@@ -195,7 +195,7 @@ export const getFileName = (itemId, itemOption) => {
       fileName = `One_Line_Diary(${fileOption}).zip`;
       break;
 
-    case 9927167313:
+    case 9974975533:
       itemName = '프로젝트 플래너';
       fileName = `Project_Planner.pdf`;
       break;
