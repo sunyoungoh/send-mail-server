@@ -27,7 +27,11 @@ export const mailText = (orderList, comment) => {
     line-height: 1.8;
     "
     >
-    <p>안녕하세요, 영로그입니다! ✨</p>
+    <br />
+    <img src="https://i.ibb.co/0M3rDsx/cut.png" border="0" height="24">
+    <br />
+    <br />
+    <p>안녕하세요, 영로그입니다!</p>
     <p>주문해주셔서 감사합니다 🙏🏻💖</p>
     <br />
     <p><b>${orderList} </b>파일을 보내드립니다.</p>
@@ -45,18 +49,17 @@ export const mailText = (orderList, comment) => {
     <span>직접배송 특성상 운송장 번호가 입력되지 않아</span>
     </p>
     <p>
-    <span>배송완료로 처리되지 않으므로</span>
+    <span>배송 완료 처리되지 않으므로</span>
     </p>
     <p>
-    <u><b>메일을 잘 받으셨다면</b></u>
+    <span style="background-color: rgb(255, 229, 242);">메일을 잘 받으셨다면 </span>
     <br />
-    <u><b>구매확정과 소중한 후기</b></u>
+    <span style="background-color: rgb(255, 229, 242);">구매확정과 소중한 후기</span>
     <br />
-    <u><b>남겨주시면 감사하겠습니다! 💗</b></u>
+    <span style="background-color: rgb(255, 229, 242);">남겨주시면 감사하겠습니다! 💗</span>
     </p>
     <br />
     <p>${greeting}</p>
-    <br />
     <p>다시 한 번 감사드립니다 🙏🏻</p>
     <br />
     <p>영로그 드림 🌷</p>

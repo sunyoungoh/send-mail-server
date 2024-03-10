@@ -108,7 +108,7 @@ export const sendMail = async (req, res) => {
     to: toEmail,
     // 자동발송이면 숨은참조 -> 탤래그램 봇으로 변경
     // bcc: autoSend ? process.env.NODEMAILER_USER : '',
-    subject: `[${store}] ${orderList.title.join(' / ')} 파일을 보내드립니다 ✨`,
+    subject: `[${store}] ${orderList.title.join(' / ')} 파일을 보내드립니다 💌`,
     html: mailText(orderList.list, comment),
     attachments: orderList.files,
   };
