@@ -22,7 +22,7 @@ const fileOptionType = {
   버전2: 'V2',
   세로형: 'Vertical',
   가로형: 'Horizontal',
-  기본형: 'Basic'
+  기본형: 'Basic',
 };
 
 /**
@@ -196,6 +196,7 @@ export const getFileName = (itemId, itemOption) => {
       break;
 
     case 9974975533:
+    case 6093224:
       itemName = '프로젝트 플래너';
       fileName = `Project_Planner.pdf`;
       break;
