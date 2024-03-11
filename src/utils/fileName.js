@@ -200,8 +200,9 @@ export const getFileName = (itemId, itemOption) => {
       itemName = '프로젝트 플래너';
       fileName = `Project_Planner.pdf`;
       break;
-      
+
     case 10055162858:
+    case 6138129:
       itemName = '요일 스티커';
       fileName = `Day_Of_Week_Sticker.zip`;
       break;
