@@ -206,6 +206,11 @@ export const getFileName = (itemId, itemOption) => {
       itemName = '요일 스티커';
       fileName = `Day_Of_Week_Sticker.zip`;
       break;
+
+    case 10122818416:
+      itemName = '체크리스트 노트';
+      fileName = `Checklist_Note.zip`;
+      break;
   }
 
   return { itemName, fileName };
