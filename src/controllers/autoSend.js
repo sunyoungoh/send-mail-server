@@ -23,7 +23,7 @@ const scheduler = new ToadScheduler();
  * @returns {string} email
  */
 const getEmail = (shippingMemo, ordererEmail) => {
-  const reg = /\S+@+\S+\.+[a-zA-Z]{2,3}/;
+  const reg = /\w+@+\S+\.+[a-zA-Z]{2,3}/;
   return reg.test(shippingMemo) ? shippingMemo.match(reg)[0] : ordererEmail;
 };
 
