@@ -208,6 +208,7 @@ export const getFileName = (itemId, itemOption) => {
       break;
 
     case 10122818416:
+    case 6183650:
       itemName = '체크리스트 노트';
       fileName = `Checklist_Note.zip`;
       break;
