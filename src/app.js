@@ -10,6 +10,7 @@ import naver from './routes/naver.js';
 import tenbyten from './routes/tenbyten.js';
 
 import { tenbytenAutoSend, naverAutoSend } from './controllers/autoSend';
+import { tenbytenDailyReport } from './controllers/dailyReportController';
 
 dotenv.config();
 
@@ -67,4 +68,5 @@ setTimeout(() => {
   );
   tenbytenAutoSend();
   naverAutoSend();
+  tenbytenDailyReport();
 }, 2000);
