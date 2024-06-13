@@ -17,8 +17,8 @@ const instance = axios.create({
  */
 const pushTelegram = (count, amount) => {
  const amountWithComma = amount.toLocaleString('ko-KR');
- 
-  const msg = `<b>📮 이번달 판매량 일일 리포트 📮</b>\n
+
+  const msg = `<b>📮 텐바이텐 이번달 판매량 일일 리포트 📮</b>\n
   - 총 주문개수: ${count}
   - 총 판매금액: ${amountWithComma}원`;
 

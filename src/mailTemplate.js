@@ -49,14 +49,14 @@ export const mailText = (orderList, comment) => {
     <span>직접배송 특성상 운송장 번호가 입력되지 않아</span>
     </p>
     <p>
-    <span>배송 완료 처리되지 않으므로</span>
+    <span>배송 완료 처리되지 않으므로 </span>
     </p>
     <p>
-    <span style="background-color: rgb(255, 229, 242);">메일을 잘 받으셨다면 </span>
+    <span>메일을 잘 받으셨다면</span>
     <br />
-    <span style="background-color: rgb(255, 229, 242);">구매확정과 소중한 후기</span>
+    <span style="background-color: rgb(255, 229, 242);">배송 완료 확인을 위해 구매확정을 꼭!! 부탁드리겠습니다.  </span>
     <br />
-    <span style="background-color: rgb(255, 229, 242);">남겨주시면 감사하겠습니다! 💗</span>
+    <span style="background-color: rgb(255, 229, 242);">소중한 후기도 남겨주시면 큰 힘이 됩니다! 💗</span>
     </p>
     <br />
     <p>${greeting}</p>

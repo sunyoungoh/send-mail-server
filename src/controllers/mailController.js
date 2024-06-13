@@ -13,7 +13,8 @@ const getItemInfo = (itemId, itemOption) => {
     itemInfo.itemName = itemName;
   } else {
     // 3,5년 다이어리 & 영화, 드라마 노트 컬러 옵션만 메일 제목 표기
-    const arr = [5033562, 6339448390, 5033558, 7118280906];
+    // 타임라인 플래너 추가
+    const arr = [5033562, 6339448390, 5033558, 7118280906, 5033567, 7551229680];
     if (arr.find(e => e == itemId)) {
       itemOption = itemOption.split(',')[1];
     }

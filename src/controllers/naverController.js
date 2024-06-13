@@ -271,8 +271,8 @@ export const getOrdererNaverId = async (req, res) => {
   console.timeEnd('크롤링 시간');
 
   if (id) {
-    res.status(200).json({ ordererId: id });
+   res.status(200).json({ ordererId: id });
   } else {
-    res.status(400).send('주문자의 아이디를 찾을 수 없습니다.');
-  }
+   res.status(400).send('주문자의 아이디를 찾을 수 없습니다.');
+ }
 };

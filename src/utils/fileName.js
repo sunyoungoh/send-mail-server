@@ -23,6 +23,8 @@ const fileOptionType = {
   세로형: 'Vertical',
   가로형: 'Horizontal',
   기본형: 'Basic',
+  만년형: 'Undated',
+  2024: '2024',
 };
 
 /**
@@ -68,10 +70,13 @@ export const getFileName = (itemId, itemOption) => {
 
     case 5033567:
     case 7551229680:
-      itemName = '2024 타임라인 플래너';
-      fileOption == 'Wellness'
-        ? (fileName = `2024_Wellness_Planner.zip`)
-        : (fileName = `2024_Timeline_Planner(${fileOption}).zip`);
+      itemName =
+        fileOption[0] == 'Undated'
+          ? '만년형 타임라인 플래너'
+          : '2024 타임라인 플래너';
+      fileOption[1] == 'Wellness'
+        ? (fileName = `${fileOption[0]}_Wellness_Planner.zip`)
+        : (fileName = `${fileOption[0]}_Timeline_Planner(${fileOption[1]}).zip`);
       break;
 
     case 5033566:
