@@ -46,9 +46,9 @@ const getFileOptionArrEng = itemOption => {
     // 세트옵션일 경우
     if (item.includes('+')) {
       const plusOption = item.split('+');
-      return plusOption.map(item => TranslateFromEngToKor(item)).join('+');
+      return plusOption.map(item => TranslateFromKorToEng(item)).join('+');
     } else {
-      return TranslateFromEngToKor(item);
+      return TranslateFromKorToEng(item);
     }
   });
   return optionArrEng;
