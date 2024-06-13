@@ -26,9 +26,9 @@ const fileOptionType = {
   만년형: 'Undated',
 };
 
-
 const TranslateFromKorToEng = item => {
-  if (isNaN(item)) { // 숫자가 아닐 때
+  if (isNaN(item)) {
+    // 숫자가 아닐 때
     return item.replace(item, fileOptionType[item]);
   } else {
     return item;
@@ -46,9 +46,7 @@ const getFileOptionArrEng = itemOption => {
     // 세트옵션일 경우
     if (item.includes('+')) {
       const plusOption = item.split('+');
-      return plusOption
-        .map(item => TranslateFromEngToKor(item))
-        .join('+');
+      return plusOption.map(item => TranslateFromEngToKor(item)).join('+');
     } else {
       return TranslateFromEngToKor(item);
     }
@@ -82,9 +80,10 @@ export const getFileName = (itemId, itemOption) => {
         fileOption[0] == 'Undated'
           ? '만년형 타임라인 플래너'
           : '2024 타임라인 플래너';
-      fileOption[1] == 'Wellness'
-        ? (fileName = `${fileOption[0]}_Wellness_Planner.zip`)
-        : (fileName = `${fileOption[0]}_Timeline_Planner(${fileOption[1]}).zip`);
+      fileName =
+        fileOption[1] == 'Wellness'
+          ? `${fileOption[0]}_Wellness_Planner.zip`
+          : `${fileOption[0]}_Timeline_Planner(${fileOption[1]}).zip`;
       break;
 
     case 5033566:
