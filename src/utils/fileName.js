@@ -24,7 +24,15 @@ const fileOptionType = {
   가로형: 'Horizontal',
   기본형: 'Basic',
   만년형: 'Undated',
-  2024: '2024',
+};
+
+
+const TranslateFromKorToEng = item => {
+  if (isNaN(item)) { // 숫자가 아닐 때
+    return item.replace(item, fileOptionType[item]);
+  } else {
+    return item;
+  }
 };
 
 /**
@@ -39,10 +47,10 @@ const getFileOptionArrEng = itemOption => {
     if (item.includes('+')) {
       const plusOption = item.split('+');
       return plusOption
-        .map(item => item.replace(item, fileOptionType[item]))
+        .map(item => TranslateFromEngToKor(item))
         .join('+');
     } else {
-      return item.replace(item, fileOptionType[item]);
+      return TranslateFromEngToKor(item);
     }
   });
   return optionArrEng;
