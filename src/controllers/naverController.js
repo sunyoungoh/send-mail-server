@@ -262,8 +262,8 @@ export const getOrdererNaverId = async (req, res) => {
   // 주문서 html정보를 로드
   const content = await page.content();
   const $ = cheerio.load(content);
-  const lists = $('td._gwjoXlNXZx');
-  const id = $(lists[1]).text();
+  const lists = $('td._H6b0at6JO6');
+  const id = $(lists[5]).text();
   console.log('주문자 아이디:', id);
 
   // 브라우저 닫기

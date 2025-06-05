@@ -27,10 +27,6 @@ export const mailText = (orderList, comment) => {
     line-height: 1.8;
     "
     >
-    <br />
-    <img src="https://i.ibb.co/0M3rDsx/cut.png" border="0" height="24">
-    <br />
-    <br />
     <p>안녕하세요, 영로그입니다!</p>
     <p>주문해주셔서 감사합니다 🙏🏻💖</p>
     <br />

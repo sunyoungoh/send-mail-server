@@ -24,6 +24,7 @@ const fileOptionType = {
   가로형: 'Horizontal',
   기본형: 'Basic',
   만년형: 'Undated',
+  에메랄드민트: 'EmeraldMint',
 };
 
 const TranslateFromKorToEng = item => {
@@ -64,14 +65,14 @@ export const getFileName = (itemId, itemOption) => {
   switch (itemId) {
     case 5033569:
     case 6175018692:
-      itemName = '2024 심플 플래너';
-      fileName = `2024_Simple_Planner(${fileOption}).zip`;
+      itemName = '2025 심플 플래너';
+      fileName = `2025_Simple_Planner(${fileOption}).zip`;
       break;
 
     case 5033568:
     case 6173761992:
-      itemName = '2024 모던 플래너';
-      fileName = `2024_Modern_Planner(${fileOption}).zip`;
+      itemName = '2025 모던 플래너';
+      fileName = `2025_Modern_Planner(${fileOption}).zip`;
       break;
 
     case 5033567:
@@ -79,7 +80,7 @@ export const getFileName = (itemId, itemOption) => {
       itemName =
         fileOption[0] == 'Undated'
           ? '만년형 타임라인 플래너'
-          : '2024 타임라인 플래너';
+          : '2025 타임라인 플래너';
       fileName =
         fileOption[1] == 'Wellness'
           ? `${fileOption[0]}_Wellness_Planner.zip`
@@ -88,8 +89,8 @@ export const getFileName = (itemId, itemOption) => {
 
     case 5033566:
     case 6230373650:
-      itemName = '2024 먼슬리&데일리 플래너';
-      fileName = `2024_Monthly+Daily_Planner(${fileOption}).zip`;
+      itemName = '2025 먼슬리&데일리 플래너';
+      fileName = `2025_Monthly+Daily_Planner(${fileOption}).zip`;
       break;
 
     case 5033565:
@@ -113,7 +114,8 @@ export const getFileName = (itemId, itemOption) => {
       break;
 
     case 5033564:
-    case 6668700804:
+    case 6668700804:110423
+    
       itemName = '세로형 인덱스 노트';
       fileName = `Index_Note(Vertical,${fileOption}).${extension}`;
       break;
@@ -145,7 +147,7 @@ export const getFileName = (itemId, itemOption) => {
     case 5033557:
     case 6390846551:
       itemName = '먼슬리 트래커북';
-      fileName = `12_Months_Goal_Tracker(${fileOption}).zip`;
+      fileName = `Habit_Tracker_Book(${fileOption}).zip`;
       break;
 
     case 5033561:
